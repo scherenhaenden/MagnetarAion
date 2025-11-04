@@ -13,3 +13,12 @@ This document tracks the status of the specification documents for the MagnetarA
 | `specifications/Specification-v1-7-Licensing-TCO.md` | Done |
 | `specifications/Specification-v1-8-Technical-Architecture.md`| Done |
 | `specifications/Specification-v1-9-Roadmap-NFRs.md` | Done |
+
+## MVP Implementation Status
+
+| Feature | Backend Status | Frontend Status |
+| :--- | :--- | :--- |
+| **Users and Projects** | In Progress | Not Started |
+| **Issues (Tickets)** | In Progress | In Progress |
+| **Search/Filtering** | Not Started | Not Started |
+| **Workflow** | Not Started | Not Started |
