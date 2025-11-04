@@ -11,3 +11,6 @@ node_modules/
 dist/
 coverage/
 .angular/
+
+# Database
+*.db

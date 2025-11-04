@@ -1,0 +1,22 @@
+from fastapi import APIRouter, Depends
+from sqlalchemy.orm import Session
+from ..models import models
+from .. import schemas
+from ..dependencies import get_db
+
+router = APIRouter()
+
+@router.post("/projects/{project_id}/issues/", response_model=schemas.Issue)
+def create_issue_for_project(
+    project_id: int, issue: schemas.IssueCreate, db: Session = Depends(get_db)
+):
+    db_issue = models.Issue(**issue.model_dump(), project_id=project_id)
+    db.add(db_issue)
+    db.commit()
+    db.refresh(db_issue)
+    return db_issue
+
+@router.get("/issues/", response_model=list[schemas.Issue])
+def read_issues(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    issues = db.query(models.Issue).offset(skip).limit(limit).all()
+    return issues
