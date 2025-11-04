@@ -12,6 +12,7 @@ from fastapi import HTTPException
 def create_issue_for_project(
     project_id: int, issue: schemas.IssueCreate, db: Session = Depends(get_db)
 ):
+    """Create a new issue for a specified project."""
     project = db.query(models.Project).filter(models.Project.id == project_id).first()
     if project is None:
         raise HTTPException(status_code=404, detail="Project not found")
@@ -23,5 +24,6 @@ def create_issue_for_project(
 
 @router.get("/issues/", response_model=list[schemas.Issue])
 def read_issues(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    """Retrieve a list of issues from the database."""
     issues = db.query(models.Issue).offset(skip).limit(limit).all()
     return issues

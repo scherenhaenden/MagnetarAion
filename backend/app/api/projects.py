@@ -8,6 +8,7 @@ router = APIRouter()
 
 @router.post("/projects/", response_model=schemas.Project)
 def create_project(project: schemas.ProjectCreate, db: Session = Depends(get_db)):
+    """Create a new project in the database."""
     db_project = models.Project(**project.model_dump())
     db.add(db_project)
     db.commit()
@@ -16,5 +17,6 @@ def create_project(project: schemas.ProjectCreate, db: Session = Depends(get_db)
 
 @router.get("/projects/", response_model=list[schemas.Project])
 def read_projects(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    """Retrieve a list of projects from the database."""
     projects = db.query(models.Project).offset(skip).limit(limit).all()
     return projects
