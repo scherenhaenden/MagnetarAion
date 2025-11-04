@@ -1,4 +1,5 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Text
+import enum
+from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Text, Enum
 from sqlalchemy.orm import relationship
 from datetime import datetime
 from ..database import Base
@@ -8,7 +9,7 @@ class User(Base):
     id = Column(Integer, primary_key=True, index=True)
     username = Column(String(50), unique=True, nullable=False, index=True)
     email = Column(String(100), unique=True, nullable=False, index=True)
-    password = Column(String(100), nullable=False)
+    password = Column(String(256), nullable=False)
     issues = relationship("Issue", back_populates="assignee")
 
 class Project(Base):
@@ -19,13 +20,23 @@ class Project(Base):
     description = Column(Text)
     issues = relationship("Issue", back_populates="project")
 
+class StatusEnum(str, enum.Enum):
+    OPEN = "Open"
+    IN_PROGRESS = "In Progress"
+    DONE = "Done"
+
+class PriorityEnum(str, enum.Enum):
+    LOW = "Low"
+    MEDIUM = "Medium"
+    HIGH = "High"
+
 class Issue(Base):
     __tablename__ = 'issues'
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String(200), nullable=False, index=True)
     description = Column(Text)
-    status = Column(String(20), default='Open')
-    priority = Column(String(20), default='Medium')
+    status = Column(Enum(StatusEnum), default=StatusEnum.OPEN)
+    priority = Column(Enum(PriorityEnum), default=PriorityEnum.MEDIUM)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     project_id = Column(Integer, ForeignKey('projects.id'))
