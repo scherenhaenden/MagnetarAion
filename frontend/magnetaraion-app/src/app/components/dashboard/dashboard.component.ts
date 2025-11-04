@@ -24,6 +24,9 @@ export class DashboardComponent {
     return this.themeService.isDark();
   }
 
+  /**
+   * Toggles the current theme using the theme service.
+   */
   toggleTheme() {
     this.themeService.toggleTheme();
   }
