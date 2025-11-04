@@ -5,7 +5,7 @@ This document details the specifications for administration, security, and deplo
 ## 1. Access and Permissions
 
 ### 1.1. Permission Model
-- **Role-Based Access Control (RBAC):** The system will use a an RBAC model where roles are collections of permissions.
+- **Role-Based Access Control (RBAC):** The system will use an RBAC model where roles are collections of permissions.
 - **Assignment:** Roles can be assigned to users or groups at both a global and a per-project level.
 - **Inherent Permissions:** Certain permissions will be inherent, such as an issue creator having read access to the issue they created.
 
