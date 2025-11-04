@@ -1,0 +1,14 @@
+// main.scss
+
+// 1. Abstracts (variables, mixins)
+@use 'abstracts/variables';
+@use 'abstracts/mixins';
+
+// 2. Theming (Define las variables CSS)
+@use 'themes/light-theme';
+@use 'themes/dark-theme';
+
+// 3. Base (resets, tipografía)
+@use 'base/reset';
+@use 'base/base';
+@use 'base/typography';

@@ -1,0 +1,37 @@
+// themes/_dark-theme.scss
+@use "sass:color";
+@use '../abstracts/variables' as *;
+
+[data-theme="dark"] {
+// Colores Semánticos (Acentos se mantienen vibrantes)
+--color-primary: #{$color-indigo-500};
+--color-primary-dark: #{$color-indigo-700};
+--color-primary-light: #{$color-indigo-300};
+--color-primary-bg-hover: #{rgba($color-indigo-300, 0.15)};
+
+--color-secondary: #{$color-green-500};
+--color-accent: #{$color-orange-500};
+
+// Paleta de Prioridades (se mantienen iguales)
+--color-priority-high: #{$color-red-500};
+--color-priority-medium: #{$color-orange-500};
+--color-priority-low: #{$color-blue-500};
+
+// Fondos
+--color-background: #{$color-dark-bg};
+--color-card-background: #{$color-dark-card};
+--color-task-background: #{color.adjust($color-dark-card, $lightness: -3%)}; // Ligeramente más oscuro que la tarjeta
+
+// Textos
+--color-text-primary: #{$color-dark-text-pri};
+--color-text-secondary: #{$color-dark-text-sec};
+--color-text-on-primary: #{$color-white};
+--color-text-link: #{$color-indigo-300}; // Más brillante para contraste
+
+// Bordes
+--color-border: #{$color-dark-border};
+
+// Sombras (las sombras en modo oscuro son más sutiles y a veces más claras o de color)
+--color-shadow-light: #{rgba($color-black, 0.1)};
+--color-shadow-medium: #{rgba($color-black, 0.2)};
+}

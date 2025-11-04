@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './issues-assigned-to-me.component.html',
-  styleUrls: ['./issues-assigned-to-me.component.css']
+  styleUrls: ['./issues-assigned-to-me.component.scss']
 })
 export class IssuesAssignedToMeComponent {
   issues = [
