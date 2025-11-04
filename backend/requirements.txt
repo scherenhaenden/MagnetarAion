@@ -4,3 +4,5 @@ sqlalchemy
 alembic
 pytest
 httpx
+passlib
+bcrypt==4.3.0
