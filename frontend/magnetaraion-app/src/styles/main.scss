@@ -12,3 +12,19 @@
 @use 'base/reset';
 @use 'base/base';
 @use 'base/typography';
+
+// 4. Layout (sidebar, header, grid)
+@use 'layout/sidebar';
+@use 'layout/header';
+@use 'layout/grid';
+@use 'layout/footer';
+
+// 5. Components (botones, tarjetas, etc.)
+@use 'components/button';
+@use 'components/card';
+@use 'components/kanban';
+@use 'components/charts';
+@use 'components/badges';
+
+// 6. Pages (estilos específicos)
+@use 'pages/dashboard';

@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: 'app-header',
@@ -9,20 +10,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.scss']
 })
 export class HeaderComponent implements OnInit {
-  ngOnInit() {
-    if (localStorage.getItem('theme') === 'dark') {
-      document.documentElement.setAttribute('data-theme', 'dark');
-    }
+
+  public constructor(private themeService: ThemeService) {}
+
+  public ngOnInit(): void {
+    this.themeService.loadTheme();
   }
 
-  toggleTheme() {
-    const htmlEl = document.documentElement;
-    if (htmlEl.hasAttribute('data-theme')) {
-      htmlEl.removeAttribute('data-theme');
-      localStorage.removeItem('theme');
-    } else {
-      htmlEl.setAttribute('data-theme', 'dark');
-      localStorage.setItem('theme', 'dark');
-    }
+  public toggleTheme(): void {
+    this.themeService.toggleTheme();
   }
 }
