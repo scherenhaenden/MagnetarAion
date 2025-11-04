@@ -1,0 +1,10 @@
+<div class="widget-container">
+  <h3>Issues Assigned to Me</h3>
+  <ul>
+    <li *ngFor="let issue of issues">
+      <span>{{ issue.title }}</span>
+      <span class="project">{{ issue.project }}</span>
+      <span class="priority {{ issue.priority.toLowerCase() }}">{{ issue.priority }}</span>
+    </li>
+  </ul>
+</div>

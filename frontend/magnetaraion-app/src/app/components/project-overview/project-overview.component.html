@@ -1,0 +1,12 @@
+<div class="widget-container">
+  <h3>Project Overview</h3>
+  <ul>
+    <li *ngFor="let project of projects">
+      <span class="project-name">{{ project.name }}</span>
+      <div class="progress-bar">
+        <div class="progress" [style.width.%]="project.progress"></div>
+      </div>
+      <span class="issue-count">{{ project.issueCount }} issues</span>
+    </li>
+  </ul>
+</div>
