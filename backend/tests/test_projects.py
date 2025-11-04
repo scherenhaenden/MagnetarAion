@@ -9,7 +9,7 @@ def test_create_project(client):
     assert "id" in data
     project_id = data["id"]
 
-    response = client.get(f"/api/projects/")
+    response = client.get("/api/projects/")
     assert response.status_code == 200
     data = response.json()
     assert len(data) == 1
