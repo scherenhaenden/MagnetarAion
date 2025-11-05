@@ -1,0 +1,29 @@
+<section class="project-form" aria-labelledby="projectFormHeading">
+  <header class="project-form__header">
+    <h1 id="projectFormHeading">Neues Projekt erstellen</h1>
+  </header>
+  <form [formGroup]="projectForm" (ngSubmit)="onSubmit()" class="form">
+    <div class="form__group">
+      <label for="name" class="form__label">Projektname</label>
+      <input type="text" id="name" formControlName="name" class="form__input" required>
+      <div *ngIf="projectForm.get('name')?.invalid && projectForm.get('name')?.touched" class="form__error">
+        Projektname ist erforderlich.
+      </div>
+    </div>
+    <div class="form__group">
+      <label for="key" class="form__label">Projektschlüssel</label>
+      <input type="text" id="key" formControlName="key" class="form__input" required maxlength="10">
+      <div *ngIf="projectForm.get('key')?.invalid && projectForm.get('key')?.touched" class="form__error">
+        Projektschlüssel ist erforderlich und darf maximal 10 Zeichen lang sein.
+      </div>
+    </div>
+    <div class="form__group">
+      <label for="description" class="form__label">Beschreibung</label>
+      <textarea id="description" formControlName="description" class="form__textarea"></textarea>
+    </div>
+    <div class="form__actions">
+      <button type="button" class="btn btn--secondary" (click)="onCancel()">Abbrechen</button>
+      <button type="submit" class="btn btn--primary" [disabled]="projectForm.invalid">Erstellen</button>
+    </div>
+  </form>
+</section>
