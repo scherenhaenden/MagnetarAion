@@ -179,7 +179,8 @@
   transition: color 0.2s ease, background 0.2s ease;
 }
 
-.sidebar__nav-link:hover {
+.sidebar__nav-link:hover,
+.sidebar__nav-link:focus {
   color: var(--color-text-primary);
   background: rgba(99, 102, 241, 0.18);
 }
