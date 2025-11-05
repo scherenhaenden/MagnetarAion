@@ -35,38 +35,53 @@
               (click)="handleQuickActionClick(action)"
             >
               <span class="sidebar__quick-icon" aria-hidden="true">
-                <ng-container [ngSwitch]="action.icon">
-                  <svg *ngSwitchCase="'plus'" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
-                    <path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
-                  </svg>
+                @switch (action.icon) {
+                  @case ('plus') {
+                    <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                      <path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                  }
 
-                  <svg *ngSwitchCase="'settings'" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
-                    <path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" fill="none" stroke="currentColor" stroke-width="1.5"></path>
-                    <path d="M19.4 15a1.7 1.7 0 0 0 .32 1.88l.06.06a1 1 0 0 1-1.41 1.41l-.06-.06a1.7 1.7 0 0 0-1.88-.32 1.7 1.7 0 0 0-1 1.42V21a1 1 0 0 1-2 0v-.1a1.7 1.7 0 0 0-1-1.42 1.7 1.7 0 0 0-1.88.32l-.06.06a1 1 0 0 1-1.41-1.41l.06-.06a1.7 1.7 0 0 0 .32-1.88 1.7 1.7 0 0 0-1.42-1H3a1 1 0 0 1 0-2h.1a1.7 1.7 0 0 0 1.42-1 1.7 1.7 0 0 0-.32-1.88L4.14 6.33a1 1 0 0 1 1.41-1.41l.06.06a1.7 1.7 0 0 0 1.88.32H9a1.7 1.7 0 0 0 1-1.42V3a1 1 0 0 1 2 0v.1a1.7 1.7 0 0 0 1 1.42 1.7 1.7 0 0 0 1.88-.32l.06-.06a1 1 0 0 1 1.41 1.41l-.06.06a1.7 1.7 0 0 0-.32 1.88 1.7 1.7 0 0 0 1.42 1H21a1 1 0 0 1 0 2h-.1a1.7 1.7 0 0 0-1.5 1z" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
-                  </svg>
+                  @case ('settings') {
+                    <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                      <path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" fill="none" stroke="currentColor" stroke-width="1.5"></path>
+                      <path d="M19.4 15a1.7 1.7 0 0 0 .32 1.88l.06.06a1 1 0 0 1-1.41 1.41l-.06-.06a1.7 1.7 0 0 0-1.88-.32 1.7 1.7 0 0 0-1 1.42V21a1 1 0 0 1-2 0v-.1a1.7 1.7 0 0 0-1-1.42 1.7 1.7 0 0 0-1.88.32l-.06.06a1 1 0 0 1-1.41-1.41l.06-.06a1.7 1.7 0 0 0 .32-1.88 1.7 1.7 0 0 0-1.42-1H3a1 1 0 0 1 0-2h.1a1.7 1.7 0 0 0 1.42-1 1.7 1.7 0 0 0-.32-1.88L4.14 6.33a1 1 0 0 1 1.41-1.41l.06.06a1.7 1.7 0 0 0 1.88.32H9a1.7 1.7 0 0 0 1-1.42V3a1 1 0 0 1 2 0v.1a1.7 1.7 0 0 0 1 1.42 1.7 1.7 0 0 0 1.88-.32l.06-.06a1 1 0 0 1 1.41 1.41l-.06.06a1.7 1.7 0 0 0-.32 1.88 1.7 1.7 0 0 0 1.42 1H21a1 1 0 0 1 0 2h-.1a1.7 1.7 0 0 0-1.5 1z" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                  }
 
-                  <svg *ngSwitchCase="'help'" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
-                    <circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.5"></circle>
-                    <path d="M9.09 9a3 3 0 1 1 5.82 1c0 2-3 2.5-3 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                    <circle cx="12" cy="17.5" r="0.6" fill="currentColor"></circle>
-                  </svg>
+                  @case ('help') {
+                    <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                      <circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.5"></circle>
+                      <path d="M9.09 9a3 3 0 1 1 5.82 1c0 2-3 2.5-3 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                      <circle cx="12" cy="17.5" r="0.6" fill="currentColor"></circle>
+                    </svg>
+                  }
 
-                  <svg *ngSwitchCase="'notifications'" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
-                    <path d="M18 8a6 6 0 1 0-12 0c0 7-3 8-3 8h18s-3-1-3-8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                    <path d="M13.73 21a2 2 0 0 1-3.46 0" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
-                  </svg>
+                  @case ('notifications') {
+                    <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                      <path d="M18 8a6 6 0 1 0-12 0c0 7-3 8-3 8h18s-3-1-3-8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                      <path d="M13.73 21a2 2 0 0 1-3.46 0" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+                    </svg>
+                  }
 
-                  <svg *ngSwitchCase="'profile'" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
-                    <circle cx="12" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="1.5"></circle>
-                    <path d="M5.5 20a6.5 6.5 0 0 1 13 0" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                  </svg>
+                  @case ('profile') {
+                    <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                      <circle cx="12" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="1.5"></circle>
+                      <path d="M5.5 20a6.5 6.5 0 0 1 13 0" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                  }
 
-                  <svg *ngSwitchCase="'collapse'" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
-                    <path d="M7 8l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
-                  </svg>
+                  @case ('collapse') {
+                    <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                      <path d="M7 8l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                  }
 
-                </ng-container>
-              </span>
+                  @default {
+                    <!-- no icon -->
+                  }
+                }
+               </span>
               <span class="sidebar__quick-label">{{ action.label }}</span>
             </button>
           </li>
