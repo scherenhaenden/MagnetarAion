@@ -10,7 +10,7 @@ This table provides a high-level overview of the implementation status of Magnet
 
 | Feature Area | Status | Details |
 | :--- | :--- | :--- |
-| **Core Issue Management** |
+| **Core Issue Management** | | |
 | Issue Model (Core Fields) | In Progress | Create, view, and edit issues with core fields (Title, Description, Assignee, Reporter, Priority, State, Type). |
 | Issue Model (Custom Fields) | Not Started | Basic custom fields (enum/text/date) planned for M1. |
 | Search (Basic Filters) | Not Started | Basic filtering by Project, Assignee, State, and Type. |
