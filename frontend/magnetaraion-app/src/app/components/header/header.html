@@ -1,13 +1,14 @@
-<header class="header" aria-label="Arbeitsbereichsübersicht">
-  <section class="header__top" aria-labelledby="workspaceHeadline">
-    <div class="header__info">
-      <span class="header__eyebrow">YouTrack Arbeitsbereich</span>
-      <h1 id="workspaceHeadline" class="header__title">Willkommen zurück, Team!</h1>
-      <p class="header__subtitle">
-        Behalte deine wichtigsten Bereiche im Blick und wechsle jederzeit zwischen hellem und dunklem Erscheinungsbild.
+<header class="workspace-header" aria-labelledby="workspaceHeadline">
+  <div class="workspace-header__primary">
+    <div class="workspace-header__info">
+      <span class="workspace-header__eyebrow">MagnetarAion Arbeitsbereich</span>
+      <h1 id="workspaceHeadline" class="workspace-header__title">Willkommen zurück, Team!</h1>
+      <p class="workspace-header__subtitle">
+        MagnetarAion bündelt eure Projekte, Tickets und Analysen in einem klar strukturierten Kontrollzentrum.
+        Nutzt die Panels rechts, um sofort mit den wichtigsten Workflows zu starten.
       </p>
     </div>
-    <div class="header__actions">
+    <div class="workspace-header__actions">
       <div class="theme-indicator" role="status" aria-live="polite">
         <span class="theme-indicator__dot" [class.theme-indicator__dot--dark]="currentTheme === 'dark'"></span>
         <span class="theme-indicator__label">
@@ -21,104 +22,32 @@
         </span>
       </button>
     </div>
-  </section>
+  </div>
 
-  <nav class="workspace-nav" aria-label="Hauptnavigation">
-    <div class="workspace-nav__brand">
-      <div class="workspace-nav__avatar-wrapper">
-        <button
-          type="button"
-          class="workspace-nav__avatar"
-          (click)="toggleQuickActions($event)"
-          aria-haspopup="menu"
-          [attr.aria-expanded]="isQuickActionsOpen"
-          aria-label="Schnellaktionen öffnen"
-        >
-          <span aria-hidden="true">AD</span>
-        </button>
-        <div
-          class="workspace-nav__quick-menu"
-          *ngIf="isQuickActionsOpen"
-          role="menu"
-          (click)="onQuickActionsContainerClick($event)"
-        >
-          <ul class="workspace-nav__quick-list">
-            <li *ngFor="let action of quickActions" class="workspace-nav__quick-list-item">
-              <button
-                type="button"
-                class="workspace-nav__quick-action"
-                role="menuitem"
-                (click)="handleQuickActionClick(action)"
-              >
-                <span class="workspace-nav__quick-icon" aria-hidden="true">
-                  <ng-container [ngSwitch]="action.icon">
-                    <span *ngSwitchCase="'plus'">+</span>
-                    <span *ngSwitchCase="'settings'">⚙️</span>
-                    <span *ngSwitchCase="'help'">?</span>
-                    <span *ngSwitchCase="'notifications'">🔔</span>
-                    <span *ngSwitchCase="'profile'">👤</span>
-                    <span *ngSwitchCase="'collapse'">⤡</span>
-                  </ng-container>
-                </span>
-                <span class="workspace-nav__quick-label">{{ action.label }}</span>
-              </button>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <span class="workspace-nav__logo" aria-hidden="true">YT</span>
-      <div class="workspace-nav__brand-text">
-        <span class="workspace-nav__brand-title">YouTrack</span>
-        <span class="workspace-nav__brand-subtitle">Team-Edition</span>
-      </div>
-    </div>
-    <ul class="workspace-nav__list">
-      <li class="workspace-nav__list-item" *ngFor="let item of navItems">
-        <a
-          class="workspace-nav__item"
-          [routerLink]="item.path"
-          routerLinkActive="workspace-nav__item--active"
-          [routerLinkActiveOptions]="{ exact: item.exact ?? true }"
-          #linkActive="routerLinkActive"
-          [attr.aria-current]="linkActive.isActive ? 'page' : null"
-        >
-          <span class="workspace-nav__icon" aria-hidden="true">
-            <svg *ngIf="item.icon === 'tickets'" viewBox="0 0 24 24" focusable="false">
-              <rect x="3" y="5" width="18" height="14" rx="2.5" ry="2.5" stroke-width="1.5" stroke="currentColor" fill="none"></rect>
-              <path d="M9 11.5l2 2 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg>
-            <svg *ngIf="item.icon === 'dashboards'" viewBox="0 0 24 24" focusable="false">
-              <path d="M4.5 4.5h6v7h-6zM13.5 4.5h6v4h-6zM13.5 11.5h6v8h-6zM4.5 14.5h6v5h-6z" fill="currentColor"></path>
-            </svg>
-            <svg *ngIf="item.icon === 'agile'" viewBox="0 0 24 24" focusable="false">
-              <path d="M5 13a7 7 0 1 1 7 7h-5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
-              <path d="M7 17l-2 3-2-3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg>
-            <svg *ngIf="item.icon === 'reports'" viewBox="0 0 24 24" focusable="false">
-              <path d="M6 20V4h12v16" fill="none" stroke="currentColor" stroke-width="1.5"></path>
-              <path d="M9.5 14.5l2.5-3 2.5 2 2.5-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg>
-            <svg *ngIf="item.icon === 'projects'" viewBox="0 0 24 24" focusable="false">
-              <path d="M4.5 7a2.5 2.5 0 0 1 2.5-2.5h10a2.5 2.5 0 0 1 2.5 2.5V19a1 1 0 0 1-1 1h-13a1 1 0 0 1-1-1z" fill="none" stroke="currentColor" stroke-width="1.5"></path>
-              <path d="M9 5v3h6V5" fill="none" stroke="currentColor" stroke-width="1.5"></path>
-            </svg>
-            <svg *ngIf="item.icon === 'knowledge'" viewBox="0 0 24 24" focusable="false">
-              <path d="M5.5 6.5c1.5-.9 3.3-1.4 5.5-1.4s4 .5 5.5 1.4v11c-1.5-.9-3.3-1.4-5.5-1.4s-4 .5-5.5 1.4z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"></path>
-              <path d="M16.5 6.5V4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
-            </svg>
-            <svg *ngIf="item.icon === 'timesheets'" viewBox="0 0 24 24" focusable="false">
-              <circle cx="12" cy="12" r="7" fill="none" stroke="currentColor" stroke-width="1.5"></circle>
-              <path d="M12 9v4l2.5 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg>
-            <svg *ngIf="item.icon === 'gantt'" viewBox="0 0 24 24" focusable="false">
-              <path d="M4 6h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
-              <rect x="6" y="9" width="7" height="3" rx="1.5" fill="currentColor"></rect>
-              <rect x="9" y="14" width="9" height="3" rx="1.5" fill="currentColor"></rect>
-            </svg>
-          </span>
-          <span class="workspace-nav__label">{{ item.label }}</span>
-        </a>
-      </li>
-    </ul>
-  </nav>
+  <div class="workspace-header__panels" aria-label="Schnellüberblick">
+    <section class="workspace-header__panel" aria-label="Priorisierte Bereiche">
+      <h2 class="workspace-header__panel-title">Heute im Fokus</h2>
+      <ul class="workspace-header__list">
+        <li class="workspace-header__list-item">
+          <span class="workspace-header__list-label">Sprint-Review vorbereiten</span>
+          <span class="workspace-header__list-meta">Team Sync um 14:00 Uhr</span>
+        </li>
+        <li class="workspace-header__list-item">
+          <span class="workspace-header__list-label">Blocker im Ticket-Backlog prüfen</span>
+          <span class="workspace-header__list-meta">3 Items warten auf Feedback</span>
+        </li>
+        <li class="workspace-header__list-item">
+          <span class="workspace-header__list-label">Status-Report für Stakeholder</span>
+          <span class="workspace-header__list-meta">Exportiere Kennzahlen aus Dashboards</span>
+        </li>
+      </ul>
+    </section>
+    <section class="workspace-header__panel workspace-header__panel--accent" aria-label="Schnellstart">
+      <h2 class="workspace-header__panel-title">Direkt loslegen</h2>
+      <p class="workspace-header__panel-text">
+        Öffne deine bevorzugte Ansicht über die Navigation links oder nutze das Suchfeld in den Modulen,
+        um sofort Tickets oder Projekte zu finden. MagnetarAion speichert deine letzten Filter automatisch.
+      </p>
+    </section>
+  </div>
 </header>

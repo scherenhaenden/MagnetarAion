@@ -1,2 +1,13 @@
-<app-header />
-<router-outlet />
+<div class="app-shell">
+  <aside class="app-shell__sidebar">
+    <app-navigation></app-navigation>
+  </aside>
+  <div class="app-shell__main">
+    <app-header></app-header>
+    <main class="app-shell__content" aria-label="MagnetarAion Hauptbereich">
+      <section class="app-shell__panel" aria-live="polite">
+        <router-outlet></router-outlet>
+      </section>
+    </main>
+  </div>
+</div>
