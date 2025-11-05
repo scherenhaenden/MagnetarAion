@@ -15,8 +15,19 @@
           {{ currentTheme === 'dark' ? 'Dark Theme aktiv' : 'Light Theme aktiv' }}
         </span>
       </div>
-      <button type="button" class="theme-toggle" (click)="toggleTheme()">
-        <span class="theme-toggle__icon" aria-hidden="true"></span>
+      <button
+        type="button"
+        class="theme-toggle"
+        (click)="toggleTheme()"
+        [attr.aria-pressed]="currentTheme === 'dark'"
+      >
+        <span
+          class="theme-toggle__icon"
+          aria-hidden="true"
+          [style.--icon-background]="currentTheme === 'dark' ? 'rgba(17, 24, 39, 0.5)' : 'rgba(255, 255, 255, 0.35)'"
+          [style.--icon-inner-background]="currentTheme === 'dark' ? 'rgba(255, 255, 255, 0.25)' : 'rgba(255, 255, 255, 0.45)'"
+          [style.--icon-inner-shadow]="currentTheme === 'dark' ? 'rgba(255, 255, 255, 0.2)' : 'rgba(255, 255, 255, 0.4)'"
+        ></span>
         <span class="theme-toggle__text">
           {{ currentTheme === 'dark' ? 'Zum hellen Modus wechseln' : 'Zum dunklen Modus wechseln' }}
         </span>
@@ -38,6 +49,7 @@
           type="button"
           class="workspace-nav__item"
           [class.workspace-nav__item--active]="item.id === activeItemId"
+          [attr.aria-pressed]="item.id === activeItemId"
           (click)="setActiveItem(item.id)"
         >
           <span class="workspace-nav__icon" aria-hidden="true">

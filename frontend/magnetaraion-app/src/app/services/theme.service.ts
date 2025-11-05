@@ -8,29 +8,32 @@ type ThemeName = 'light' | 'dark';
 export class ThemeService {
 
   public toggleTheme(): ThemeName {
-    const htmlEl = document.documentElement;
-    if (htmlEl.hasAttribute('data-theme')) {
-      htmlEl.removeAttribute('data-theme');
-      localStorage.removeItem('theme');
-      return 'light';
-    } else {
-      htmlEl.setAttribute('data-theme', 'dark');
-      localStorage.setItem('theme', 'dark');
-      return 'dark';
-    }
+    const nextTheme: ThemeName = this.getCurrentTheme() === 'dark' ? 'light' : 'dark';
+    this.applyTheme(nextTheme, true);
+    return nextTheme;
   }
 
   public loadTheme(): ThemeName {
-    if (localStorage.getItem('theme') === 'dark') {
-      document.documentElement.setAttribute('data-theme', 'dark');
-      return 'dark';
+    const storedTheme = localStorage.getItem('theme');
+    if (storedTheme === 'light' || storedTheme === 'dark') {
+      this.applyTheme(storedTheme);
+      return storedTheme;
     }
 
-    document.documentElement.removeAttribute('data-theme');
-    return 'light';
+    const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)')?.matches ?? false;
+    const detectedTheme: ThemeName = prefersDark ? 'dark' : 'light';
+    this.applyTheme(detectedTheme);
+    return detectedTheme;
   }
 
   public getCurrentTheme(): ThemeName {
     return document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+  }
+
+  private applyTheme(theme: ThemeName, persist = false): void {
+    document.documentElement.setAttribute('data-theme', theme);
+    if (persist) {
+      localStorage.setItem('theme', theme);
+    }
   }
 }
