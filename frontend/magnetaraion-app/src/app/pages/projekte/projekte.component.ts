@@ -16,8 +16,15 @@ export class ProjekteComponent implements OnInit {
   constructor(private projectService: ProjectService, private router: Router) { }
 
   ngOnInit(): void {
-    this.projectService.getProjects().subscribe(projects => {
-      this.projects = projects;
+    this.projectService.getProjects().subscribe({
+      next: (projects) => {
+        this.projects = projects;
+      },
+      error: (err) => {
+        // TODO: Implement user-facing error notification (e.g., a toast message)
+        console.error('Failed to fetch projects:', err);
+        this.projects = []; // Ensure projects is empty on error
+      }
     });
   }
 
