@@ -13,17 +13,20 @@
       <span role="columnheader">Name</span>
       <span role="columnheader">Key</span>
       <span role="columnheader">Beschreibung</span>
+      <span role="columnheader">Fortschritt</span>
     </div>
-    <div *ngFor="let project of projects" class="projects__row" role="row">
-      <span role="cell" class="projects__cell projects__cell--title">{{ project.name }}</span>
-      <span role="cell">{{ project.owner }}</span>
-      <span role="cell" class="projects__status projects__status--{{ project.statusClass }}">{{ project.status }}</span>
-      <span role="cell" class="projects__progress">
-        <span class="projects__progress-bar">
-          <span class="projects__progress-value" [style.width.%]="project.progress"></span>
+    @for (project of projects; track project.id) {
+      <div class="projects__row" role="row">
+        <span role="cell" class="projects__cell projects__cell--title">{{ project.name }}</span>
+        <span role="cell">{{ project.key }}</span>
+        <span role="cell">{{ project.description }}</span>
+        <span role="cell" class="projects__progress">
+          <span class="projects__progress-bar">
+            <span class="projects__progress-value" [style.width.%]="project.progress"></span>
+          </span>
+          <span class="projects__progress-label">{{ project.progress }}%</span>
         </span>
-        <span class="projects__progress-label">{{ project.progress }}%</span>
-      </span>
-    </div>
+      </div>
+    }
   </div>
 </section>

@@ -45,8 +45,8 @@ class GitHubManager:
                 entity = self._github.get_organization(org_name)
                 source = "organization"
             else:
-                # get_projects() is on NamedUser, not AuthenticatedUser
-                entity = self._github.get_user(authenticated_user.login)
+                # get_projects() is available on AuthenticatedUser.
+                entity = authenticated_user
                 source = "user"
 
             projects = entity.get_projects()

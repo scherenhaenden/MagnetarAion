@@ -54,18 +54,16 @@ class TestGitHubManager(unittest.TestCase):
 
         mock_authenticated_user = MagicMock()
         mock_authenticated_user.login = 'testuser'
+        mock_authenticated_user.get_projects.return_value = [mock_project]
 
-        mock_named_user = MagicMock()
-        mock_named_user.get_projects.return_value = [mock_project]
-
-        mock_github_instance.get_user.side_effect = [mock_authenticated_user, mock_named_user]
+        mock_github_instance.get_user.return_value = mock_authenticated_user
 
         manager = GitHubManager(auth_token="valid_token")
         projects = manager.get_projects()
 
         self.assertEqual(len(projects), 1)
         self.assertEqual(projects[0]['name'], "Test Project")
-        mock_github_instance.get_user.assert_called_with('testuser')
+        mock_github_instance.get_user.assert_called_once_with()
 
     @patch(AUTH_CLASS_PATCH_TARGET)
     @patch(GITHUB_CLASS_PATCH_TARGET)
