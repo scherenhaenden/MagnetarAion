@@ -26,16 +26,20 @@ export class ProjectFormComponent {
     });
   }
 
-  onSubmit(): void {
+  public async onSubmit(): Promise<void> {
     if (this.projectForm.valid) {
       const newProject: ProjectCreate = this.projectForm.value;
-      this.projectService.createProject(newProject).subscribe(() => {
-        this.router.navigate(['/projekte']);
+      this.projectService.createProject(newProject).subscribe({
+        next: () => this.router.navigate(['/projekte']),
+        error: (err) => {
+          // TODO: Implement user-facing error handling (e.g., a toast message)
+          console.error('Failed to create project:', err);
+        }
       });
     }
   }
 
-  onCancel(): void {
-    this.router.navigate(['/projekte']);
+  public async onCancel(): Promise<void> {
+    await this.router.navigate(['/projekte']);
   }
 }
