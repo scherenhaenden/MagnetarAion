@@ -1,0 +1,15 @@
+.widget-container {
+  display: grid;
+  gap: 1rem;
+}
+
+h3 {
+  margin: 0;
+}
+
+.chart-placeholder {
+  height: 12rem;
+  border-radius: 1rem;
+  border: 1px dashed rgba(79, 70, 229, 0.4);
+  background: rgba(79, 70, 229, 0.08);
+}

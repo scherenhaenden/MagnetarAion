@@ -1,0 +1,53 @@
+// abstracts/_variables.scss
+
+// === 1. Tipografía ===
+$font-family-primary: 'Inter', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+$font-size-base: 15px;
+$font-size-h1: 28px;
+$font-size-h3: 18px;
+$line-height-base: 1.6;
+
+// === 2. Layout y Espaciado ===
+$sidebar-width-collapsed: 70px;
+$sidebar-width-expanded: 220px;
+$header-height: 80px; // Altura estimada
+$spacing-base: 25px; // Espaciado principal (gaps, padding)
+$spacing-small: 15px;
+$spacing-tiny: 8px;
+
+// === 3. Bordes y Sombras ===
+$border-radius-base: 8px;
+$border-radius-small: 5px;
+$shadow-light: 0 2px 4px var(--color-shadow-light); // Usará variable CSS
+$shadow-medium: 0 4px 12px var(--color-shadow-medium); // Usará variable CSS
+
+// === 4. Paleta de Colores Base (Valores Fijos) ===
+// Estos NO son los colores del tema, sino la paleta para construirlos.
+$color-white: #ffffff;
+$color-black: #000000;
+
+// Paleta principal (Índigo)
+$color-indigo-100: #E8EAF6;
+$color-indigo-300: #7986CB;
+$color-indigo-500: #5C6BC0;
+$color-indigo-700: #3F51B5;
+
+// Acentos
+$color-green-500: #66BB6A;
+$color-orange-500: #FFA726;
+$color-red-500: #EF5350;
+$color-blue-500: #42A5F5;
+
+// Grises (para modo claro)
+$color-grey-50: #f8f9fa;
+$color-grey-100: #f4f7f6; // Fondo claro
+$color-grey-300: #e0e0e0; // Borde claro
+$color-grey-700: #555; // Texto secundario claro
+$color-grey-900: #333; // Texto principal claro
+
+// Azules Oscuros (para modo oscuro)
+$color-dark-bg: #1a1a2e; // Fondo oscuro
+$color-dark-card: #2a2a45; // Fondo de tarjetas oscuro
+$color-dark-border: #404060; // Borde oscuro
+$color-dark-text-pri: #f0f0f5; // Texto principal oscuro
+$color-dark-text-sec: #a0a0b5; // Texto secundario oscuro

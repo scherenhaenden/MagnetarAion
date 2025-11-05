@@ -1,0 +1,22 @@
+<section class="timesheets" aria-labelledby="timesheetHeading">
+  <header class="timesheets__header">
+    <h1 id="timesheetHeading">Zeittabellen</h1>
+    <p class="timesheets__intro">
+      Erfasse Arbeitszeiten pro Projekt, kategorisiere Aktivitäten und exportiere Stundennachweise für die Abrechnung.
+    </p>
+  </header>
+  <div class="timesheets__table" role="table">
+    <div class="timesheets__row timesheets__row--head" role="row">
+      <span role="columnheader">Projekt</span>
+      <span role="columnheader">Aktivität</span>
+      <span role="columnheader">Datum</span>
+      <span role="columnheader">Stunden</span>
+    </div>
+    <div *ngFor="let entry of entries" class="timesheets__row" role="row">
+      <span role="cell">{{ entry.project }}</span>
+      <span role="cell">{{ entry.activity }}</span>
+      <span role="cell">{{ entry.date }}</span>
+      <span role="cell" class="timesheets__hours">{{ entry.hours | number: '1.1-1' }}</span>
+    </div>
+  </div>
+</section>

@@ -1,6 +1,5 @@
-import { Component, HostBinding } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ThemeService } from '../../services/theme.service';
 import { IssuesAssignedToMeComponent } from '../issues-assigned-to-me/issues-assigned-to-me.component';
 import { ProjectOverviewComponent } from '../project-overview/project-overview.component';
 import { BurndownChartComponent } from '../burndown-chart/burndown-chart.component';
@@ -15,19 +14,8 @@ import { BurndownChartComponent } from '../burndown-chart/burndown-chart.compone
     BurndownChartComponent
   ],
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
-  constructor(public themeService: ThemeService) { }
-
-  @HostBinding('class.dark-theme') get isDarkTheme() {
-    return this.themeService.isDark();
-  }
-
-  /**
-   * Toggles the current theme using the theme service.
-   */
-  toggleTheme() {
-    this.themeService.toggleTheme();
-  }
+  constructor() { }
 }

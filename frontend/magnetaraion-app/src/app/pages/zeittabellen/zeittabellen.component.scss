@@ -1,0 +1,60 @@
+.timesheets {
+  display: grid;
+  gap: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+.timesheets__header {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.timesheets__intro {
+  margin: 0;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.timesheets__table {
+  border: 1px solid var(--color-border);
+  border-radius: 1.5rem;
+  background: var(--color-card-background);
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.12);
+  display: grid;
+}
+
+.timesheets__row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  padding: clamp(1rem, 2vw, 1.25rem) clamp(1.25rem, 3vw, 1.75rem);
+  align-items: center;
+}
+
+.timesheets__row:nth-child(even) {
+  background: rgba(129, 140, 248, 0.08);
+}
+
+.timesheets__row--head {
+  font-weight: 700;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.timesheets__hours {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 48rem) {
+  .timesheets__row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .timesheets__row--head {
+    display: none;
+  }
+
+  .timesheets__row {
+    border-bottom: 1px solid var(--color-border);
+  }
+}

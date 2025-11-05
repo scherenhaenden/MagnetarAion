@@ -7,7 +7,7 @@ import { ApiService } from '../../services/api.service';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './issue-list.component.html',
-  styleUrls: ['./issue-list.component.css']
+  styleUrls: ['./issue-list.component.scss']
 })
 export class IssueListComponent implements OnInit {
   issues: any[] = [];

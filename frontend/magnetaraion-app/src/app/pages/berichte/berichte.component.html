@@ -1,0 +1,15 @@
+<section class="reports" aria-labelledby="reportsHeading">
+  <header class="reports__header">
+    <h1 id="reportsHeading">Berichte</h1>
+    <p class="reports__intro">
+      Erstelle detaillierte Auswertungen, teile Kennzahlen mit Stakeholdern und überwache die Performance deiner Teams in Echtzeit.
+    </p>
+  </header>
+  <div class="reports__grid">
+    <article *ngFor="let report of reportCards" class="reports__card">
+      <h2>{{ report.title }}</h2>
+      <p>{{ report.description }}</p>
+      <button type="button" class="reports__cta">Bericht öffnen</button>
+    </article>
+  </div>
+</section>

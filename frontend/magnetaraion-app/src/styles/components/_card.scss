@@ -1,0 +1,39 @@
+// components/_card.scss
+@use '../abstracts/variables' as *;
+
+.card {
+background-color: var(--color-card-background);
+color: var(--color-text-primary);
+border-radius: $border-radius-base;
+padding: $spacing-base;
+box-shadow: $shadow-light;
+transition: all 0.3s ease;
+
+h3 {
+color: var(--color-primary-dark);
+border-bottom: 1px solid var(--color-border);
+padding-bottom: $spacing-small;
+margin-bottom: $spacing-small;
+}
+
+p {
+color: var(--color-text-secondary);
+}
+}
+
+.card--project {
+&:hover {
+transform: translateY(-5px);
+box-shadow: $shadow-medium;
+}
+
+.progress-bar-container {
+background-color: var(--color-border);
+// ...
+}
+
+.progress-bar {
+background-color: var(--color-secondary);
+// ...
+}
+}

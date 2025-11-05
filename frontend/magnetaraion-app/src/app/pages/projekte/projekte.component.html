@@ -1,0 +1,27 @@
+<section class="projects" aria-labelledby="projectsHeading">
+  <header class="projects__header">
+    <h1 id="projectsHeading">Projekte</h1>
+    <p class="projects__intro">
+      Koordiniere Initiativen teamübergreifend, verfolge Verantwortlichkeiten und kontrolliere den Fortschritt jeder Projektphase.
+    </p>
+  </header>
+  <div class="projects__table" role="table">
+    <div class="projects__row projects__row--head" role="row">
+      <span role="columnheader">Projekt</span>
+      <span role="columnheader">Verantwortlich</span>
+      <span role="columnheader">Status</span>
+      <span role="columnheader">Fortschritt</span>
+    </div>
+    <div *ngFor="let project of projects" class="projects__row" role="row">
+      <span role="cell" class="projects__cell projects__cell--title">{{ project.name }}</span>
+      <span role="cell">{{ project.owner }}</span>
+      <span role="cell" class="projects__status projects__status--{{ project.statusClass }}">{{ project.status }}</span>
+      <span role="cell" class="projects__progress">
+        <span class="projects__progress-bar">
+          <span class="projects__progress-value" [style.width.%]="project.progress"></span>
+        </span>
+        <span class="projects__progress-label">{{ project.progress }}%</span>
+      </span>
+    </div>
+  </div>
+</section>

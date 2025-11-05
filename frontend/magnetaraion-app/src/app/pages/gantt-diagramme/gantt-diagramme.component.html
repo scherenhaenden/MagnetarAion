@@ -1,0 +1,19 @@
+<section class="gantt" aria-labelledby="ganttHeading">
+  <header class="gantt__header">
+    <h1 id="ganttHeading">Gantt-Diagramme</h1>
+    <p class="gantt__intro">
+      Visualisiere Zeitpläne und Abhängigkeiten deiner Meilensteine, um Verzögerungen frühzeitig zu erkennen und Ressourcen anzupassen.
+    </p>
+  </header>
+  <div class="gantt__timeline">
+    <div class="gantt__milestone" *ngFor="let milestone of milestones">
+      <div class="gantt__milestone-header">
+        <h2>{{ milestone.title }}</h2>
+        <span class="gantt__status gantt__status--{{ milestone.statusClass }}">{{ milestone.statusLabel }}</span>
+      </div>
+      <div class="gantt__milestone-bar">
+        <span class="gantt__milestone-range">{{ milestone.start }} – {{ milestone.end }}</span>
+      </div>
+    </div>
+  </div>
+</section>

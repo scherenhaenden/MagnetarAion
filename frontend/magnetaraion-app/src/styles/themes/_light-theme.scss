@@ -1,0 +1,37 @@
+// themes/_light-theme.scss
+@use '../abstracts/variables' as *;
+
+:root,
+[data-theme="light"] {
+// Colores Semánticos
+--color-primary: #{$color-indigo-500};
+--color-primary-dark: #{$color-indigo-700};
+--color-primary-light: #{$color-indigo-300};
+--color-primary-bg-hover: #{rgba($color-indigo-500, 0.1)}; // Para hovers de sidebar
+
+--color-secondary: #{$color-green-500};
+--color-accent: #{$color-orange-500};
+
+// Paleta de Prioridades
+--color-priority-high: #{$color-red-500};
+--color-priority-medium: #{$color-orange-500};
+--color-priority-low: #{$color-blue-500};
+
+// Fondos
+--color-background: #{$color-grey-100};
+--color-card-background: #{$color-white};
+--color-task-background: #{$color-grey-50}; // Tareas dentro de kanban
+
+// Textos
+--color-text-primary: #{$color-grey-900};
+--color-text-secondary: #{$color-grey-700};
+--color-text-on-primary: #{$color-white}; // Texto sobre botones primarios
+--color-text-link: #{$color-indigo-500};
+
+// Bordes
+--color-border: #{$color-grey-300};
+
+// Sombras
+--color-shadow-light: #{rgba($color-black, 0.05)};
+--color-shadow-medium: #{rgba($color-black, 0.08)};
+}

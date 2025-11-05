@@ -1,0 +1,30 @@
+// main.scss
+
+// 1. Abstracts (variables, mixins)
+@use 'abstracts/variables';
+@use 'abstracts/mixins';
+
+// 2. Theming (Define las variables CSS)
+@use 'themes/light-theme';
+@use 'themes/dark-theme';
+
+// 3. Base (resets, tipografía)
+@use 'base/reset';
+@use 'base/base';
+@use 'base/typography';
+
+// 4. Layout (sidebar, header, grid)
+@use 'layout/sidebar';
+@use 'layout/header';
+@use 'layout/grid';
+@use 'layout/footer';
+
+// 5. Components (botones, tarjetas, etc.)
+@use 'components/button';
+@use 'components/card';
+@use 'components/kanban';
+@use 'components/charts';
+@use 'components/badges';
+@use 'components/dashboard';
+
+// 6. Pages (estilos específicos)
