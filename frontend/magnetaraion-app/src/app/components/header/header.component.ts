@@ -56,7 +56,7 @@ export class HeaderComponent implements OnInit {
     { id: 'administration', label: 'Administration', icon: 'settings' },
     { id: 'help', label: 'Hilfe', icon: 'help' },
     { id: 'notifications', label: 'Benachrichtigungen', icon: 'notifications' },
-    { id: 'profile', label: 'AD admin', icon: 'profile' },
+    { id: 'profile', label: 'Teamprofil', icon: 'profile' },
     { id: 'collapse', label: 'Reduzieren', icon: 'collapse' }
   ];
 

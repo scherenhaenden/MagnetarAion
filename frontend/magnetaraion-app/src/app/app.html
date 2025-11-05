@@ -1,2 +1,24 @@
-<app-header />
-<router-outlet />
+<div class="app-shell">
+  <aside class="app-shell__sidebar" aria-label="Navigation">
+    <app-header />
+  </aside>
+  <div class="app-shell__main" aria-live="polite">
+    <section class="app-shell__welcome" aria-labelledby="workspaceHeadline">
+      <p class="app-shell__eyebrow">MagnetarAion Arbeitsbereich</p>
+      <div class="app-shell__welcome-content">
+        <div class="app-shell__welcome-text">
+          <h1 id="workspaceHeadline" class="app-shell__title">Willkommen zurück, Team!</h1>
+          <p class="app-shell__subtitle">
+            Behalte Projekte, Tickets und Reports im Blick &ndash; alles an einem Ort, perfekt organisiert für deinen nächsten Schritt.
+          </p>
+        </div>
+        <div class="app-shell__welcome-actions">
+          <span class="app-shell__status">Status: Bereit für die nächste Iteration</span>
+        </div>
+      </div>
+    </section>
+    <main class="app-shell__panel" aria-label="Arbeitsbereichsinhalt">
+      <router-outlet />
+    </main>
+  </div>
+</div>
