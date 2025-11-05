@@ -7,6 +7,7 @@ import { ProjekteComponent } from './pages/projekte/projekte.component';
 import { WissensdatenbankComponent } from './pages/wissensdatenbank/wissensdatenbank.component';
 import { ZeittabellenComponent } from './pages/zeittabellen/zeittabellen.component';
 import { GanttDiagrammeComponent } from './pages/gantt-diagramme/gantt-diagramme.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'dashboards' },
@@ -18,5 +19,6 @@ export const routes: Routes = [
   { path: 'wissensdatenbank', component: WissensdatenbankComponent },
   { path: 'zeittabellen', component: ZeittabellenComponent },
   { path: 'gantt-diagramme', component: GanttDiagrammeComponent },
-  { path: '**', redirectTo: 'dashboards' }
+  { path: '404', component: NotFoundComponent },
+  { path: '**', redirectTo: '/404' }
 ];
