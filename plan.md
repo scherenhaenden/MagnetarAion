@@ -6,7 +6,7 @@ This document tracks the status of the MagnetarAion project, from the initial MV
 
 | Feature | Backend Status | Frontend Status |
 | :--- | :--- | :--- |
-| **Users and Projects** |
+| **Users and Projects** | | |
 | User Registration/Login | In Progress | Not Started |
 | Role Management (Admin, Developer, Reporter) | In Progress | Not Started |
 | Project Creation and Team Assignment | In Progress | Not Started |
