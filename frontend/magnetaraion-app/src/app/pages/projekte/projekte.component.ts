@@ -1,12 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-
-interface ProjectSummary {
-  name: string;
-  owner: string;
-  status: 'Aktiv' | 'Geplant' | 'Abgeschlossen';
-  progress: number;
-}
+import { Component, OnInit } from '@angular/core';
+import { Project, ProjectService } from '../../services/project.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-projekte-page',
@@ -15,11 +10,25 @@ interface ProjectSummary {
   templateUrl: './projekte.component.html',
   styleUrls: ['./projekte.component.scss']
 })
-export class ProjekteComponent {
-  public readonly projects: ProjectSummary[] = [
-    { name: 'MagnetarAion Plattform', owner: 'Team Blau', status: 'Aktiv', progress: 68 },
-    { name: 'Website-Relaunch', owner: 'Team Rot', status: 'Geplant', progress: 25 },
-    { name: 'Mobile App', owner: 'Team Gelb', status: 'Aktiv', progress: 54 },
-    { name: 'Qualitätsoffensive', owner: 'Team QA', status: 'Abgeschlossen', progress: 100 }
-  ];
+export class ProjekteComponent implements OnInit {
+  public projects: Project[] = [];
+
+  constructor(private projectService: ProjectService, private router: Router) { }
+
+  public ngOnInit(): void {
+    this.projectService.getProjects().subscribe({
+      next: (projects) => {
+        this.projects = projects;
+      },
+      error: (err) => {
+        // TODO: Implement user-facing error notification (e.g., a toast message)
+        console.error('Failed to fetch projects:', err);
+        this.projects = []; // Ensure projects is empty on error
+      }
+    });
+  }
+
+  public async navigateToAddProject(): Promise<void> {
+    await this.router.navigate(['/projekte/neu']);
+  }
 }
