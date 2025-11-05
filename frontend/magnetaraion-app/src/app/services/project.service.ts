@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
+import { ConfigService } from './config.service';
 
 export interface Project {
   id: number;
@@ -20,15 +20,14 @@ export interface ProjectCreate {
   providedIn: 'root'
 })
 export class ProjectService {
-  private apiUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private configService: ConfigService) { }
 
   getProjects(): Observable<Project[]> {
-    return this.http.get<Project[]>(`${this.apiUrl}/projects/`);
+    return this.http.get<Project[]>(`${this.configService.apiUrl}/projects/`);
   }
 
   createProject(project: ProjectCreate): Observable<Project> {
-    return this.http.post<Project>(`${this.apiUrl}/projects/`, project);
+    return this.http.post<Project>(`${this.configService.apiUrl}/projects/`, project);
   }
 }
