@@ -28,6 +28,7 @@ type QuickAction = {
   id: string;
   label: string;
   icon: QuickActionIcon;
+  path?: string;
 };
 
 @Component({
@@ -53,7 +54,7 @@ export class HeaderComponent implements OnInit {
   ];
 
   public readonly quickActions: QuickAction[] = [
-    { id: 'create', label: 'Erstellen', icon: 'plus' },
+    { id: 'create', label: 'Erstellen', icon: 'plus', path: '/tickets' },
     { id: 'administration', label: 'Administration', icon: 'settings' },
     { id: 'help', label: 'Hilfe', icon: 'help' },
     { id: 'notifications', label: 'Benachrichtigungen', icon: 'notifications' },
@@ -133,8 +134,9 @@ export class HeaderComponent implements OnInit {
   public handleQuickActionClick(action: QuickAction): void {
     this.closeQuickActions();
 
-    if (action.id === 'create') {
-      this.navigateTo('/tickets');
+    if (action.path) {
+      this.navigateTo(action.path);
     }
+    // Handle other non-navigation actions here if needed.
   }
 }
