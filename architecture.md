@@ -40,7 +40,7 @@ This document outlines the technical architecture and stack for the MagnetarAion
 ## 6. High-Level Data Model
 
 - **User, Group, Role, Permission:** Forming the basis of the RBAC system.
-- **Project:** Contains project-specific settings and fields (`key`, `name`, `ProjectFields`).
+- **Project:** Contains project-specific settings and fields (`key`, `name`) and custom fields (`ProjectCustomFields[]`).
 - **Issue:** The core entity, with core fields, custom fields (`IssueCustomFields[]`), time tracking data (`WorkItems[]`), and relationships (`Links[]`).
 - **WorkItem:** Represents a single time log entry (`spent`, `category`, `author`, `at`).
 - **Article:** The main entity for the Knowledge Base, with associated `Comment` and `Attachment` entities.
