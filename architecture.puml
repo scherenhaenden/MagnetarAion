@@ -1,0 +1,23 @@
+@startuml
+!theme plain
+skinparam componentStyle uml2
+skinparam linetype ortho
+
+title Frontend API Service and Interceptors
+
+[Angular Component] as Component
+[ApiService] as Service
+[HttpTokenInterceptor] as TokenInterceptor
+[HttpErrorInterceptor] as ErrorInterceptor
+[HttpClient] as Client
+
+Component -> Service : Makes API Call
+Service -> Client : Sends HTTP Request
+Client -> TokenInterceptor : Intercepts Request
+TokenInterceptor -> Client : Adds Auth Token
+Client -> ErrorInterceptor : Intercepts Response
+ErrorInterceptor -> Client : Handles Errors
+Client -> Service : Returns Observable
+Service -> Component : Returns Observable
+
+@enduml

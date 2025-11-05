@@ -31,6 +31,6 @@ describe('NotFoundComponent', () => {
   it('should have a link to dashboards', () => {
     const compiled = fixture.nativeElement;
     const link = compiled.querySelector('a');
-    expect(link.getAttribute('ng-reflect-router-link')).toBe('/dashboards');
+    expect(link.getAttribute('href')).toBe('/dashboards');
   });
 });

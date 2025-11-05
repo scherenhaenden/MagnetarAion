@@ -15,7 +15,7 @@ export class IssueListComponent implements OnInit {
   constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {
-    this.apiService.getIssues().subscribe(data => {
+    this.apiService.get<any[], any>('/issues/').subscribe((data: any[]) => {
       this.issues = data;
     });
   }

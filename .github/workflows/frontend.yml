@@ -1,0 +1,31 @@
+name: Frontend CI
+
+on:
+  push:
+    branches: [ build ]
+    paths:
+      - 'frontend/**'
+  pull_request:
+    branches: [ build ]
+    paths:
+      - 'frontend/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+    - name: Install dependencies
+      run: npm install
+      working-directory: ./frontend/magnetaraion-app
+    - name: Build
+      run: npm run build
+      working-directory: ./frontend/magnetaraion-app
+    - name: Test
+      run: npm test
+      working-directory: ./frontend/magnetaraion-app

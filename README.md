@@ -1,5 +1,8 @@
 # MagnetarAion Project
 
+[![Backend CI](https://github.com/scherenhaenden/MagnetarAion/actions/workflows/backend.yml/badge.svg)](https://github.com/scherenhaenden/MagnetarAion/actions/workflows/backend.yml)
+[![Frontend CI](https://github.com/scherenhaenden/MagnetarAion/actions/workflows/frontend.yml/badge.svg)](https://github.com/scherenhaenden/MagnetarAion/actions/workflows/frontend.yml)
+
 ## 🎯 Project Goal
 
 To develop **MagnetarAion**, a modern, highly functional, and user-friendly issue tracking and project management system comparable to other leading systems.
