@@ -6,9 +6,9 @@ This document outlines the technical architecture and stack for the MagnetarAion
 
 | Component | Technology | Version | Rationale |
 | :--- | :--- | :--- | :--- |
-| **Backend** | Python (FastAPI) | LTS stable | Development speed, strong typing with Pydantic, performance, and a rich ecosystem. |
-| **Frontend** | Angular | LTS stable | Provides an enterprise-grade structure, comprehensive tooling, i18n support, and robust testing capabilities. |
-| **Database** | PostgreSQL | Latest stable | ACID compliance, powerful JSONB support, extensibility (e.g., full-text search), and vertical scalability. |
+| **Backend** | Python (FastAPI) | Latest LTS | Development speed, strong typing with Pydantic, performance, and a rich ecosystem. |
+| **Frontend** | Angular | Latest LTS | Provides an enterprise-grade structure, comprehensive tooling, i18n support, and robust testing capabilities. |
+| **Database** | PostgreSQL | Latest Stable | ACID compliance, powerful JSONB support, extensibility (e.g., full-text search), and vertical scalability. |
 
 ## 2. Key Architectural Patterns
 
