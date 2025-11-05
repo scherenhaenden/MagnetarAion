@@ -1,25 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ThemeService } from '../../services/theme.service';
-
-type NavIcon =
-  | 'tickets'
-  | 'dashboards'
-  | 'agile'
-  | 'reports'
-  | 'projects'
-  | 'knowledge'
-  | 'timesheets'
-  | 'gantt';
-
-type NavItem = {
-  id: string;
-  label: string;
-  icon: NavIcon;
-  path: string;
-  exact?: boolean;
-};
 
 type QuickActionIcon = 'plus' | 'settings' | 'help' | 'notifications' | 'profile' | 'collapse';
 
@@ -32,40 +14,25 @@ type QuickAction = {
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive],
+  imports: [CommonModule],
   templateUrl: './header.html',
   styleUrls: ['./header.scss']
 })
 export class HeaderComponent implements OnInit {
-
   public currentTheme: 'light' | 'dark' = 'light';
 
-  public readonly navItems: NavItem[] = [
-    { id: 'tickets', label: 'Tickets', icon: 'tickets', path: '/tickets' },
-    { id: 'dashboards', label: 'Dashboards', icon: 'dashboards', path: '/dashboards' },
-    { id: 'agile-boards', label: 'Agile-Boards', icon: 'agile', path: '/agile-boards' },
-    { id: 'reports', label: 'Berichte', icon: 'reports', path: '/berichte' },
-    { id: 'projects', label: 'Projekte', icon: 'projects', path: '/projekte' },
-    { id: 'knowledge', label: 'Wissensdatenbank', icon: 'knowledge', path: '/wissensdatenbank', exact: true },
-    { id: 'timesheets', label: 'Zeittabellen', icon: 'timesheets', path: '/zeittabellen' },
-    { id: 'gantt', label: 'Gantt-Diagramme', icon: 'gantt', path: '/gantt-diagramme' }
-  ];
-
   public readonly quickActions: QuickAction[] = [
-    { id: 'create', label: 'Erstellen', icon: 'plus' },
+    { id: 'create', label: 'Ticket erstellen', icon: 'plus' },
     { id: 'administration', label: 'Administration', icon: 'settings' },
-    { id: 'help', label: 'Hilfe', icon: 'help' },
+    { id: 'help', label: 'Hilfe & Leitfäden', icon: 'help' },
     { id: 'notifications', label: 'Benachrichtigungen', icon: 'notifications' },
-    { id: 'profile', label: 'AD admin', icon: 'profile' },
-    { id: 'collapse', label: 'Reduzieren', icon: 'collapse' }
+    { id: 'profile', label: 'Profil & Team', icon: 'profile' },
+    { id: 'collapse', label: 'Bereich reduzieren', icon: 'collapse' }
   ];
-
-  public isQuickActionsOpen = false;
 
   public constructor(
     private readonly themeService: ThemeService,
-    private readonly router: Router,
-    private readonly hostElement: ElementRef<HTMLElement>
+    private readonly router: Router
   ) {}
 
   public ngOnInit(): void {
@@ -76,40 +43,9 @@ export class HeaderComponent implements OnInit {
     this.currentTheme = this.themeService.toggleTheme();
   }
 
-  public toggleQuickActions(event: MouseEvent): void {
-    event.stopPropagation();
-    this.isQuickActionsOpen = !this.isQuickActionsOpen;
-  }
-
-  public onQuickActionsContainerClick(event: MouseEvent): void {
-    event.stopPropagation();
-  }
-
-  public closeQuickActions(): void {
-    this.isQuickActionsOpen = false;
-  }
-
-  public navigateTo(path: string): void {
-    this.router.navigateByUrl(path);
-  }
-
-  @HostListener('document:click', ['$event'])
-  public handleDocumentClick(event: MouseEvent): void {
-    const target = event.target as HTMLElement | null;
-    if (!target) {
-      return;
-    }
-
-    if (!this.hostElement.nativeElement.contains(target)) {
-      this.closeQuickActions();
-    }
-  }
-
   public handleQuickActionClick(action: QuickAction): void {
-    this.closeQuickActions();
-
     if (action.id === 'create') {
-      this.navigateTo('/tickets');
+      this.router.navigateByUrl('/tickets');
     }
   }
 }
