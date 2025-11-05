@@ -15,7 +15,7 @@ export class ProjekteComponent implements OnInit {
 
   constructor(private projectService: ProjectService, private router: Router) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.projectService.getProjects().subscribe({
       next: (projects) => {
         this.projects = projects;
@@ -28,7 +28,7 @@ export class ProjekteComponent implements OnInit {
     });
   }
 
-  navigateToAddProject(): void {
-    this.router.navigate(['/projekte/neu']);
+  public async navigateToAddProject(): Promise<void> {
+    await this.router.navigate(['/projekte/neu']);
   }
 }
