@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { ThemeService } from '../../services/theme.service';
+import { Icon } from '../icon/icon';
 
 type NavIcon =
   | 'tickets'
@@ -27,12 +28,13 @@ type QuickAction = {
   id: string;
   label: string;
   icon: QuickActionIcon;
+  path?: string;
 };
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive, RouterOutlet],
+  imports: [CommonModule, RouterLink, RouterLinkActive, RouterOutlet, Icon],
   templateUrl: './header.html',
   styleUrls: ['./header.scss']
 })
@@ -52,7 +54,7 @@ export class HeaderComponent implements OnInit {
   ];
 
   public readonly quickActions: QuickAction[] = [
-    { id: 'create', label: 'Erstellen', icon: 'plus' },
+    { id: 'create', label: 'Erstellen', icon: 'plus', path: '/tickets' },
     { id: 'administration', label: 'Administration', icon: 'settings' },
     { id: 'help', label: 'Hilfe', icon: 'help' },
     { id: 'notifications', label: 'Benachrichtigungen', icon: 'notifications' },
@@ -68,23 +70,38 @@ export class HeaderComponent implements OnInit {
     private readonly hostElement: ElementRef<HTMLElement>
   ) {}
 
+  /**
+   * Initializes the component by loading the current theme.
+   */
   public ngOnInit(): void {
     this.currentTheme = this.themeService.loadTheme();
   }
 
+  /**
+   * Toggles the current theme using the theme service.
+   */
   public toggleTheme(): void {
     this.currentTheme = this.themeService.toggleTheme();
   }
 
+  /**
+   * Toggles the state of quick actions on mouse event.
+   */
   public toggleQuickActions(event: MouseEvent): void {
     event.stopPropagation();
     this.isQuickActionsOpen = !this.isQuickActionsOpen;
   }
 
+  /**
+   * Stops the propagation of the click event.
+   */
   public onQuickActionsContainerClick(event: MouseEvent): void {
     event.stopPropagation();
   }
 
+  /**
+   * Closes the quick actions menu.
+   */
   public closeQuickActions(): void {
     this.isQuickActionsOpen = false;
   }
@@ -93,6 +110,15 @@ export class HeaderComponent implements OnInit {
     this.router.navigateByUrl(path);
   }
 
+  /**
+   * Handles click events on the document.
+   *
+   * This method checks if the click event's target is outside of the host element.
+   * If the target is not contained within the host element, it triggers the
+   * closeQuickActions method to close any open quick actions.
+   *
+   * @param event - The MouseEvent triggered by the document click.
+   */
   @HostListener('document:click', ['$event'])
   public handleDocumentClick(event: MouseEvent): void {
     const target = event.target as HTMLElement | null;
@@ -108,8 +134,9 @@ export class HeaderComponent implements OnInit {
   public handleQuickActionClick(action: QuickAction): void {
     this.closeQuickActions();
 
-    if (action.id === 'create') {
-      this.navigateTo('/tickets');
+    if (action.path) {
+      this.navigateTo(action.path);
     }
+    // Handle other non-navigation actions here if needed.
   }
 }

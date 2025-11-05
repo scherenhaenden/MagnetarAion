@@ -6,3 +6,5 @@ pytest
 httpx
 passlib
 bcrypt==4.3.0
+PyGithub
+pydantic-settings
