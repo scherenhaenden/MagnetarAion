@@ -1,0 +1,16 @@
+<section class="tickets" aria-labelledby="ticketsHeading">
+  <header class="tickets__header">
+    <h1 id="ticketsHeading">Tickets</h1>
+    <p class="tickets__intro">
+      Verwalte deine Aufgaben, priorisiere offene Tickets und behalte den Bearbeitungsstatus deines Teams jederzeit im Blick.
+    </p>
+  </header>
+  <div class="tickets__grid">
+    <div class="tickets__panel tickets__panel--assigned" aria-label="Mir zugewiesene Tickets">
+      <app-issues-assigned-to-me class="tickets__widget"></app-issues-assigned-to-me>
+    </div>
+    <div class="tickets__panel" aria-label="Ticketliste">
+      <app-issue-list></app-issue-list>
+    </div>
+  </div>
+</section>

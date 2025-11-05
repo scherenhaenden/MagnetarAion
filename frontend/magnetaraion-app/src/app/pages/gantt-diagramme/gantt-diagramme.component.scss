@@ -1,0 +1,72 @@
+.gantt {
+  display: grid;
+  gap: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+.gantt__header {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.gantt__intro {
+  margin: 0;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.gantt__timeline {
+  border: 1px solid var(--color-border);
+  border-radius: 1.5rem;
+  background: var(--color-card-background);
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.12);
+  display: grid;
+  gap: 1.5rem;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.gantt__milestone {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.gantt__milestone-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.gantt__status {
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.gantt__status--in-arbeit {
+  background: rgba(99, 102, 241, 0.12);
+  color: var(--color-primary);
+}
+
+.gantt__status--abgeschlossen {
+  background: rgba(16, 185, 129, 0.15);
+  color: #047857;
+}
+
+.gantt__status--risiko {
+  background: rgba(248, 113, 113, 0.15);
+  color: #b91c1c;
+}
+
+.gantt__milestone-bar {
+  border-radius: 1rem;
+  background: var(--color-task-background);
+  padding: 0.75rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.gantt__milestone-range {
+  font-variant-numeric: tabular-nums;
+}

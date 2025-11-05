@@ -138,6 +138,87 @@
   display: flex;
   align-items: center;
   gap: 1rem;
+  position: relative;
+}
+
+.workspace-nav__avatar-wrapper {
+  position: relative;
+}
+
+.workspace-nav__avatar {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  background: var(--color-primary-dark);
+  color: var(--color-text-on-primary);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 16px 24px rgba(79, 70, 229, 0.35);
+}
+
+.workspace-nav__avatar:hover {
+  transform: translateY(-1px);
+}
+
+.workspace-nav__quick-menu {
+  position: absolute;
+  top: 3.25rem;
+  left: 0;
+  z-index: 20;
+  min-width: 14rem;
+  border-radius: 1rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-card-background);
+  box-shadow: 0 20px 48px rgba(15, 23, 42, 0.25);
+  padding: 0.75rem;
+}
+
+.workspace-nav__quick-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.25rem;
+}
+
+.workspace-nav__quick-action {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: 0.9rem;
+  border: none;
+  background: transparent;
+  color: var(--color-text-primary);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+  text-align: left;
+}
+
+.workspace-nav__quick-action:hover {
+  background: var(--color-task-background);
+  color: var(--color-primary-dark);
+}
+
+.workspace-nav__quick-icon {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: rgba(99, 102, 241, 0.12);
+  display: grid;
+  place-items: center;
+  font-size: 1.1rem;
+}
+
+.workspace-nav__quick-label {
+  font-size: 0.95rem;
 }
 
 .workspace-nav__logo {
@@ -187,7 +268,7 @@
   color: var(--color-text-secondary);
   font-weight: 600;
   transition: background 0.2s ease, color 0.2s ease;
-  text-align: left;
+  text-decoration: none;
 }
 
 .workspace-nav__item:hover {

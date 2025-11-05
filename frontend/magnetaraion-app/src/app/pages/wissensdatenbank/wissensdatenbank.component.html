@@ -1,0 +1,18 @@
+<section class="knowledge" aria-labelledby="knowledgeHeading">
+  <header class="knowledge__header">
+    <h1 id="knowledgeHeading">Wissensdatenbank</h1>
+    <p class="knowledge__intro">
+      Sammle dokumentierte Prozesse, Best Practices und Leitfäden, damit dein Team jederzeit auf die wichtigsten Informationen zugreifen kann.
+    </p>
+  </header>
+  <div class="knowledge__list">
+    <article *ngFor="let article of articles" class="knowledge__article">
+      <header class="knowledge__article-header">
+        <span class="knowledge__category">{{ article.category }}</span>
+        <h2>{{ article.title }}</h2>
+      </header>
+      <p>{{ article.summary }}</p>
+      <button type="button" class="knowledge__cta">Artikel lesen</button>
+    </article>
+  </div>
+</section>
