@@ -13,8 +13,11 @@
     <div class="form__group">
       <label for="key" class="form__label">Projektschlüssel</label>
       <input type="text" id="key" formControlName="key" class="form__input" required maxlength="10">
-      <div *ngIf="projectForm.get('key')?.invalid && projectForm.get('key')?.touched" class="form__error">
-        Projektschlüssel ist erforderlich und darf maximal 10 Zeichen lang sein.
+      <div *ngIf="projectForm.get('key')?.hasError('required') && projectForm.get('key')?.touched" class="form__error">
+        Projektschlüssel ist erforderlich.
+      </div>
+      <div *ngIf="projectForm.get('key')?.hasError('maxlength') && projectForm.get('key')?.touched" class="form__error">
+        Projektschlüssel darf maximal 10 Zeichen lang sein.
       </div>
     </div>
     <div class="form__group">
