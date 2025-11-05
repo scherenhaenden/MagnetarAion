@@ -9,7 +9,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./agile-boards.component.scss']
 })
 export class AgileBoardsComponent {
-  public agileTips: string[] = [
+  public readonly agileTips: string[] = [
     'Plane Sprints mit klaren Zielen und überprüfbaren Ergebnissen.',
     'Halte tägliche Stand-ups kurz und fokussiert.',
     'Visualisiere Blocker direkt auf dem Board, um Engpässe früh zu erkennen.'
