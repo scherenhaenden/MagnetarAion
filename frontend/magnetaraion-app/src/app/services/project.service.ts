@@ -19,7 +19,7 @@ export interface ProjectCreate {
   providedIn: 'root'
 })
 export class ProjectService {
-  private apiUrl = 'http://localhost:8000/api'; // Adjust if your backend URL is different
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 
