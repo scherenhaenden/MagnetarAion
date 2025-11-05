@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ConfigService } from './config.service';
+import { ApiService } from './api.service';
 
 export interface Project {
   id: number;
@@ -33,11 +32,12 @@ interface ProjectApi {
   providedIn: 'root'
 })
 export class ProjectService {
+  private projectsUrl = '/projects/';
 
-  constructor(private http: HttpClient, private configService: ConfigService) { }
+  constructor(private apiService: ApiService) { }
 
   getProjects(): Observable<Project[]> {
-    return this.http.get<ProjectApi[]>(`${this.configService.apiUrl}/projects/`).pipe(
+    return this.apiService.get<ProjectApi[], any>(this.projectsUrl).pipe(
       map(projects => projects.map(p => {
         const progress = this.calculateProgress(p.issues);
         const status = this.getProjectStatus(p.issues);
@@ -78,6 +78,6 @@ export class ProjectService {
   }
 
   createProject(project: ProjectCreate): Observable<Project> {
-    return this.http.post<Project>(`${this.configService.apiUrl}/projects/`, project);
+    return this.apiService.post<Project, ProjectCreate>(this.projectsUrl, project);
   }
 }
