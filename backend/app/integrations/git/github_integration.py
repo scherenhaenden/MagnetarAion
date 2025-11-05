@@ -18,9 +18,7 @@ class GitHubManager:
         self._user = None
 
     def _authenticate(self):
-        """
-        Authenticates the user and caches the user object.
-        """
+        """Authenticates the user and caches the user object."""
         if self._user is None:
             try:
                 self._user = self._github.get_user()
@@ -33,11 +31,14 @@ class GitHubManager:
         return self._user
 
     def get_projects(self, org_name: str = None):
-        """
-        Fetches projects for the authenticated user or a specified organization.
-
-        :param org_name: (Optional) The name of the organization. If None, fetches user projects.
-        :return: A list of project data dictionaries.
+        """Fetches projects for the authenticated user or a specified organization.
+        
+        This function authenticates the user and retrieves projects based on the
+        provided organization name. If an organization name is given, it fetches
+        projects from that organization; otherwise, it retrieves projects for the
+        authenticated user. The function handles potential errors, such as
+        organization not found, and transforms the project data into a desired  format
+        before returning it.
         """
         authenticated_user = self._authenticate()
         try:
@@ -60,9 +61,7 @@ class GitHubManager:
             raise
 
     def _transform_project(self, project) -> dict:
-        """
-        Transforms a PyGithub Project object into a simplified dictionary.
-        """
+        """Transforms a PyGithub Project object into a simplified dictionary."""
         return {
             "id": project.id,
             "name": project.name,
@@ -73,7 +72,16 @@ class GitHubManager:
         }
 
 def main():
-    """ Main function for demonstration. """
+    """Main function for demonstration.
+    
+    This function retrieves and displays user projects from GitHub using the
+    GitHubManager class. It first checks for the presence of the GITHUB_TOKEN
+    environment variable, which is required for authentication. If the token  is
+    set, it fetches the user's projects and prints their names and states.
+    Additionally, it retrieves projects for a specified organization,  currently
+    set to "PyGithub", and displays the results. Error handling is  implemented to
+    catch potential issues during the fetching process.
+    """
     token = os.getenv("GITHUB_TOKEN")
     if not token:
         print("Error: GITHUB_TOKEN environment variable is not set.")
