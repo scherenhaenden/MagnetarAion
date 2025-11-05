@@ -1,14 +1,21 @@
 <div class="dashboard-container">
   <header class="dashboard-header">
-    <h1>Welcome to MagnetarAion</h1>
-    <p>Your modern issue tracking and project management solution.</p>
+    <div class="header-content">
+      <h1>Dashboard</h1>
+      <p>Overview of your projects and tasks.</p>
+    </div>
   </header>
-
   <main class="dashboard-main">
     <div class="widget-grid">
-      <app-issues-assigned-to-me class="widget"></app-issues-assigned-to-me>
-      <app-project-overview class="widget"></app-project-overview>
-      <app-burndown-chart class="widget"></app-burndown-chart>
+      <div class="widget-container">
+        <app-issues-assigned-to-me class="widget"></app-issues-assigned-to-me>
+      </div>
+      <div class="widget-container">
+        <app-project-overview class="widget"></app-project-overview>
+      </div>
+      <div class="widget-container">
+        <app-burndown-chart class="widget"></app-burndown-chart>
+      </div>
     </div>
   </main>
 </div>
