@@ -9,7 +9,7 @@ class IssueBase(BaseModel):
     priority: str
 
 class IssueCreate(IssueBase):
-    pass
+    assignee_id: Optional[int] = None
 
 class Issue(IssueBase):
     id: int
