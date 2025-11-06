@@ -29,13 +29,13 @@ describe('httpTokenInterceptor', () => {
 
   afterEach(() => {
     httpMock.verify();
-    localStorage.removeItem('authToken');
+    localStorage.removeItem('auth_token');
   });
 
   it('should add an Authorization header', () => {
     const testUrl = '/test';
     const testToken = 'test-token';
-    localStorage.setItem('authToken', testToken);
+    localStorage.setItem('auth_token', testToken);
 
     httpClient.get(testUrl).subscribe();
 
