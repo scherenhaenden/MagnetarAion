@@ -40,7 +40,7 @@ export class ProjectService {
    * Retrieves a list of projects and processes their data.
    */
   public getProjects(): Observable<Project[]> {
-    return this.apiService.get<ProjectApi[], never>(this.projectsUrl).pipe(
+    return this.apiService.get<ProjectApi[]>(this.projectsUrl).pipe(
       map(projects => projects.map(p => {
         const progress = this.calculateProgress(p.issues);
         const status = this.getProjectStatus(p.issues);
