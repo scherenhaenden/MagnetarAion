@@ -24,3 +24,13 @@ app.include_router(issues.router, prefix="/api")
 @app.get("/")
 def read_root():
     return {"Hello": "World"}
+
+
+@app.get("/healthz")
+def health_check():
+    return {"status": "ok"}
+
+
+@app.get("/readyz")
+def ready_check():
+    return {"status": "ok"}
