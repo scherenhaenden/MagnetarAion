@@ -16,3 +16,6 @@ coverage/
 *.db
 .idea/
 backend/.venv/
+
+# Kubernetes
+kubernetes/secrets.yml
