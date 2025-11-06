@@ -25,12 +25,15 @@ export class IssueListComponent implements OnInit {
   }
 
   /**
-   * Initializes the component by fetching issues from the API.
+   * Initializes the component by fetching issues.
    */
   public ngOnInit(): void {
     this.fetchIssues();
   }
 
+  /**
+   * Fetches issues from the API and updates the issues list.
+   */
   fetchIssues(): void {
     const filters = this.filterForm.value;
     this.apiService.get<Issue[]>('/issues/', filters).subscribe((data: Issue[]) => {
@@ -38,6 +41,9 @@ export class IssueListComponent implements OnInit {
     });
   }
 
+  /**
+   * Triggers the fetching of issues.
+   */
   onFilter(): void {
     this.fetchIssues();
   }
