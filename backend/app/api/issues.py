@@ -32,7 +32,14 @@ def read_issues(
     limit: int = 100,
     db: Session = Depends(get_db),
 ):
-    """Retrieve a list of issues from the database."""
+    """Retrieve a list of issues from the database.
+    
+    This function queries the database for issues based on optional filters such as
+    project_id, assignee_id, status, and priority. It allows pagination through
+    the skip and limit parameters, returning a list of issues that match the
+    specified criteria. The database session is managed through dependency
+    injection  using the get_db function.
+    """
     query = db.query(models.Issue)
     if project_id:
         query = query.filter(models.Issue.project_id == project_id)
