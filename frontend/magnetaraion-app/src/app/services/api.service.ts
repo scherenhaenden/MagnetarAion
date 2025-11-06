@@ -1,6 +1,6 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 /**
@@ -25,8 +25,6 @@ export class ApiService {
   constructor(private http: HttpClient) {}
 
   /**
-   * **POST Request**
-   *
    * Sends an HTTP POST request to the specified URL with the given body.
    *
    * @typeParam T - Expected response type.
@@ -34,41 +32,39 @@ export class ApiService {
    * @param url - Endpoint URL (appended to the base URL).
    * @param body - Request payload.
    * @param httpHeaders - Optional HTTP headers.
-   * @param httpParams - Optional HTTP parameters.
+   * @param httpParamsOrModel - Optional HTTP parameters or an object to be converted to parameters.
    * @returns An Observable of type `T`.
    */
   public post<T, U>(
     url: string,
     body: U,
     httpHeaders?: HttpHeaders,
-    httpParams?: HttpParams
+    httpParamsOrModel?: HttpParams | Record<string, any>
   ): Observable<T> {
     const headers = httpHeaders || this.defaultHeaders;
-    const options = { headers, params: httpParams };
+    const params = this.buildHttpParams(httpParamsOrModel);
+    const options = { headers, params };
     const fullUrl = this.apiUrl + url;
 
     return this.http.post<T>(fullUrl, body, options);
   }
 
   /**
-   * **PUT Request**
-   *
    * Sends an HTTP PUT request to the specified URL with the given body.
    *
    * @typeParam T - Expected response type.
    * @typeParam U - Type of the request payload.
-   * @typeParam R - Type of the parameters model.
    * @param url - Endpoint URL (appended to the base URL).
    * @param body - Request payload.
    * @param httpHeaders - Optional HTTP headers.
    * @param httpParamsOrModel - Optional HTTP parameters or an object to be converted to parameters.
    * @returns An Observable of type `T`.
    */
-  public put<T, U, R>(
+  public put<T, U>(
     url: string,
     body: U,
     httpHeaders?: HttpHeaders,
-    httpParamsOrModel?: HttpParams | R
+    httpParamsOrModel?: HttpParams | Record<string, any>
   ): Observable<T> {
     const headers = httpHeaders || this.defaultHeaders;
     const params = this.buildHttpParams(httpParamsOrModel);
@@ -79,43 +75,37 @@ export class ApiService {
   }
 
   /**
-   * **DELETE Request**
-   *
    * Sends an HTTP DELETE request to the specified URL.
-   *
    * @typeParam T - Expected response type.
    * @param url - Endpoint URL (appended to the base URL).
    * @param httpHeaders - Optional HTTP headers.
-   * @param httpParams - Optional HTTP parameters.
+   * @param httpParamsOrModel - Optional HTTP parameters or an object to be converted to parameters.
    * @returns An Observable of type `T`.
    */
   public delete<T>(
     url: string,
     httpHeaders?: HttpHeaders,
-    httpParams?: HttpParams
+    httpParamsOrModel?: HttpParams | Record<string, any>
   ): Observable<T> {
     const headers = httpHeaders || this.defaultHeaders;
-    const options = { headers, params: httpParams };
+    const params = this.buildHttpParams(httpParamsOrModel);
+    const options = { headers, params };
     const fullUrl = this.apiUrl + url;
 
     return this.http.delete<T>(fullUrl, options);
   }
 
   /**
-   * **GET Request**
-   *
    * Sends an HTTP GET request to the specified URL.
-   *
    * @typeParam T - Expected response type.
-   * @typeParam R - Type of the parameters model.
    * @param url - Endpoint URL (appended to the base URL).
    * @param httpParamsOrModel - Optional HTTP parameters or an object to be converted to parameters.
    * @param httpHeaders - Optional HTTP headers.
    * @returns An Observable of type `T`.
    */
-  public get<T, R>(
+  public get<T>(
     url: string,
-    httpParamsOrModel?: HttpParams | R,
+    httpParamsOrModel?: HttpParams | Record<string, any>,
     httpHeaders?: HttpHeaders
   ): Observable<T> {
     const headers = httpHeaders || this.defaultHeaders;
@@ -127,15 +117,17 @@ export class ApiService {
   }
 
   /**
-   * **Build HTTP Parameters**
+   * Builds HTTP parameters from an object or returns the existing HttpParams instance.
    *
-   * Converts an object to HttpParams or returns the existing HttpParams instance.
+   * This function checks if the provided `paramsOrModel` is an instance of HttpParams.
+   * If it is, it returns that instance directly. If `paramsOrModel` is an object,
+   * it converts it into an HttpParams instance using the fromObject method.
+   * If neither condition is met, it returns undefined.
    *
    * @param paramsOrModel - An object or HttpParams instance.
-   * @returns An instance of HttpParams or `undefined`.
    */
   private buildHttpParams(
-    paramsOrModel?: HttpParams | any
+    paramsOrModel?: HttpParams | Record<string, any>
   ): HttpParams | undefined {
     if (paramsOrModel instanceof HttpParams) {
       // Parameters are already an instance of HttpParams.

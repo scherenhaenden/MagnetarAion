@@ -1,6 +1,11 @@
 import { HttpInterceptorFn, HttpRequest, HttpHandlerFn, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { inject } from '@angular/core';
+import { AuthService } from '../services/auth.service';
 
+/**
+ * Intercepts HTTP requests to add an Authorization token if available.
+ */
 export const httpTokenInterceptor: HttpInterceptorFn = (
   req: HttpRequest<unknown>,
   next: HttpHandlerFn
