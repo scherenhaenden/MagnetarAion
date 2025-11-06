@@ -75,6 +75,31 @@ export class ApiService {
   }
 
   /**
+   * Sends an HTTP PATCH request to the specified URL with the given body.
+   *
+   * @typeParam T - Expected response type.
+   * @typeParam U - Type of the request payload.
+   * @param url - Endpoint URL (appended to the base URL).
+   * @param body - Request payload.
+   * @param httpHeaders - Optional HTTP headers.
+   * @param httpParamsOrModel - Optional HTTP parameters or an object to be converted to parameters.
+   * @returns An Observable of type `T`.
+   */
+  public patch<T, U>(
+    url: string,
+    body: U,
+    httpHeaders?: HttpHeaders,
+    httpParamsOrModel?: HttpParams | Record<string, any>
+  ): Observable<T> {
+    const headers = httpHeaders || this.defaultHeaders;
+    const params = this.buildHttpParams(httpParamsOrModel);
+    const options = { headers, params };
+    const fullUrl = this.apiUrl + url;
+
+    return this.http.patch<T>(fullUrl, body, options);
+  }
+
+  /**
    * Sends an HTTP DELETE request to the specified URL.
    * @typeParam T - Expected response type.
    * @param url - Endpoint URL (appended to the base URL).

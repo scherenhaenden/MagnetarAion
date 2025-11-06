@@ -20,4 +20,8 @@ export class AuthService {
   register(userInfo: any): Observable<any> {
     return this.apiService.post('/users/', userInfo);
   }
+
+  getToken(): string | null {
+    return localStorage.getItem('auth_token');
+  }
 }

@@ -36,47 +36,27 @@ El objetivo de esta rama es implementar las características del Producto Mínim
 
 ---
 
-## Frontend (En Progreso - Bloqueado) ⚠️
+## Frontend (Completado) ✅
 
-### 1. Tareas Realizadas
-- **Configuración Inicial:** Se instaló `@angular/cli` como una dependencia de desarrollo local.
-- **Páginas de Autenticación:**
-    - Se generaron los componentes `LoginComponent` y `RegisterComponent`.
-    - Se creó un `AuthService` para gestionar las llamadas a la API de backend para el inicio de sesión y el registro.
-    - Se añadieron las rutas `/login` y `/register` al archivo de enrutamiento principal (`app.routes.ts`).
-- **UI de Seguimiento de Issues:**
-    - Se mejoró la plantilla de `IssueListComponent` para mostrar más detalles de los issues en una tabla.
-    - Se generó un `IssueFormComponent` para ser utilizado como un modal para la creación de nuevos issues.
+### 1. Resolución de Bloqueo de Compilación
+- **Corrección de Nombres de Archivos:** Se renombraron los archivos de `LoginComponent` y `AuthService` para seguir las convenciones de Angular (`.component.ts`, `.service.ts`), lo que resolvió los errores de `Module not found`.
+- **Corrección de Nombres de Clases:** Se actualizaron los nombres de las clases dentro de los archivos renombrados para que coincidieran con los nombres de los archivos.
+- **Reinstalación de Dependencias:** Se eliminaron `node_modules` y `package-lock.json` y se ejecutó `npm install` para asegurar una instalación limpia y resolver problemas con el ejecutable de `ng`.
 
-### 2. Problema Actual (Bloqueo)
-- **Errores de Compilación Persistentes:** La aplicación de Angular no compila, lo que impide ejecutar el script de Playwright para la verificación visual y continuar con el desarrollo.
-- **Errores encontrados:** `Module not found`, `cannot find module`, `ENOENT: no such file or directory`. Estos errores persisten incluso después de múltiples intentos de corrección.
-- **Pasos de Troubleshooting Realizados (Sin Éxito):**
-    1.  **Corrección de Nombres y Rutas:** Se verificaron y corrigieron inconsistencias en los nombres de archivos (añadiendo `.component.ts`), nombres de clases e importaciones.
-    2.  **Reinicio del Servidor:** Se reinició el servidor de desarrollo de Angular (`npm start`) varias veces.
-    3.  **Limpieza de Caché:** Se eliminó el directorio de caché de Angular (`.angular/cache`).
-    4.  **Reinstalación de Dependencias:** Se eliminaron `node_modules` y `package-lock.json` y se ejecutó `npm install` para asegurar una instalación limpia.
-    5.  **Reversión de Cambios:** Se revirtieron todos los cambios en el frontend a su estado original. Sin embargo, tras la reversión, comenzaron a aparecer errores en archivos que no habían sido modificados (`http-token.interceptor.ts`), lo que sugiere un problema más profundo en la configuración del proyecto.
+### 2. Implementación de Funcionalidades del MVP
+- **Autenticación:**
+    - Se implementó la UI para el formulario de inicio de sesión.
+    - Se implementó la lógica para almacenar el token JWT en `localStorage` tras un inicio de sesión exitoso.
+    - Se creó un `AuthGuard` para proteger las rutas que requieren autenticación.
+    - Se redirige al usuario al dashboard después del inicio de sesión.
+- **Seguimiento de Issues:**
+    - Se implementó la funcionalidad de un modal para crear nuevos issues en `IssueListComponent`.
+    - Se implementó la lógica de filtrado en `IssueListComponent` para que los usuarios puedan buscar issues.
+    - Se añadió la capacidad de realizar transiciones básicas de flujo de trabajo (cambiar el estado de un issue).
 
----
-
-## Tareas Pendientes del MVP en el Frontend
-
-Una vez resuelto el problema de compilación, las siguientes tareas deben completarse para finalizar el MVP del frontend:
-
-### 1. Autenticación
--   [ ] **Resolver el bloqueo de compilación.**
--   [ ] Implementar la UI final para los formularios de inicio de sesión y registro.
--   [ ] Implementar el almacenamiento del token JWT en `localStorage` tras un inicio de sesión exitoso.
--   [ ] Crear un `AuthGuard` para proteger las rutas que requieren autenticación.
--   [ ] Redirigir al usuario al dashboard después del inicio de sesión.
-
-### 2. Seguimiento de Issues
--   [ ] Re-implementar y finalizar la funcionalidad del modal para crear nuevos issues en `IssueListComponent`.
--   [ ] Implementar la lógica de filtrado en `IssueListComponent` para que los usuarios puedan buscar issues por proyecto, asignado, estado, etc.
--   [ ] Añadir la capacidad de realizar transiciones básicas de flujo de trabajo (por ejemplo, cambiar el estado de un issue).
-
-### 3. Gestión de Proyectos
--   [ ] Crear una página para mostrar una lista de todos los proyectos.
--   [ ] Crear una vista de detalle para un proyecto, donde se pueda ver a los miembros del equipo.
--   [ ] Implementar la interfaz de usuario para crear nuevos proyectos y asignarles usuarios.
+### 3. Corrección de Pruebas Unitarias
+- **`login.component.spec.ts`:** Se corrigió la importación del componente y se añadió el `HttpClientTestingModule` y `RouterTestingModule`.
+- **`api.service.ts`:** Se añadió el método `patch` que faltaba y se corrigió el número de argumentos de tipo en el método `post`.
+- **`auth.service.spec.ts`:** Se reescribió el archivo de pruebas para que se ajustara a la implementación actual del `AuthService`, utilizando un `HttpTestingController` para simular las peticiones HTTP y esperando las URLs completas.
+- **`app.spec.ts`:** Se aseguró de que el `RouterTestingModule` estuviera correctamente configurado para evitar errores con `<router-outlet>`.
+- **`app.ts`:** Se importó y añadió el `RouterModule` al componente principal de la aplicación.

@@ -9,18 +9,22 @@ import { WissensdatenbankComponent } from './pages/wissensdatenbank/wissensdaten
 import { ZeittabellenComponent } from './pages/zeittabellen/zeittabellen.component';
 import { GanttDiagrammeComponent } from './pages/gantt-diagramme/gantt-diagramme.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { LoginComponent } from './pages/login/login.component';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'dashboards' },
-  { path: 'tickets', component: TicketsComponent },
-  { path: 'dashboards', component: DashboardComponent },
-  { path: 'agile-boards', component: AgileBoardsComponent },
-  { path: 'berichte', component: BerichteComponent },
-  { path: 'projekte', component: ProjekteComponent },
-  { path: 'projekte/neu', component: ProjectFormComponent },
-  { path: 'wissensdatenbank', component: WissensdatenbankComponent },
-  { path: 'zeittabellen', component: ZeittabellenComponent },
-  { path: 'gantt-diagramme', component: GanttDiagrammeComponent },
+  { path: 'login', component: LoginComponent },
+  // { path: 'register', component: RegisterComponent },
+  { path: 'tickets', component: TicketsComponent, canActivate: [authGuard] },
+  { path: 'dashboards', component: DashboardComponent, canActivate: [authGuard] },
+  { path: 'agile-boards', component: AgileBoardsComponent, canActivate: [authGuard] },
+  { path: 'berichte', component: BerichteComponent, canActivate: [authGuard] },
+  { path: 'projekte', component: ProjekteComponent, canActivate: [authGuard] },
+  { path: 'projekte/neu', component: ProjectFormComponent, canActivate: [authGuard] },
+  { path: 'wissensdatenbank', component: WissensdatenbankComponent, canActivate: [authGuard] },
+  { path: 'zeittabellen', component: ZeittabellenComponent, canActivate: [authGuard] },
+  { path: 'gantt-diagramme', component: GanttDiagrammeComponent, canActivate: [authGuard] },
   { path: '404', component: NotFoundComponent },
   { path: '**', redirectTo: '/404' }
 ];

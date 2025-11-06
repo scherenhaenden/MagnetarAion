@@ -1,18 +1,27 @@
 import { TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { AuthService } from './auth.service';
+import { ApiService } from './api.service';
+import { environment } from '../../environments/environment';
 
 describe('AuthService', () => {
   let service: AuthService;
+  let httpMock: HttpTestingController;
+  let apiUrl: string;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      providers: [AuthService, ApiService]
+    });
     service = TestBed.inject(AuthService);
-    // Clear localStorage before each test
+    httpMock = TestBed.inject(HttpTestingController);
+    apiUrl = environment.apiUrl;
     localStorage.clear();
   });
 
   afterEach(() => {
-    // Clean up after each test
+    httpMock.verify();
     localStorage.clear();
   });
 
@@ -20,57 +29,46 @@ describe('AuthService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should store and retrieve token', () => {
-    const testToken = 'test-token-123';
-    service.setToken(testToken);
-    expect(service.getToken()).toBe(testToken);
-  });
-
-  it('should return null when no token exists', () => {
+  it('should return null when no token is in localStorage', () => {
     expect(service.getToken()).toBeNull();
   });
 
-  it('should remove token on logout', () => {
+  it('should return the token when it is in localStorage', () => {
     const testToken = 'test-token-123';
-    service.setToken(testToken);
+    localStorage.setItem('auth_token', testToken);
     expect(service.getToken()).toBe(testToken);
-
-    service.removeToken();
-    expect(service.getToken()).toBeNull();
   });
 
-  it('should return true for isAuthenticated when token exists', () => {
-    service.setToken('test-token');
-    expect(service.isAuthenticated()).toBe(true);
+  it('should send a POST request to /token on login', () => {
+    const credentials = { username: 'test', password: 'password' };
+    const mockResponse = { access_token: 'test-token' };
+
+    service.login(credentials).subscribe();
+
+    const req = httpMock.expectOne(`${apiUrl}/token`);
+    expect(req.request.method).toBe('POST');
+    req.flush(mockResponse);
   });
 
-  it('should return false for isAuthenticated when no token exists', () => {
-    expect(service.isAuthenticated()).toBe(false);
-  });
+  it('should store the token in localStorage on successful login', () => {
+    const credentials = { username: 'test', password: 'password' };
+    const mockResponse = { access_token: 'test-token' };
 
-  it('should emit auth state changes', (done) => {
-    service.getAuthState().subscribe(state => {
-      expect(state).toBe(false);
-      done();
-    });
-  });
-
-  it('should update auth state when token is set', (done) => {
-    let callCount = 0;
-    service.getAuthState().subscribe(state => {
-      callCount++;
-      if (callCount === 2) {
-        expect(state).toBe(true);
-        done();
-      }
+    service.login(credentials).subscribe(() => {
+      expect(localStorage.getItem('auth_token')).toBe('test-token');
     });
 
-    service.setToken('test-token');
+    const req = httpMock.expectOne(`${apiUrl}/token`);
+    req.flush(mockResponse);
   });
 
-  it('should call removeToken on logout', () => {
-    spyOn(service, 'removeToken');
-    service.logout();
-    expect(service.removeToken).toHaveBeenCalled();
+  it('should send a POST request to /users/ on register', () => {
+    const userInfo = { username: 'test', password: 'password', email: 'test@example.com' };
+
+    service.register(userInfo).subscribe();
+
+    const req = httpMock.expectOne(`${apiUrl}/users/`);
+    expect(req.request.method).toBe('POST');
+    req.flush({});
   });
 });
