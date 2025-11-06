@@ -10,15 +10,15 @@ import { Issue } from '../../models/issue.model';
   templateUrl: './issue-list.component.html',
   styleUrls: ['./issue-list.component.scss']
 })
+export class IssueListComponent implements OnInit {
   issues: Issue[] = [];
-  issues: any[] = [];
 
   constructor(private apiService: ApiService) { }
 
   /**
    * Initializes the component by fetching issues from the API.
    */
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.apiService.get<Issue[]>('/issues/').subscribe((data: Issue[]) => {
       this.issues = data;
     });

@@ -20,7 +20,7 @@ export class AuthService {
    * Get the current authentication token
    * @returns The authentication token or null if not authenticated
    */
-  getToken(): string | null {
+  public getToken(): string | null {
     return localStorage.getItem(this.TOKEN_KEY);
   }
 
@@ -28,7 +28,7 @@ export class AuthService {
    * Set the authentication token
    * @param token - The authentication token to store
    */
-  setToken(token: string): void {
+  public setToken(token: string): void {
     localStorage.setItem(this.TOKEN_KEY, token);
     this.authState$.next(true);
   }
@@ -36,7 +36,7 @@ export class AuthService {
   /**
    * Remove the authentication token (logout)
    */
-  removeToken(): void {
+  public removeToken(): void {
     localStorage.removeItem(this.TOKEN_KEY);
     this.authState$.next(false);
   }
@@ -45,7 +45,7 @@ export class AuthService {
    * Check if user is authenticated
    * @returns true if token exists, false otherwise
    */
-  isAuthenticated(): boolean {
+  public isAuthenticated(): boolean {
     return this.hasToken();
   }
 
@@ -53,7 +53,7 @@ export class AuthService {
    * Get authentication state as observable
    * @returns Observable of authentication state
    */
-  getAuthState(): Observable<boolean> {
+  public getAuthState(): Observable<boolean> {
     return this.authState$.asObservable();
   }
 
@@ -69,7 +69,7 @@ export class AuthService {
    * @param username - User's username
    * @param password - User's password
    */
-  login(username: string, password: string): Observable<any> {
+  public login(username: string, password: string): Observable<any> {
     // TODO: Implement actual login logic with API call
     throw new Error('Login not yet implemented');
   }
@@ -77,7 +77,7 @@ export class AuthService {
   /**
    * Logout user
    */
-  logout(): void {
+  public logout(): void {
     this.removeToken();
   }
 }
@@ -99,4 +99,3 @@ export interface Issue {
   project_id?: number;
   [key: string]: any; // Allow additional properties
 }
-
