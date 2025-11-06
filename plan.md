@@ -15,9 +15,9 @@ This document tracks the status of the MagnetarAion project, from the initial MV
 | Core Fields (Title, Description, etc.) | In Progress | In Progress |
 | Activity/Comments and History | In Progress | In Progress |
 | **Search/Filtering** |
-| Basic Filtering (Project, Assignee, State, Type) | Next Up | Next Up |
+| Basic Filtering (Project, Assignee, State, Type) | Not Started | Not Started |
 | **Workflow** |
-| Basic State Transitions | Next Up | Next Up |
+| Basic State Transitions | Not Started | Not Started |
 | **API** |
 | Basic REST API for CRUD | In Progress | N/A |
 | **CI/CD** |
@@ -28,7 +28,7 @@ This document tracks the status of the MagnetarAion project, from the initial MV
 | Feature | Backend Status | Frontend Status |
 | :--- | :--- | :--- |
 | **Agile Boards** |
-| Basic Kanban Board | Next Up | Next Up |
+| Basic Kanban Board | Not Started | Not Started |
 | **Issue Management** |
 | Basic Custom Fields (enum, text, date) | Not Started | Not Started |
 | **Collaboration** |
