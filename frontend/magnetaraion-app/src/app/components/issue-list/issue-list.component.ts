@@ -33,7 +33,7 @@ export class IssueListComponent implements OnInit {
 
   fetchIssues(): void {
     const filters = this.filterForm.value;
-    this.apiService.get<Issue[], typeof filters>('/issues/', filters).subscribe((data: Issue[]) => {
+    this.apiService.get<Issue[]>('/issues/', filters).subscribe((data: Issue[]) => {
       this.issues = data;
     });
   }
