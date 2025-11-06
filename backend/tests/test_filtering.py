@@ -29,6 +29,7 @@ client = TestClient(app)
 @pytest.fixture(scope="module")
 def test_data():
     # Create users
+    """Fixture to create test users, projects, and issues."""
     user1_data = {"username": "user1", "email": "user1@example.com", "password": "password"}
     user2_data = {"username": "user2", "email": "user2@example.com", "password": "password"}
     client.post("/api/users/", json=user1_data)
@@ -50,6 +51,7 @@ def test_data():
     client.post("/api/projects/2/issues/", json=issue3_data)
 
 def test_read_issues_no_filters(test_data):
+    """Test reading issues without filters."""
     response = client.get("/api/issues/")
     assert response.status_code == 200
     assert len(response.json()) == 3
@@ -69,6 +71,7 @@ def test_read_issues_filter_by_assignee_id(test_data):
     assert all(item['assignee_id'] == 1 for item in data)
 
 def test_read_issues_filter_by_status(test_data):
+    """Test the API issues endpoint for filtering by status."""
     response = client.get("/api/issues/?status=Open")
     assert response.status_code == 200
     data = response.json()
@@ -83,6 +86,7 @@ def test_read_issues_filter_by_priority(test_data):
     assert data[0]['priority'] == "High"
 
 def test_read_issues_filter_by_project_id_and_status(test_data):
+    """Test reading issues filtered by project ID and status."""
     response = client.get("/api/issues/?project_id=1&status=In%20Progress")
     assert response.status_code == 200
     data = response.json()
