@@ -16,7 +16,7 @@ export class ConfigService {
 
   constructor(private http: HttpClient) {}
 
-  loadConfig(): Observable<Config> {
+  public loadConfig(): Observable<Config> {
     if (!this.config$) {
       this.config$ = this.http.get<Config>('./assets/config.json').pipe(
         tap(config => this.config = config),
@@ -30,7 +30,7 @@ export class ConfigService {
     return this.config$;
   }
 
-  get apiUrl(): string {
+  public get apiUrl(): string {
     return this.config?.apiUrl || 'http://localhost:8000/api';
   }
 }
