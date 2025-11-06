@@ -16,6 +16,16 @@ This document outlines the technical architecture and stack for the MagnetarAion
 - **API-first:** The system will be designed with an API-first approach, using the OpenAPI specification for documentation.
 - **Authentication:** Authentication will be handled using JWT or OAuth2.
 
+### 2.1. Frontend Architecture
+
+The Angular frontend follows a modern, scalable architecture based on standalone components and a centralized service layer for API communication.
+
+-   **Generic ApiService:** A centralized `ApiService` (`src/app/services/api.service.ts`) provides a single, reusable interface for all backend HTTP requests (GET, POST, PUT, DELETE). It is strongly typed and handles the construction of requests, including base URL, headers, and parameters, while also providing a generic error handling pipeline.
+
+-   **HTTP Interceptors:** To keep the `ApiService` and component logic clean, request and response manipulations are handled globally using functional HTTP interceptors:
+    -   **`HttpTokenInterceptor`:** Automatically attaches the user's JWT authentication token (from `localStorage`) to the `Authorization` header of all outgoing requests. This decouples authentication logic from individual service calls.
+    -   **`HttpErrorInterceptor`:** Provides centralized error handling for all HTTP responses. It catches client-side and server-side errors, logs them to the console, and returns a user-friendly error message, preventing code duplication in components.
+
 ## 3. Infrastructure and Deployment
 
 - **Development Environment:** Docker Compose will be used to orchestrate the development environment.
