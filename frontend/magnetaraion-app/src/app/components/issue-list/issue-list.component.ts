@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../services/api.service';
+import { Issue } from '../../models/issue.model';
 
 @Component({
   selector: 'app-issue-list',
@@ -9,7 +10,7 @@ import { ApiService } from '../../services/api.service';
   templateUrl: './issue-list.component.html',
   styleUrls: ['./issue-list.component.scss']
 })
-export class IssueListComponent implements OnInit {
+  issues: Issue[] = [];
   issues: any[] = [];
 
   constructor(private apiService: ApiService) { }
