@@ -37,7 +37,7 @@ export class ProjectService {
   constructor(private apiService: ApiService) { }
 
   /**
-   * Retrieves a list of projects and processes their data.
+   * Retrieves a list of projects and processes their data into a structured format.
    */
   public getProjects(): Observable<Project[]> {
     return this.apiService.get<ProjectApi[]>(this.projectsUrl).pipe(

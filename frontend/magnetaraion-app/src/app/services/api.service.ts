@@ -25,8 +25,6 @@ export class ApiService {
   constructor(private http: HttpClient) {}
 
   /**
-   * **POST Request**
-   *
    * Sends an HTTP POST request to the specified URL with the given body.
    *
    * @typeParam T - Expected response type.
@@ -52,8 +50,6 @@ export class ApiService {
   }
 
   /**
-   * **PUT Request**
-   *
    * Sends an HTTP PUT request to the specified URL with the given body.
    *
    * @typeParam T - Expected response type.
@@ -79,10 +75,7 @@ export class ApiService {
   }
 
   /**
-   * **DELETE Request**
-   *
    * Sends an HTTP DELETE request to the specified URL.
-   *
    * @typeParam T - Expected response type.
    * @param url - Endpoint URL (appended to the base URL).
    * @param httpHeaders - Optional HTTP headers.
@@ -103,10 +96,7 @@ export class ApiService {
   }
 
   /**
-   * **GET Request**
-   *
    * Sends an HTTP GET request to the specified URL.
-   *
    * @typeParam T - Expected response type.
    * @param url - Endpoint URL (appended to the base URL).
    * @param httpParamsOrModel - Optional HTTP parameters or an object to be converted to parameters.
@@ -127,12 +117,14 @@ export class ApiService {
   }
 
   /**
-   * **Build HTTP Parameters**
+   * Builds HTTP parameters from an object or returns the existing HttpParams instance.
    *
-   * Converts an object to HttpParams or returns the existing HttpParams instance.
+   * This function checks if the provided `paramsOrModel` is an instance of HttpParams.
+   * If it is, it returns that instance directly. If `paramsOrModel` is an object,
+   * it converts it into an HttpParams instance using the fromObject method.
+   * If neither condition is met, it returns undefined.
    *
    * @param paramsOrModel - An object or HttpParams instance.
-   * @returns An instance of HttpParams or `undefined`.
    */
   private buildHttpParams(
     paramsOrModel?: HttpParams | Record<string, any>
