@@ -17,8 +17,7 @@ export class AuthService {
   constructor() {}
 
   /**
-   * Get the current authentication token
-   * @returns The authentication token or null if not authenticated
+   * Retrieves the current authentication token from local storage.
    */
   public getToken(): string | null {
     return localStorage.getItem(this.TOKEN_KEY);
@@ -34,7 +33,7 @@ export class AuthService {
   }
 
   /**
-   * Remove the authentication token (logout)
+   * Remove the authentication token and update the authentication state.
    */
   public removeToken(): void {
     localStorage.removeItem(this.TOKEN_KEY);
@@ -42,23 +41,21 @@ export class AuthService {
   }
 
   /**
-   * Check if user is authenticated
-   * @returns true if token exists, false otherwise
+   * Checks if the user is authenticated based on the presence of a token.
    */
   public isAuthenticated(): boolean {
     return this.hasToken();
   }
 
   /**
-   * Get authentication state as observable
-   * @returns Observable of authentication state
+   * Get authentication state as observable.
    */
   public getAuthState(): Observable<boolean> {
     return this.authState$.asObservable();
   }
 
   /**
-   * Private helper to check if token exists
+   * Checks if a token exists.
    */
   private hasToken(): boolean {
     return !!this.getToken();
@@ -75,7 +72,7 @@ export class AuthService {
   }
 
   /**
-   * Logout user
+   * Logs out the user by removing the authentication token.
    */
   public logout(): void {
     this.removeToken();
