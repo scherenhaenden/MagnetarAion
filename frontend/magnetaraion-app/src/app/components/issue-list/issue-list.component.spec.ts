@@ -13,8 +13,8 @@ describe('IssueListComponent', () => {
   let apiService: ApiService;
 
   const mockIssues: Issue[] = [
-    { id: 1, title: 'Issue 1', description: '', status: 'Open', priority: 'High', project_id: 1, created_at: new Date(), updated_at: new Date() },
-    { id: 2, title: 'Issue 2', description: '', status: 'In Progress', priority: 'Medium', project_id: 1, created_at: new Date(), updated_at: new Date() },
+    { id: 1, title: 'Issue 1', description: '', status: 'Open', priority: 'High', project_id: 1, created_at: new Date().toISOString(), updated_at: new Date().toISOString() },
+    { id: 2, title: 'Issue 2', description: '', status: 'In Progress', priority: 'Medium', project_id: 1, created_at: new Date().toISOString(), updated_at: new Date().toISOString() },
   ];
 
   beforeEach(async () => {
