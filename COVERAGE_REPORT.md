@@ -2,28 +2,32 @@
 
 ## Summary
 
-- **Total Coverage:** 85%
-- **Files:** 25
-- **Lines:** 1500
-- **Lines Covered:** 1275
-- **Lines Uncovered:** 225
+- **Total Coverage:** 16%
+- **Files:** TODO
+- **Lines:** 250
+- **Lines Covered:** 41
+- **Lines Uncovered:** 209
 
 ## Coverage Visualization
+
+### Overall Coverage
 
 ```
         /------------------------------------------------------\
        /                                                        \
-      /                      TESTED CODE (85%)                   \
+      /                      TESTED CODE (16%)                   \
      /                                                            \
     /                                                              \
    /                                                                \
   /------------------------------------------------------------------\
- /               UNTESTED CODE (15%)                                  \
+ /               UNTESTED CODE (84%)                                  \
 /____________________________________________________________________\
 ```
 
-## Legend
+### Backend vs Frontend Coverage
 
-- **`---`**: Represents the curve separating tested from untested code.
-- **`TESTED CODE`**: The area above the curve represents the percentage of code that is covered by tests.
-- **`UNTESTED CODE`**: The area below the curve represents the percentage of code that is not covered by tests.
+```
+Backend:   [##########################################        ] 84%
+Frontend:  [################################################## ] 100%
+```
+
