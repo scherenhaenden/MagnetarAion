@@ -6,7 +6,7 @@ export const httpTokenInterceptor: HttpInterceptorFn = (
   next: HttpHandlerFn
 ): Observable<HttpEvent<unknown>> => {
   // Get the token from local storage or an authentication service
-  const token = localStorage.getItem('authToken');
+  const token = inject(AuthService).getToken();
 
   if (token) {
     // Clone the request to add the new header.
