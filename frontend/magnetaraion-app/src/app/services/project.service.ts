@@ -39,7 +39,7 @@ export class ProjectService {
   /**
    * Retrieves a list of projects and processes their data.
    */
-  getProjects(): Observable<Project[]> {
+  public getProjects(): Observable<Project[]> {
     return this.apiService.get<ProjectApi[], never>(this.projectsUrl).pipe(
       map(projects => projects.map(p => {
         const progress = this.calculateProgress(p.issues);
@@ -80,10 +80,10 @@ export class ProjectService {
     return statusMap[status] || 'open';
   }
 
-  /**
+ /**
    * Creates a new project.
    */
-  createProject(project: ProjectCreate): Observable<Project> {
+  public createProject(project: ProjectCreate): Observable<Project> {
     return this.apiService.post<Project, ProjectCreate>(this.projectsUrl, project);
   }
 }
