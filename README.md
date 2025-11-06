@@ -16,13 +16,13 @@ This table provides a high-level overview of the implementation status of Magnet
 | **Core Issue Management** | | |
 | Issue Model (Core Fields) | In Progress | Create, view, and edit issues with core fields (Title, Description, Assignee, Reporter, Priority, State, Type). |
 | Issue Model (Custom Fields) | Not Started | Basic custom fields (enum/text/date) planned for M1. |
-| Search (Basic Filters) | Not Started | Basic filtering by Project, Assignee, State, and Type. |
+| Search (Basic Filters) | Next Up | Basic filtering by Project, Assignee, State, and Type. |
 | Search (Advanced Query DSL) | Not Started | A more powerful query language is planned for M1. |
 | Collaboration (Comments) | In Progress | Users can comment on issues and view a history of changes. |
 | Collaboration (@mentions) | Not Started | @mentions and in-app notifications are planned for M1. |
 | Time Tracking | Not Started | Basic time tracking (work items) is planned for M1. |
 | **Agile Frameworks** |
-| Agile Boards (Kanban) | Not Started | A basic Kanban board is planned for M1. |
+| Agile Boards (Kanban) | Next Up | A basic Kanban board is planned for M1. |
 | Agile Boards (Scrum) | Not Started | Scrum boards with sprints and burndown charts are planned for M2. |
 | Gantt Charts | Not Started | A static Gantt chart report is planned for M1, with an interactive version in M2. |
 | **Knowledge Base** |
