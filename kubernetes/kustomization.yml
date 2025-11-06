@@ -6,6 +6,6 @@ resources:
   - frontend-deployment.yml
   - frontend-service.yml
   - ingress.yml
-  - postgres.yml
+  - postgres-statefulset.yml
   - secrets.yml
   - configmap.yml
