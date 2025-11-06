@@ -1,4 +1,13 @@
 <h2>Ticketliste</h2>
+
+<form [formGroup]="filterForm" (ngSubmit)="onFilter()">
+  <input type="text" formControlName="project_id" placeholder="Project ID">
+  <input type="text" formControlName="assignee_id" placeholder="Assignee ID">
+  <input type="text" formControlName="status" placeholder="Status">
+  <input type="text" formControlName="priority" placeholder="Priority">
+  <button type="submit">Filter</button>
+</form>
+
 <ul>
   <li *ngFor="let issue of issues">
     {{ issue.title }}
