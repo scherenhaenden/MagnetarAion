@@ -37,7 +37,7 @@ export class ProjectService {
   constructor(private apiService: ApiService) { }
 
   getProjects(): Observable<Project[]> {
-    return this.apiService.get<ProjectApi[], any>(this.projectsUrl).pipe(
+    return this.apiService.get<ProjectApi[], never>(this.projectsUrl).pipe(
       map(projects => projects.map(p => {
         const progress = this.calculateProgress(p.issues);
         const status = this.getProjectStatus(p.issues);
