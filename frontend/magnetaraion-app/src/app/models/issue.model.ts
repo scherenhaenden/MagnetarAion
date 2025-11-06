@@ -16,4 +16,3 @@ export interface Issue {
   project_id?: number;
   [key: string]: any; // Allow additional properties
 }
-

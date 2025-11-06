@@ -74,4 +74,3 @@ describe('AuthService', () => {
     expect(service.removeToken).toHaveBeenCalled();
   });
 });
-
