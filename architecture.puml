@@ -1,23 +1,29 @@
 @startuml
 !theme plain
-skinparam componentStyle uml2
-skinparam linetype ortho
 
 title Frontend API Service and Interceptors
 
-[Angular Component] as Component
-[ApiService] as Service
-[HttpTokenInterceptor] as TokenInterceptor
-[HttpErrorInterceptor] as ErrorInterceptor
-[HttpClient] as Client
+participant "Angular Component" as Component
+participant "ApiService" as Service
+participant "HttpClient" as Client
+participant "HttpTokenInterceptor" as TokenInterceptor
+participant "HttpErrorInterceptor" as ErrorInterceptor
+participant "Backend" as Backend
 
 Component -> Service : Makes API Call
 Service -> Client : Sends HTTP Request
-Client -> TokenInterceptor : Intercepts Request
-TokenInterceptor -> Client : Adds Auth Token
-Client -> ErrorInterceptor : Intercepts Response
-ErrorInterceptor -> Client : Handles Errors
-Client -> Service : Returns Observable
-Service -> Component : Returns Observable
+
+group HTTP Request Interception
+  Client -> TokenInterceptor : 1. Adds Auth Token
+  TokenInterceptor -> Backend : HTTP Request with Token
+end
+
+group HTTP Response Interception
+  Backend --> ErrorInterceptor : HTTP Response
+  ErrorInterceptor --> Client : 2. Handles Errors
+end
+
+Client --> Service : Returns Observable
+Service --> Component : Returns Observable
 
 @enduml
