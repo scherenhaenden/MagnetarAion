@@ -13,6 +13,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { authGuard } from './guards/auth.guard';
 import { setupGuard } from './guards/setup.guard';
 import { SetupComponent } from './pages/setup/setup.component';
+import { SettingsComponent } from './pages/settings/settings.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
@@ -28,6 +29,7 @@ export const routes: Routes = [
   { path: 'wissensdatenbank', component: WissensdatenbankComponent, canActivate: [authGuard] },
   { path: 'zeittabellen', component: ZeittabellenComponent, canActivate: [authGuard] },
   { path: 'gantt-diagramme', component: GanttDiagrammeComponent, canActivate: [authGuard] },
+  { path: 'settings', component: SettingsComponent, canActivate: [authGuard] },
   { path: '404', component: NotFoundComponent },
   { path: '**', redirectTo: '/404' }
 ];

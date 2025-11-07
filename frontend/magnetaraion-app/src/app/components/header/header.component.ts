@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { ThemeService } from '../../services/theme.service';
 import { Icon } from '../icon/icon';
 
 type NavIcon =
@@ -38,9 +37,7 @@ type QuickAction = {
   templateUrl: './header.html',
   styleUrls: ['./header.scss']
 })
-export class HeaderComponent implements OnInit {
-
-  public currentTheme: 'light' | 'dark' = 'light';
+export class HeaderComponent {
 
   public readonly navItems: NavItem[] = [
     { id: 'tickets', label: 'Tickets', icon: 'tickets', path: '/tickets' },
@@ -55,7 +52,7 @@ export class HeaderComponent implements OnInit {
 
   public readonly quickActions: QuickAction[] = [
     { id: 'create', label: 'Erstellen', icon: 'plus', path: '/tickets' },
-    { id: 'administration', label: 'Administration', icon: 'settings' },
+    { id: 'administration', label: 'Administration', icon: 'settings', path: '/settings' },
     { id: 'help', label: 'Hilfe', icon: 'help' },
     { id: 'notifications', label: 'Benachrichtigungen', icon: 'notifications' },
     { id: 'profile', label: 'AD admin', icon: 'profile' },
@@ -65,24 +62,9 @@ export class HeaderComponent implements OnInit {
   public isQuickActionsOpen = false;
 
   public constructor(
-    private readonly themeService: ThemeService,
     private readonly router: Router,
     private readonly hostElement: ElementRef<HTMLElement>
   ) {}
-
-  /**
-   * Initializes the component by loading the current theme.
-   */
-  public ngOnInit(): void {
-    this.currentTheme = this.themeService.loadTheme();
-  }
-
-  /**
-   * Toggles the current theme using the theme service.
-   */
-  public toggleTheme(): void {
-    this.currentTheme = this.themeService.toggleTheme();
-  }
 
   /**
    * Toggles the state of quick actions on mouse event.
