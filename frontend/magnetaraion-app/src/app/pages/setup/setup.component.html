@@ -1,0 +1,22 @@
+<div class="setup-container">
+  <h2>Initial Setup</h2>
+  <p>Create the first administrator account to get started.</p>
+  <form [formGroup]="setupForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" id="username" formControlName="username">
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" formControlName="email">
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" formControlName="password">
+    </div>
+    <button type="submit" [disabled]="setupForm.invalid">Create Account</button>
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+  </form>
+</div>

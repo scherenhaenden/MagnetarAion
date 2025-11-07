@@ -68,3 +68,6 @@ class Token(BaseModel):
 
 class TokenData(BaseModel):
     username: Optional[str] = None
+
+class SetupCheck(BaseModel):
+    setup_needed: bool

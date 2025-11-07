@@ -26,6 +26,12 @@ def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     users = db.query(models.User).offset(skip).limit(limit).all()
     return users
 
+@router.get("/setup_check", response_model=schemas.SetupCheck)
+def setup_check(db: Session = Depends(get_db)):
+    """Check if any users exist in the database."""
+    user = db.query(models.User).first()
+    return {"setup_needed": user is None}
+
 @router.post("/token", response_model=schemas.Token)
 def login_for_access_token(db: Session = Depends(get_db), form_data: OAuth2PasswordRequestForm = Depends()):
     user = db.query(models.User).filter(models.User.username == form_data.username).first()

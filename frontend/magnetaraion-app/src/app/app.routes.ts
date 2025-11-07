@@ -11,10 +11,13 @@ import { GanttDiagrammeComponent } from './pages/gantt-diagramme/gantt-diagramme
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { LoginComponent } from './pages/login/login.component';
 import { authGuard } from './guards/auth.guard';
+import { setupGuard } from './guards/setup.guard';
+import { SetupComponent } from './pages/setup/setup.component';
 
 export const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'dashboards' },
-  { path: 'login', component: LoginComponent },
+  { path: '', pathMatch: 'full', redirectTo: 'login' },
+  { path: 'login', component: LoginComponent, canActivate: [setupGuard] },
+  { path: 'setup', component: SetupComponent },
   // { path: 'register', component: RegisterComponent },
   { path: 'tickets', component: TicketsComponent, canActivate: [authGuard] },
   { path: 'dashboards', component: DashboardComponent, canActivate: [authGuard] },

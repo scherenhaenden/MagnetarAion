@@ -24,4 +24,8 @@ export class AuthService {
   getToken(): string | null {
     return localStorage.getItem('auth_token');
   }
+
+  checkSetupNeeded(): Observable<{setup_needed: boolean}> {
+    return this.apiService.get('/setup_check');
+  }
 }
