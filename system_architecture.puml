@@ -1,0 +1,82 @@
+@startuml
+!theme spacelab
+
+title MagnetarAion - System Architecture & API Endpoints
+
+' High-level components
+component "Angular Frontend" as FE
+component "FastAPI Backend" as BE
+database "PostgreSQL DB" as DB
+
+' Relationships
+FE -> BE : REST API (HTTPS)
+BE -> DB : SQLAlchemy ORM
+
+package "Frontend (Angular)" {
+  component "UI Components" as FE_UI
+  component "ApiService" as FE_ApiService
+  component "AuthService" as FE_AuthService
+  component "HttpInterceptors" as FE_Interceptors
+
+  FE_UI --> FE_ApiService : Makes API calls
+  FE_UI --> FE_AuthService : Handles user authentication
+  FE_ApiService --> FE_Interceptors : Request/Response handling
+}
+
+package "Backend (FastAPI)" {
+  component "API Routers" as BE_Routers
+  component "Business Logic / Services" as BE_Services
+  component "SQLAlchemy Models" as BE_Models
+  component "Pydantic Schemas" as BE_Schemas
+
+  BE_Routers -> BE_Services : Handles requests
+  BE_Services -> BE_Models : Interacts with DB
+  BE_Routers -> BE_Schemas : Data validation
+  BE_Services -> BE_Schemas : Data validation
+}
+
+package "API Endpoints" {
+  note "All endpoints are prefixed with /api" as N1
+
+  package "Users API (/users)" {
+    "/users/" : GET - List all users
+    "/users/" : POST - Create a new user
+    "/users/{user_id}" : GET - Get user details
+    "/users/{user_id}" : PUT - Update user details
+    "/users/{user_id}" : DELETE - Delete a user
+  }
+
+  package "Projects API (/projects)" {
+    "/projects/" : GET - List all projects
+    "/projects/" : POST - Create a new project
+    "/projects/{project_id}" : GET - Get project details
+    "/projects/{project_id}" : PUT - Update project details
+    "/projects/{project_id}" : DELETE - Delete a project
+  }
+
+  package "Issues API (/issues)" {
+    "/issues/" : GET - List all issues
+    "/issues/" : POST - Create a new issue
+    "/issues/{issue_id}" : GET - Get issue details
+    "/issues/{issue_id}" : PUT - Update issue details
+    "/issues/{issue_id}" : DELETE - Delete an issue
+  }
+
+  package "Roles API (/roles)" {
+    "/roles/" : GET - List all roles
+    "/roles/" : POST - Create a new role
+    "/roles/{role_id}" : GET - Get role details
+    "/roles/{role_id}" : PUT - Update role details
+    "/roles/{role_id}" : DELETE - Delete a role
+  }
+
+  package "Authentication API (/auth)" {
+    "/auth/token" : POST - Get JWT token
+  }
+}
+
+' Connect components to API endpoints
+FE_ApiService -[hidden]-> BE_Routers
+BE_Routers -[hidden]-> "API Endpoints"
+
+@enduml

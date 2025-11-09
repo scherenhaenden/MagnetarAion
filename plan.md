@@ -7,21 +7,21 @@ This document tracks the status of the MagnetarAion project, from the initial MV
 | Feature | Backend Status | Frontend Status |
 | :--- | :--- | :--- |
 | **Users and Projects** | | |
-| User Registration/Login | In Progress (50%) | Not Started (0%) |
-| Role Management (Admin, Developer, Reporter) | In Progress (40%)| Not Started (0%) |
-| Project Creation and Team Assignment | In Progress (30%)| Not Started (0%) |
+| User Registration/Login | In Progress (80%) | In Progress (50%) |
+| Role Management (Admin, Developer, Reporter) | In Progress (70%)| In Progress (40%) |
+| Project Creation and Team Assignment | In Progress (60%)| In Progress (30%) |
 | **Issues (Tickets)** |
-| CRUD Operations | In Progress (60%)| In Progress (30%) |
-| Core Fields (Title, Description, etc.) | In Progress (60%)| In Progress (30%) |
-| Activity/Comments and History | In Progress (50%)| In Progress (20%) |
+| CRUD Operations | In Progress (90%)| In Progress (60%) |
+| Core Fields (Title, Description, etc.) | In Progress (90%)| In Progress (60%) |
+| Activity/Comments and History | In Progress (70%)| In Progress (40%) |
 | **Search/Filtering** |
-| Basic Filtering (Project, Assignee, State, Type) | Not Started (0%) | Not Started (0%) |
+| Basic Filtering (Project, Assignee, State, Type) | In Progress (30%) | In Progress (20%) |
 | **Workflow** |
-| Basic State Transitions | Not Started (0%) | Not Started (0%) |
+| Basic State Transitions | In Progress (40%) | In Progress (20%) |
 | **API** |
-| Basic REST API for CRUD | In Progress (60%)| N/A |
+| Basic REST API for CRUD | In Progress (90%)| N/A |
 | **CI/CD** |
-| CI Pipeline (GitHub Actions) | In Progress (75%)| In Progress (75%)|
+| CI Pipeline (GitHub Actions) | In Progress (90%)| In Progress (90%)|
 
 ## M1 Milestone (Sprints 4-7)
 
