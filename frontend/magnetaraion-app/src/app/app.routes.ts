@@ -18,6 +18,8 @@ import { SettingsComponent } from './pages/settings/settings.component';
 export const routes: Routes = [
   { path: '', redirectTo: 'dashboards', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
+  { path: 'forgot-password', loadComponent: () => import('./pages/forgot-password/forgot-password.component').then(m => m.ForgotPasswordComponent) },
+  { path: 'reset-password', loadComponent: () => import('./pages/reset-password/reset-password.component').then(m => m.ResetPasswordComponent) },
   { path: 'setup', component: SetupComponent, canActivate: [setupGuard] },
   { path: 'dashboards', component: DashboardComponent, canActivate: [authGuard] },
   { path: 'tickets', component: TicketsComponent, canActivate: [authGuard] },

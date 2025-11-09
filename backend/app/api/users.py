@@ -5,6 +5,7 @@ from ..models import models
 from .. import schemas
 from ..dependencies import get_db, get_current_user
 from ..core.security import get_password_hash, create_access_token, verify_password
+from ..core.mail import send_password_reset_email
 from datetime import datetime, timedelta
 import secrets
 
@@ -78,9 +79,10 @@ def request_password_reset(request: schemas.PasswordResetRequest, db: Session = 
     db.add(reset_token)
     db.commit()
 
-    # In a real app, you would email this token to the user
-    # For this example, we'll return it in the response
-    return {"msg": "Password reset token created successfully.", "token": token}
+    # Send the password reset email
+    send_password_reset_email(email=user.email, token=token)
+
+    return {"msg": "If a user with that email exists, a password reset link has been sent."}
 
 
 @router.post("/password-reset")
