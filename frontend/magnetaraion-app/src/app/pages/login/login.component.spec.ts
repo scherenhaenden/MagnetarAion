@@ -21,4 +21,11 @@ describe('LoginComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should have a link to the forgot password page', () => {
+    const fixture = TestBed.createComponent(LoginComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement;
+    expect(compiled.querySelector('a[routerLink="/forgot-password"]').textContent).toContain('Forgot Password?');
+  });
 });

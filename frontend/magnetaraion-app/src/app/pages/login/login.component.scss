@@ -144,6 +144,8 @@
 .forgot-password-link {
   margin-top: 1rem;
   text-align: center;
+  position: relative;
+  z-index: 1;
 }
 
 @media (max-width: 640px) {
