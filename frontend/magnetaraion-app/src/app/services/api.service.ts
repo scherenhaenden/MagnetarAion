@@ -39,7 +39,7 @@ export class ApiService {
     url: string,
     body: U,
     httpHeaders?: HttpHeaders,
-    httpParamsOrModel?: HttpParams | Record<string, any>
+    httpParamsOrModel?: HttpParams | Record<string, unknown>
   ): Observable<T> {
     const headers = httpHeaders || this.defaultHeaders;
     const params = this.buildHttpParams(httpParamsOrModel);
@@ -64,7 +64,7 @@ export class ApiService {
     url: string,
     body: U,
     httpHeaders?: HttpHeaders,
-    httpParamsOrModel?: HttpParams | Record<string, any>
+    httpParamsOrModel?: HttpParams | Record<string, unknown>
   ): Observable<T> {
     const headers = httpHeaders || this.defaultHeaders;
     const params = this.buildHttpParams(httpParamsOrModel);
@@ -72,6 +72,31 @@ export class ApiService {
     const fullUrl = this.apiUrl + url;
 
     return this.http.put<T>(fullUrl, body, options);
+  }
+
+  /**
+   * Sends an HTTP PATCH request to the specified URL with the given body.
+   *
+   * @typeParam T - Expected response type.
+   * @typeParam U - Type of the request payload.
+   * @param url - Endpoint URL (appended to the base URL).
+   * @param body - Request payload.
+   * @param httpHeaders - Optional HTTP headers.
+   * @param httpParamsOrModel - Optional HTTP parameters or an object to be converted to parameters.
+   * @returns An Observable of type `T`.
+   */
+  public patch<T, U>(
+    url: string,
+    body: U,
+    httpHeaders?: HttpHeaders,
+    httpParamsOrModel?: HttpParams | Record<string, unknown>
+  ): Observable<T> {
+    const headers = httpHeaders || this.defaultHeaders;
+    const params = this.buildHttpParams(httpParamsOrModel);
+    const options = { headers, params };
+    const fullUrl = this.apiUrl + url;
+
+    return this.http.patch<T>(fullUrl, body, options);
   }
 
   /**
@@ -85,7 +110,7 @@ export class ApiService {
   public delete<T>(
     url: string,
     httpHeaders?: HttpHeaders,
-    httpParamsOrModel?: HttpParams | Record<string, any>
+    httpParamsOrModel?: HttpParams | Record<string, unknown>
   ): Observable<T> {
     const headers = httpHeaders || this.defaultHeaders;
     const params = this.buildHttpParams(httpParamsOrModel);
@@ -105,7 +130,7 @@ export class ApiService {
    */
   public get<T>(
     url: string,
-    httpParamsOrModel?: HttpParams | Record<string, any>,
+    httpParamsOrModel?: HttpParams | Record<string, unknown>,
     httpHeaders?: HttpHeaders
   ): Observable<T> {
     const headers = httpHeaders || this.defaultHeaders;
@@ -127,14 +152,14 @@ export class ApiService {
    * @param paramsOrModel - An object or HttpParams instance.
    */
   private buildHttpParams(
-    paramsOrModel?: HttpParams | Record<string, any>
+    paramsOrModel?: HttpParams | Record<string, unknown>
   ): HttpParams | undefined {
     if (paramsOrModel instanceof HttpParams) {
       // Parameters are already an instance of HttpParams.
       return paramsOrModel;
     } else if (paramsOrModel && typeof paramsOrModel === 'object') {
       // Convert the object to HttpParams.
-      return new HttpParams({ fromObject: paramsOrModel });
+      return new HttpParams({ fromObject: paramsOrModel as Record<string, string> });
     }
     return undefined;
   }

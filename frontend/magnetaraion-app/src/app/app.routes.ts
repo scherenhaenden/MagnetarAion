@@ -9,18 +9,28 @@ import { WissensdatenbankComponent } from './pages/wissensdatenbank/wissensdaten
 import { ZeittabellenComponent } from './pages/zeittabellen/zeittabellen.component';
 import { GanttDiagrammeComponent } from './pages/gantt-diagramme/gantt-diagramme.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { LoginComponent } from './pages/login/login.component';
+import { authGuard } from './guards/auth.guard';
+import { setupGuard } from './guards/setup.guard';
+import { SetupComponent } from './pages/setup/setup.component';
+import { SettingsComponent } from './pages/settings/settings.component';
 
 export const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'dashboards' },
-  { path: 'tickets', component: TicketsComponent },
-  { path: 'dashboards', component: DashboardComponent },
-  { path: 'agile-boards', component: AgileBoardsComponent },
-  { path: 'berichte', component: BerichteComponent },
-  { path: 'projekte', component: ProjekteComponent },
-  { path: 'projekte/neu', component: ProjectFormComponent },
-  { path: 'wissensdatenbank', component: WissensdatenbankComponent },
-  { path: 'zeittabellen', component: ZeittabellenComponent },
-  { path: 'gantt-diagramme', component: GanttDiagrammeComponent },
+  { path: '', redirectTo: 'dashboards', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
+  { path: 'forgot-password', loadComponent: () => import('./pages/forgot-password/forgot-password.component').then(m => m.ForgotPasswordComponent) },
+  { path: 'reset-password', loadComponent: () => import('./pages/reset-password/reset-password.component').then(m => m.ResetPasswordComponent) },
+  { path: 'setup', component: SetupComponent, canActivate: [setupGuard] },
+  { path: 'dashboards', component: DashboardComponent, canActivate: [authGuard] },
+  { path: 'tickets', component: TicketsComponent, canActivate: [authGuard] },
+  { path: 'agile-boards', component: AgileBoardsComponent, canActivate: [authGuard] },
+  { path: 'berichte', component: BerichteComponent, canActivate: [authGuard] },
+  { path: 'projekte', component: ProjekteComponent, canActivate: [authGuard] },
+  { path: 'projekte/neu', component: ProjectFormComponent, canActivate: [authGuard] },
+  { path: 'wissensdatenbank', component: WissensdatenbankComponent, canActivate: [authGuard] },
+  { path: 'zeittabellen', component: ZeittabellenComponent, canActivate: [authGuard] },
+  { path: 'gantt-diagramme', component: GanttDiagrammeComponent, canActivate: [authGuard] },
+  { path: 'settings', component: SettingsComponent, canActivate: [authGuard] },
   { path: '404', component: NotFoundComponent },
   { path: '**', redirectTo: '/404' }
 ];

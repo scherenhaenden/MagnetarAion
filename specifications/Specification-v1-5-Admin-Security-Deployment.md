@@ -34,6 +34,15 @@ This document details the specifications for administration, security, and deplo
 - **OAuth 2.0:** Users will be able to authenticate using OAuth 2.0 with providers like Google, GitHub, and Azure AD.
 - **Two-Factor Authentication (2FA):** 2FA can be made mandatory for specific user groups.
 
+### 2.3. Password Recovery
+- **Secure Token-Based Reset:** The system will support a secure, token-based password reset mechanism.
+- **Process:**
+  1. The user requests a password reset for their email address.
+  2. The system generates a unique, single-use token with a limited expiration time (e.g., 1 hour) and sends it to the user's registered email address.
+  3. The user clicks the link in the email, which directs them to a page where they can set a new password.
+  4. Upon successful password change, the token is invalidated.
+- **Development Environment:** In the development environment, where a mail service may not be available, the password reset token will be logged to the console for easy access and testing.
+
 ### 2.2. Security Measures
 - **Cloud:**
   - Encryption at rest (e.g., using AWS KMS).

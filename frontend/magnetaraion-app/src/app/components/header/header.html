@@ -80,24 +80,9 @@
           Richte deinen Fokus auf das Wesentliche und navigiere schnell zwischen den Bereichen deines MagnetarAion Workspaces.
         </p>
       </div>
-      <div class="workspace-header__actions">
-        <div class="theme-indicator" role="status" aria-live="polite">
-          <span class="theme-indicator__dot" [class.theme-indicator__dot--dark]="currentTheme === 'dark'"></span>
-          <span class="theme-indicator__label">
-            {{ currentTheme === 'dark' ? 'Dunkles Theme aktiv' : 'Helles Theme aktiv' }}
-          </span>
-        </div>
-        <button type="button" class="theme-toggle" (click)="toggleTheme()">
-          <span class="theme-toggle__icon" aria-hidden="true"></span>
-          <span class="theme-toggle__text">
-            {{ currentTheme === 'dark' ? 'Zum hellen Modus wechseln' : 'Zum dunklen Modus wechseln' }}
-          </span>
-        </button>
-      </div>
     </header>
 
     <section class="workspace-content" aria-label="Seiteninhalt">
-      <router-outlet></router-outlet>
     </section>
   </div>
 </div>

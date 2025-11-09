@@ -389,3 +389,7 @@
     align-items: stretch;
   }
 }
+
+:host(.hide-sidebar) .workspace-shell__sidebar {
+  display: none;
+}

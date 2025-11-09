@@ -8,8 +8,23 @@
   <button type="submit">Filter</button>
 </form>
 
+<button (click)="showCreateIssueModal = true">Create Issue</button>
+
 <ul>
   <li *ngFor="let issue of issues">
     {{ issue.title }}
+    <select (change)="onStatusChange($event, issue)">
+      <option value="New" [selected]="issue.status === 'New'">New</option>
+      <option value="In Progress" [selected]="issue.status === 'In Progress'">In Progress</option>
+      <option value="Done" [selected]="issue.status === 'Done'">Done</option>
+    </select>
   </li>
 </ul>
+
+<div *ngIf="showCreateIssueModal" class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="showCreateIssueModal = false">&times;</span>
+    <h2>Create Issue</h2>
+    <app-issue-form (formClose)="onFormClose()"></app-issue-form>
+  </div>
+</div>

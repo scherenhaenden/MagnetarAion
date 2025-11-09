@@ -1,6 +1,6 @@
 # Technical Architecture
 
-This document outlines the technical architecture and stack for the MagnetarAion project.
+This document outlines the technical architecture and stack for the MagnetarAion project. For a visual representation of the system architecture, please refer to the PlantUML file: `system_architecture.puml`.
 
 ## 1. Technology Stack
 
@@ -25,6 +25,16 @@ The Angular frontend follows a modern, scalable architecture based on standalone
 -   **HTTP Interceptors:** To keep the `ApiService` and component logic clean, request and response manipulations are handled globally using functional HTTP interceptors:
     -   **`HttpTokenInterceptor`:** Automatically attaches the user's JWT authentication token (from `localStorage`) to the `Authorization` header of all outgoing requests. This decouples authentication logic from individual service calls.
     -   **`HttpErrorInterceptor`:** Provides centralized error handling for all HTTP responses. It catches client-side and server-side errors, logs them to the console, and returns a user-friendly error message, preventing code duplication in components.
+
+### 2.2. Backend Architecture
+
+The FastAPI backend is structured to be modular and scalable, following modern best practices for building robust APIs.
+
+-   **API Routers:** The API is organized into modular routers, with each router handling a specific resource (e.g., users, projects, issues). This keeps the codebase clean and easy to maintain.
+
+-   **Pydantic Schemas:** Pydantic is used for data validation and serialization, ensuring that all data exchanged between the client and the server is well-formed and consistent.
+
+-   **SQLAlchemy ORM:** SQLAlchemy is used as the Object-Relational Mapper (ORM), providing a high-level, Pythonic interface for interacting with the PostgreSQL database.
 
 ## 3. Infrastructure and Deployment
 

@@ -1,0 +1,62 @@
+<div class="setup-container">
+  <div class="setup-header">
+    <h2>Initial Setup</h2>
+    <p>Create the first administrator account to get started.</p>
+  </div>
+
+  <form [formGroup]="setupForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input
+        type="text"
+        id="username"
+        formControlName="username"
+        placeholder="Enter username"
+        autocomplete="username">
+      <div class="field-error" *ngIf="setupForm.get('username')?.invalid && setupForm.get('username')?.touched">
+        Username is required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input
+        type="email"
+        id="email"
+        formControlName="email"
+        placeholder="Enter email address"
+        autocomplete="email">
+      <div class="field-error" *ngIf="setupForm.get('email')?.invalid && setupForm.get('email')?.touched">
+        Valid email is required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input
+        type="password"
+        id="password"
+        formControlName="password"
+        placeholder="Enter password (min. 6 characters)"
+        autocomplete="new-password">
+      <div class="field-error" *ngIf="setupForm.get('password')?.invalid && setupForm.get('password')?.touched">
+        Password must be at least 6 characters
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      class="btn-primary"
+      [disabled]="setupForm.invalid || isSubmitting">
+      {{ isSubmitting ? 'Creating Account...' : 'Create Administrator Account' }}
+    </button>
+
+    <div *ngIf="errorMessage" class="error-message">
+      <strong>Error:</strong> {{ errorMessage }}
+    </div>
+
+    <div *ngIf="successMessage" class="success-message">
+      <strong>Success!</strong> {{ successMessage }}
+    </div>
+  </form>
+</div>

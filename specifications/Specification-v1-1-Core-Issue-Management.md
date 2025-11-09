@@ -57,7 +57,7 @@ This document outlines the core specifications for issue management within the M
 - **Organization:** The knowledge base will have a hierarchical tree structure, with drag-and-drop functionality for easy organization.
 - **Permissions:** The system will support public (guest) pages and per-article permissions.
 
-## 4. MVP Core Functional Requirements
+## 4. MVP Core Functional Requirements (In Progress)
 
 - **Users and Projects:**
     - User registration and login.

@@ -1,80 +1,74 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { ApiService } from './api.service';
+import { Observable, BehaviorSubject, tap, catchError, of } from 'rxjs';
+import { User } from '../models/user.model';
 
-/**
- * **AuthService**
- *
- * Handles authentication logic including token management,
- * user login/logout, and authentication state.
- */
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly TOKEN_KEY = 'auth_token';
-  private authState$ = new BehaviorSubject<boolean>(this.hasToken());
+  private currentUserSubject = new BehaviorSubject<User | null>(null);
+  public currentUser$ = this.currentUserSubject.asObservable();
+  private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
+  public isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
 
-  constructor() {}
-
-  /**
-   * Retrieves the current authentication token from local storage.
-   */
-  public getToken(): string | null {
-    return localStorage.getItem(this.TOKEN_KEY);
+  constructor(private apiService: ApiService) {
+    this.verifyToken();
   }
 
-  /**
-   * Set the authentication token
-   * @param token - The authentication token to store
-   */
-  public setToken(token: string): void {
-    localStorage.setItem(this.TOKEN_KEY, token);
-    this.authState$.next(true);
+  public login(credentials: {username: string, password: string}): Observable<{ access_token: string, token_type: string }> {
+    const formData = new FormData();
+    formData.append('username', credentials.username);
+    formData.append('password', credentials.password);
+
+    return this.apiService.post<{ access_token: string, token_type: string }, FormData>('/token', formData).pipe(
+      tap((response: { access_token: string, token_type: string }) => {
+        localStorage.setItem('auth_token', response.access_token);
+        this.isAuthenticatedSubject.next(true);
+        this.getUser().subscribe();
+      })
+    );
   }
 
-  /**
-   * Remove the authentication token and update the authentication state.
-   */
-  public removeToken(): void {
-    localStorage.removeItem(this.TOKEN_KEY);
-    this.authState$.next(false);
-  }
-
-  /**
-   * Checks if the user is authenticated based on the presence of a token.
-   */
-  public isAuthenticated(): boolean {
-    return this.hasToken();
-  }
-
-  /**
-   * Get authentication state as observable.
-   */
-  public getAuthState(): Observable<boolean> {
-    return this.authState$.asObservable();
-  }
-
-  /**
-   * Checks if a token exists.
-   */
-  private hasToken(): boolean {
-    return !!this.getToken();
-  }
-
-  /**
-   * Login user (to be implemented with actual API call)
-   * @param username - User's username
-   * @param password - User's password
-   */
-  public login(username: string, password: string): Observable<any> {
-    // TODO: Implement actual login logic with API call
-    throw new Error('Login not yet implemented');
-  }
-
-  /**
-   * Logs out the user by removing the authentication token.
-   */
   public logout(): void {
-    this.removeToken();
+    localStorage.removeItem('auth_token');
+    this.currentUserSubject.next(null);
+    this.isAuthenticatedSubject.next(false);
+    // Optional: Inform the backend about logout
+    this.apiService.post('/logout', {}).subscribe();
+  }
+
+  public register(userInfo: unknown): Observable<User> {
+    return this.apiService.post<User, unknown>('/users/', userInfo);
+  }
+
+  public getToken(): string | null {
+    return localStorage.getItem('auth_token');
+  }
+
+  public getUser(): Observable<User | null> {
+    return this.apiService.get<User>('/users/me').pipe(
+      tap(user => {
+        this.currentUserSubject.next(user);
+      }),
+      catchError(() => {
+        this.logout();
+        return of(null);
+      })
+    );
+  }
+
+  public verifyToken(): void {
+    if (this.getToken()) {
+      this.isAuthenticatedSubject.next(true);
+      this.getUser().subscribe();
+    } else {
+      this.isAuthenticatedSubject.next(false);
+      this.currentUserSubject.next(null);
+    }
+  }
+
+  public checkSetupNeeded(): Observable<{setup_needed: boolean}> {
+    return this.apiService.get('/setup_check');
   }
 }

@@ -9,3 +9,5 @@ bcrypt==4.3.0
 PyGithub
 pydantic-settings
 pytest-cov
+python-jose
+python-multipart

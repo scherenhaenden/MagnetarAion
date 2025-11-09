@@ -1,6 +1,18 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from typing import List, Optional
 from datetime import datetime
+
+class RoleBase(BaseModel):
+    name: str
+    description: Optional[str] = None
+
+class RoleCreate(RoleBase):
+    pass
+
+class Role(RoleBase):
+    id: int
+    model_config = ConfigDict(from_attributes=True)
+
 
 class IssueBase(BaseModel):
     title: str
@@ -18,8 +30,7 @@ class Issue(IssueBase):
     created_at: datetime
     updated_at: datetime
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 class ProjectBase(BaseModel):
     name: str
@@ -29,13 +40,6 @@ class ProjectBase(BaseModel):
 class ProjectCreate(ProjectBase):
     pass
 
-class Project(ProjectBase):
-    id: int
-    issues: List[Issue] = []
-
-    class Config:
-        from_attributes = True
-
 class UserBase(BaseModel):
     username: str
     email: str
@@ -43,9 +47,36 @@ class UserBase(BaseModel):
 class UserCreate(UserBase):
     password: str
 
-class User(UserBase):
+class Project(ProjectBase):
     id: int
     issues: List[Issue] = []
+    users: List[UserBase] = []
+
+    model_config = ConfigDict(from_attributes=True)
+
+class User(UserBase):
+    id: int
+    is_active: bool
+    projects: list[Project] = []
+    roles: list[Role] = []
+    issues: list[Issue] = []
 
     class Config:
-        from_attributes = True
+        orm_mode = True
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+class TokenData(BaseModel):
+    username: Optional[str] = None
+
+class SetupCheck(BaseModel):
+    setup_needed: bool
+
+class PasswordResetRequest(BaseModel):
+    email: str
+
+class PasswordReset(BaseModel):
+    token: str
+    new_password: str
