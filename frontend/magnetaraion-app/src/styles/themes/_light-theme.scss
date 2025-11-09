@@ -21,15 +21,25 @@
 --color-background: #{$color-grey-100};
 --color-card-background: #{$color-white};
 --color-task-background: #{$color-grey-50}; // Tareas dentro de kanban
+--background-color-secondary: #{$color-white};
+--background-color-tertiary: #{$color-grey-50};
+--background-color-disabled: #{$color-grey-300};
 
 // Textos
 --color-text-primary: #{$color-grey-900};
 --color-text-secondary: #{$color-grey-700};
 --color-text-on-primary: #{$color-white}; // Texto sobre botones primarios
 --color-text-link: #{$color-indigo-500};
+--text-color-primary: #{$color-grey-900};
+--text-color-secondary: #{$color-grey-700};
 
 // Bordes
 --color-border: #{$color-grey-300};
+--border-color: #{$color-grey-300};
+
+// Estados
+--error-color: #{$color-red-500};
+--success-color: #{$color-green-500};
 
 // Sombras
 --color-shadow-light: #{rgba($color-black, 0.05)};

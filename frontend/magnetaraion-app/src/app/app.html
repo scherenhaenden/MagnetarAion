@@ -1,4 +1,7 @@
 <main>
-  <app-header [class.hide-sidebar]="isSetupRoute()" />
-  <router-outlet />
+  <app-header *ngIf="!isLoginPage()"></app-header>
+  <div *ngIf="isAuthenticated$ | async">
+    <button (click)="logout()">Logout</button>
+  </div>
+  <router-outlet></router-outlet>
 </main>

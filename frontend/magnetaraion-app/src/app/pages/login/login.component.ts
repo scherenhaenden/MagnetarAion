@@ -13,6 +13,8 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginComponent {
   loginForm: FormGroup;
+  errorMessage: string | null = null;
+  isSubmitting: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -26,10 +28,24 @@ export class LoginComponent {
   }
 
   onSubmit(): void {
-    if (this.loginForm.valid) {
+    if (this.loginForm.valid && !this.isSubmitting) {
+      this.isSubmitting = true;
+      this.errorMessage = null;
+
       this.authService.login(this.loginForm.value).subscribe({
-        next: () => this.router.navigate(['/dashboards']),
-        error: (err) => console.error('Login failed', err)
+        next: () => {
+          this.router.navigate(['/dashboards']);
+        },
+        error: (err) => {
+          this.isSubmitting = false;
+          console.error('Login failed', err);
+          this.errorMessage = err.error?.detail || 'Incorrect username or password. Please try again.';
+        }
+      });
+    } else {
+      // Mark all fields as touched to show validation errors
+      Object.keys(this.loginForm.controls).forEach(key => {
+        this.loginForm.get(key)?.markAsTouched();
       });
     }
   }
