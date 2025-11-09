@@ -47,6 +47,7 @@ This document outlines the coding standards, conventions, and architectural rule
     - Before creating a new migration, ensure the database is upgraded to the latest version (`python -m alembic -c alembic.ini upgrade head`).
     - Generate migrations using `python -m alembic -c alembic.ini revision --autogenerate -m "<description>"`.
     - Manually review all generated migration scripts to ensure they only contain intended changes.
+    - **Data Integrity**: Migrations must be written to preserve existing data. Destructive operations (like dropping tables or columns) require a data migration plan and must be approved. All migrations should be treated as if they are running on a production database.
 
 ## General Project Rules
 
