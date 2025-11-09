@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
-import { Router } from '@angular/router';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-forgot-password',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './forgot-password.component.html',
   styleUrls: ['./forgot-password.component.scss']
 })
@@ -18,8 +18,7 @@ export class ForgotPasswordComponent {
 
   constructor(
     private fb: FormBuilder,
-    private apiService: ApiService,
-    private router: Router
+    private apiService: ApiService
   ) {
     this.forgotPasswordForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]]
@@ -33,8 +32,9 @@ export class ForgotPasswordComponent {
           this.message = response.msg;
           this.isError = false;
         },
-        error: (error) => {
-          this.message = 'An unexpected error occurred. Please try again.';
+        error: (error: any) => {
+          console.error('Password reset request failed:', error);
+          this.message = error?.error?.detail || 'An unexpected error occurred. Please try again.';
           this.isError = true;
         }
       });

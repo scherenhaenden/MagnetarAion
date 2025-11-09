@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, ValidationErrors } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 // Custom validator to check that two fields match
 function passwordMatchValidator(group: FormGroup): ValidationErrors | null {
@@ -14,7 +14,7 @@ function passwordMatchValidator(group: FormGroup): ValidationErrors | null {
 @Component({
   selector: 'app-reset-password',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './reset-password.component.html',
   styleUrls: ['./reset-password.component.scss']
 })
