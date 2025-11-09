@@ -62,3 +62,26 @@ def test_login_for_access_token_invalid_credentials(client):
         data={"username": "testuser3", "password": "wrongpassword"},
     )
     assert response.status_code == 401
+
+
+def test_user_model_has_is_active_attribute(client):
+    """
+    Test that the User model has the is_active attribute.
+    """
+    # Create a user first
+    client.post(
+        "/api/users/",
+        json={"username": "testuser_active", "email": "test_active@example.com", "password": "testpassword"},
+    )
+    # Get a token
+    response = client.post(
+        "/api/token",
+        data={"username": "test_active@example.com", "password": "testpassword"},
+    )
+    token = response.json()["access_token"]
+    headers = {"Authorization": f"Bearer {token}"}
+    response = client.get("/api/users/me", headers=headers)
+    assert response.status_code == 200
+    data = response.json()
+    assert "is_active" in data
+    assert data["is_active"] is True
