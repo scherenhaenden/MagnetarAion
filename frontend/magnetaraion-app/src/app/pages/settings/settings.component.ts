@@ -10,15 +10,15 @@ import { ThemeService } from '../../services/theme.service';
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
-  currentTheme: 'light' | 'dark' = 'light';
+  public currentTheme: 'light' | 'dark' = 'light';
 
   constructor(private themeService: ThemeService) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.currentTheme = this.themeService.loadTheme();
   }
 
-  toggleTheme(): void {
+  public toggleTheme(): void {
     this.currentTheme = this.themeService.toggleTheme();
   }
 }

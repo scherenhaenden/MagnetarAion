@@ -61,7 +61,7 @@ export class HeaderComponent {
 
   public isQuickActionsOpen = false;
 
-  public constructor(
+  constructor(
     private readonly router: Router,
     private readonly hostElement: ElementRef<HTMLElement>
   ) {}

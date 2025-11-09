@@ -4,7 +4,6 @@ import {
   HttpTestingController,
 } from '@angular/common/http/testing';
 import { ApiService } from './api.service';
-import { HttpErrorResponse } from '@angular/common/http';
 
 describe('ApiService', () => {
   let service: ApiService;

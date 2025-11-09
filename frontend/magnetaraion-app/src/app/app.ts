@@ -14,15 +14,15 @@ import { User } from './models/user.model';
   styleUrls: ['./app.scss']
 })
 export class App implements OnInit {
-  isAuthenticated$: Observable<boolean>;
-  currentUser$: Observable<User | null>;
+  public isAuthenticated$: Observable<boolean>;
+  public currentUser$: Observable<User | null>;
 
   constructor(private router: Router, private authService: AuthService) {
     this.isAuthenticated$ = this.authService.isAuthenticated$;
     this.currentUser$ = this.authService.currentUser$;
   }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.authService.checkSetupNeeded().subscribe(response => {
       if (response.setup_needed) {
         this.router.navigate(['/setup']);
@@ -30,11 +30,11 @@ export class App implements OnInit {
     });
   }
 
-  isLoginPage(): boolean {
+  public isLoginPage(): boolean {
     return this.router.url === '/login' || this.router.url === '/setup';
   }
 
-  logout() {
+  public logout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);
   }

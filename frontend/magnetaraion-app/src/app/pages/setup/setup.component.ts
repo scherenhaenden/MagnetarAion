@@ -12,10 +12,10 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./setup.component.scss']
 })
 export class SetupComponent {
-  setupForm: FormGroup;
-  errorMessage: string | null = null;
-  successMessage: string | null = null;
-  isSubmitting: boolean = false;
+  public setupForm: FormGroup;
+  public errorMessage: string | null = null;
+  public successMessage: string | null = null;
+  public isSubmitting: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -29,7 +29,7 @@ export class SetupComponent {
     });
   }
 
-  onSubmit(): void {
+  public onSubmit(): void {
     if (this.setupForm.valid && !this.isSubmitting) {
       this.isSubmitting = true;
       this.errorMessage = null;

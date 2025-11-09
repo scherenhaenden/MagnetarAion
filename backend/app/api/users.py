@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from ..models import models
 from .. import schemas
 from ..dependencies import get_db, get_current_user
-from ..core.security import get_password_hash, create_access_token, verify_password, create_password_reset_token
+from ..core.security import get_password_hash, create_access_token, verify_password
 from datetime import datetime, timedelta
 import secrets
 

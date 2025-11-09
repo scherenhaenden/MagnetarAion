@@ -12,7 +12,7 @@ import { ProjectService, ProjectCreate } from '../../../services/project.service
   styleUrls: ['./project-form.component.scss']
 })
 export class ProjectFormComponent {
-  projectForm: FormGroup;
+  public projectForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,

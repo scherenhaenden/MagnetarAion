@@ -12,9 +12,9 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  loginForm: FormGroup;
-  errorMessage: string | null = null;
-  isSubmitting: boolean = false;
+  public loginForm: FormGroup;
+  public errorMessage: string | null = null;
+  public isSubmitting: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -27,7 +27,7 @@ export class LoginComponent {
     });
   }
 
-  onSubmit(): void {
+  public onSubmit(): void {
     if (this.loginForm.valid && !this.isSubmitting) {
       this.isSubmitting = true;
       this.errorMessage = null;

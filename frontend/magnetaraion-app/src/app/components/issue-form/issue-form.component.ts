@@ -33,8 +33,8 @@ import { Issue } from '../../models/issue.model';
   `]
 })
 export class IssueFormComponent {
-  issueForm: FormGroup;
-  @Output() formClose = new EventEmitter<void>();
+  public issueForm: FormGroup;
+  @Output() public formClose: EventEmitter<void> = new EventEmitter<void>();
 
   constructor(
     private fb: FormBuilder,
@@ -47,7 +47,7 @@ export class IssueFormComponent {
     });
   }
 
-  onSubmit(): void {
+  public onSubmit(): void {
     if (this.issueForm.valid) {
       this.apiService.post<Issue, Partial<Issue>>('/issues/', this.issueForm.value).subscribe(() => {
         this.formClose.emit();
@@ -55,7 +55,7 @@ export class IssueFormComponent {
     }
   }
 
-  close(): void {
+  public close(): void {
     this.formClose.emit();
   }
 }

@@ -16,13 +16,13 @@ export class AuthService {
     this.verifyToken();
   }
 
-  login(credentials: {username: string, password: string}): Observable<any> {
+  public login(credentials: {username: string, password: string}): Observable<{ access_token: string, token_type: string }> {
     const formData = new FormData();
     formData.append('username', credentials.username);
     formData.append('password', credentials.password);
 
-    return this.apiService.post('/token', formData).pipe(
-      tap((response: any) => {
+    return this.apiService.post<{ access_token: string, token_type: string }, FormData>('/token', formData).pipe(
+      tap((response: { access_token: string, token_type: string }) => {
         localStorage.setItem('auth_token', response.access_token);
         this.isAuthenticatedSubject.next(true);
         this.getUser().subscribe();
@@ -30,7 +30,7 @@ export class AuthService {
     );
   }
 
-  logout() {
+  public logout(): void {
     localStorage.removeItem('auth_token');
     this.currentUserSubject.next(null);
     this.isAuthenticatedSubject.next(false);
@@ -38,15 +38,15 @@ export class AuthService {
     this.apiService.post('/logout', {}).subscribe();
   }
 
-  register(userInfo: any): Observable<any> {
-    return this.apiService.post('/users/', userInfo);
+  public register(userInfo: unknown): Observable<User> {
+    return this.apiService.post<User, unknown>('/users/', userInfo);
   }
 
-  getToken(): string | null {
+  public getToken(): string | null {
     return localStorage.getItem('auth_token');
   }
 
-  getUser(): Observable<User | null> {
+  public getUser(): Observable<User | null> {
     return this.apiService.get<User>('/users/me').pipe(
       tap(user => {
         this.currentUserSubject.next(user);
@@ -58,7 +58,7 @@ export class AuthService {
     );
   }
 
-  verifyToken() {
+  public verifyToken(): void {
     if (this.getToken()) {
       this.isAuthenticatedSubject.next(true);
       this.getUser().subscribe();
@@ -68,7 +68,7 @@ export class AuthService {
     }
   }
 
-  checkSetupNeeded(): Observable<{setup_needed: boolean}> {
+  public checkSetupNeeded(): Observable<{setup_needed: boolean}> {
     return this.apiService.get('/setup_check');
   }
 }

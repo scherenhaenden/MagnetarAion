@@ -3,6 +3,8 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { AuthService } from './auth.service';
 import { ApiService } from './api.service';
 import { environment } from '../../environments/environment';
+import { User } from '../models/user.model';
+import { firstValueFrom } from 'rxjs';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -10,14 +12,16 @@ describe('AuthService', () => {
   let apiUrl: string;
 
   beforeEach(() => {
+    localStorage.clear();
+
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [AuthService, ApiService]
     });
+
     service = TestBed.inject(AuthService);
     httpMock = TestBed.inject(HttpTestingController);
     apiUrl = environment.apiUrl;
-    localStorage.clear();
   });
 
   afterEach(() => {
@@ -39,36 +43,62 @@ describe('AuthService', () => {
     expect(service.getToken()).toBe(testToken);
   });
 
-  it('should send a POST request to /token on login', () => {
+  it('should login, store token, and fetch user', async () => {
     const credentials = { username: 'test', password: 'password' };
-    const mockResponse = { access_token: 'test-token' };
+    const mockResponse = { access_token: 'test-token', token_type: 'bearer' };
+    const mockUser: User = { id: 1, username: 'test', email: 'test@example.com', is_active: true };
 
     service.login(credentials).subscribe();
 
-    const req = httpMock.expectOne(`${apiUrl}/token`);
-    expect(req.request.method).toBe('POST');
-    req.flush(mockResponse);
-  });
+    const reqLogin = httpMock.expectOne(`${apiUrl}/token`);
+    reqLogin.flush(mockResponse);
 
-  it('should store the token in localStorage on successful login', () => {
-    const credentials = { username: 'test', password: 'password' };
-    const mockResponse = { access_token: 'test-token' };
+    const reqUser = httpMock.expectOne(`${apiUrl}/users/me`);
+    reqUser.flush(mockUser);
 
-    service.login(credentials).subscribe(() => {
-      expect(localStorage.getItem('auth_token')).toBe('test-token');
-    });
-
-    const req = httpMock.expectOne(`${apiUrl}/token`);
-    req.flush(mockResponse);
+    const user = await firstValueFrom(service.currentUser$);
+    expect(localStorage.getItem('auth_token')).toBe(mockResponse.access_token);
+    expect(user).toEqual(mockUser);
   });
 
   it('should send a POST request to /users/ on register', () => {
     const userInfo = { username: 'test', password: 'password', email: 'test@example.com' };
+    const mockUser: User = { id: 1, ...userInfo, is_active: true };
 
-    service.register(userInfo).subscribe();
+    service.register(userInfo).subscribe(response => {
+      expect(response).toEqual(mockUser);
+    });
 
     const req = httpMock.expectOne(`${apiUrl}/users/`);
-    expect(req.request.method).toBe('POST');
-    req.flush({});
+    req.flush(mockUser);
+  });
+
+  it('should remove token and user on logout', () => {
+    localStorage.setItem('auth_token', 'test-token');
+
+    let isAuthenticated!: boolean;
+    service.isAuthenticated$.subscribe(status => isAuthenticated = status);
+
+    service.logout();
+
+    const reqLogout = httpMock.expectOne(`${apiUrl}/logout`);
+    reqLogout.flush({});
+
+    expect(localStorage.getItem('auth_token')).toBeNull();
+    expect(isAuthenticated).toBeFalse();
+  });
+
+  it('should handle verifyToken on initialization when token exists', async () => {
+    localStorage.setItem('auth_token', 'test-token');
+    const mockUser: User = { id: 1, username: 'test', email: 'test@example.com', is_active: true };
+
+    // Simulate re-initialization by creating a new instance of the service
+    service = new AuthService(TestBed.inject(ApiService));
+
+    const reqUser = httpMock.expectOne(`${apiUrl}/users/me`);
+    reqUser.flush(mockUser);
+
+    const user = await firstValueFrom(service.currentUser$);
+    expect(user).toEqual(mockUser);
   });
 });
