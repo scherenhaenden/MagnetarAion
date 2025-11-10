@@ -6,6 +6,14 @@ import { Router } from '@angular/router';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
+import { Component } from '@angular/core';
+
+@Component({
+  standalone: true,
+  template: ''
+})
+class DummyForgotPasswordComponent {}
+
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
@@ -13,7 +21,13 @@ describe('LoginComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LoginComponent, HttpClientTestingModule, RouterTestingModule]
+      imports: [
+        LoginComponent,
+        HttpClientTestingModule,
+        RouterTestingModule.withRoutes([
+          { path: 'forgot-password', component: DummyForgotPasswordComponent }
+        ])
+      ]
     })
     .compileComponents();
 

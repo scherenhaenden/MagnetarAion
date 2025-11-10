@@ -7,7 +7,7 @@ This document tracks the status of the MagnetarAion project, from the initial MV
 | Feature | Backend Status | Frontend Status |
 | :--- | :--- | :--- |
 | **Users and Projects** | | |
-| User Registration/Login | In Progress (80%) | In Progress (50%) |
+| User Registration/Login | In Progress (90%) | In Progress (80%) |
 | Role Management (Admin, Developer, Reporter) | In Progress (70%)| In Progress (40%) |
 | Project Creation and Team Assignment | In Progress (60%)| In Progress (30%) |
 | **Issues (Tickets)** |

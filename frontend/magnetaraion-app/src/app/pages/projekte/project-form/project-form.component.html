@@ -6,19 +6,25 @@
     <div class="form__group">
       <label for="name" class="form__label">Projektname</label>
       <input type="text" id="name" formControlName="name" class="form__input" required>
-      <div *ngIf="projectForm.get('name')?.invalid && projectForm.get('name')?.touched" class="form__error">
-        Projektname ist erforderlich.
-      </div>
+      @if (projectForm.get('name')?.invalid && projectForm.get('name')?.touched) {
+        <div class="form__error">
+          Projektname ist erforderlich.
+        </div>
+      }
     </div>
     <div class="form__group">
       <label for="key" class="form__label">Projektschlüssel</label>
       <input type="text" id="key" formControlName="key" class="form__input" required maxlength="10">
-      <div *ngIf="projectForm.get('key')?.hasError('required') && projectForm.get('key')?.touched" class="form__error">
-        Projektschlüssel ist erforderlich.
-      </div>
-      <div *ngIf="projectForm.get('key')?.hasError('maxlength') && projectForm.get('key')?.touched" class="form__error">
-        Projektschlüssel darf maximal 10 Zeichen lang sein.
-      </div>
+      @if (projectForm.get('key')?.hasError('required') && projectForm.get('key')?.touched) {
+        <div class="form__error">
+          Projektschlüssel ist erforderlich.
+        </div>
+      }
+      @if (projectForm.get('key')?.hasError('maxlength') && projectForm.get('key')?.touched) {
+        <div class="form__error">
+          Projektschlüssel darf maximal 10 Zeichen lang sein.
+        </div>
+      }
     </div>
     <div class="form__group">
       <label for="description" class="form__label">Beschreibung</label>

@@ -1,7 +1,11 @@
 <main>
-  <app-header *ngIf="!isLoginPage()"></app-header>
-  <div *ngIf="isAuthenticated$ | async">
-    <button (click)="logout()">Logout</button>
-  </div>
+
+
+  @if (isAuthenticated$ | async) {
+    <div>
+      <button (click)="logout()">Logout</button>
+    </div>
+  }
+
   <router-outlet></router-outlet>
 </main>

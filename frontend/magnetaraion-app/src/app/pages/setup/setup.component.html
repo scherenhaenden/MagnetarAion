@@ -13,9 +13,11 @@
         formControlName="username"
         placeholder="Enter username"
         autocomplete="username">
-      <div class="field-error" *ngIf="setupForm.get('username')?.invalid && setupForm.get('username')?.touched">
-        Username is required
-      </div>
+      @if (setupForm.get('username')?.invalid && setupForm.get('username')?.touched) {
+        <div class="field-error">
+          Username is required
+        </div>
+      }
     </div>
 
     <div class="form-group">
@@ -26,9 +28,11 @@
         formControlName="email"
         placeholder="Enter email address"
         autocomplete="email">
-      <div class="field-error" *ngIf="setupForm.get('email')?.invalid && setupForm.get('email')?.touched">
-        Valid email is required
-      </div>
+      @if (setupForm.get('email')?.invalid && setupForm.get('email')?.touched) {
+        <div class="field-error">
+          Valid email is required
+        </div>
+      }
     </div>
 
     <div class="form-group">
@@ -39,9 +43,11 @@
         formControlName="password"
         placeholder="Enter password (min. 6 characters)"
         autocomplete="new-password">
-      <div class="field-error" *ngIf="setupForm.get('password')?.invalid && setupForm.get('password')?.touched">
-        Password must be at least 6 characters
-      </div>
+      @if (setupForm.get('password')?.invalid && setupForm.get('password')?.touched) {
+        <div class="field-error">
+          Password must be at least 6 characters
+        </div>
+      }
     </div>
 
     <button
@@ -51,12 +57,16 @@
       {{ isSubmitting ? 'Creating Account...' : 'Create Administrator Account' }}
     </button>
 
-    <div *ngIf="errorMessage" class="error-message">
-      <strong>Error:</strong> {{ errorMessage }}
-    </div>
+    @if (errorMessage) {
+      <div class="error-message">
+        <strong>Error:</strong> {{ errorMessage }}
+      </div>
+    }
 
-    <div *ngIf="successMessage" class="success-message">
-      <strong>Success!</strong> {{ successMessage }}
-    </div>
+    @if (successMessage) {
+      <div class="success-message">
+        <strong>Success!</strong> {{ successMessage }}
+      </div>
+    }
   </form>
 </div>
