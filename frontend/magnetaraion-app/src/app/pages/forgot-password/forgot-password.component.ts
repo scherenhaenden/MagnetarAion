@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
 import { RouterLink } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-forgot-password',
@@ -12,9 +13,9 @@ import { RouterLink } from '@angular/router';
   styleUrls: ['./forgot-password.component.scss']
 })
 export class ForgotPasswordComponent {
-  forgotPasswordForm: FormGroup;
-  message: string = '';
-  isError: boolean = false;
+  public forgotPasswordForm: FormGroup;
+  public message: string | null = null;
+  public isError: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -25,19 +26,19 @@ export class ForgotPasswordComponent {
     });
   }
 
-  onSubmit(): void {
+  public onSubmit(): void {
     if (this.forgotPasswordForm.valid) {
-      this.apiService.post('/password-reset-request', this.forgotPasswordForm.value).subscribe({
-        next: (response: any) => {
+      this.apiService.post<{ msg: string }, { email: string }>('/password-reset-request', this.forgotPasswordForm.value).subscribe(
+        (response) => {
           this.message = response.msg;
           this.isError = false;
         },
-        error: (error: any) => {
+        (error: HttpErrorResponse) => {
           console.error('Password reset request failed:', error);
           this.message = error?.error?.detail || 'An unexpected error occurred. Please try again.';
           this.isError = true;
         }
-      });
+      );
     }
   }
 }

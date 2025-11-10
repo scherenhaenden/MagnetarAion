@@ -58,6 +58,9 @@ This document outlines the coding standards, conventions, and architectural rule
 ### Security
 - **No Hardcoded Secrets**: Secrets must not be committed to the repository. The `kubernetes/secrets.yml` file is explicitly gitignored.
 
+### Dependency Management
+- **Flagged Libraries**: Avoid using libraries with known vulnerabilities. Regularly check for and address any flagged dependencies in both frontend and backend projects.
+
 ### Version Control
 - **Gitflow**: We use Gitflow for branching. All feature development should happen in `feature/` branches.
 - **Commit Messages**: Commit messages should follow the Conventional Commits specification.

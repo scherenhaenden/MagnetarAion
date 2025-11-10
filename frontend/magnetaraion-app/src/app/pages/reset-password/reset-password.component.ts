@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, ValidationErrors } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 // Custom validator to check that two fields match
 function passwordMatchValidator(group: FormGroup): ValidationErrors | null {
@@ -19,10 +20,10 @@ function passwordMatchValidator(group: FormGroup): ValidationErrors | null {
   styleUrls: ['./reset-password.component.scss']
 })
 export class ResetPasswordComponent implements OnInit {
-  resetPasswordForm: FormGroup;
-  message: string = '';
-  isError: boolean = false;
-  token: string | null = null;
+  public resetPasswordForm: FormGroup;
+  public message: string | null = null;
+  public isError: boolean = false;
+  public token: string | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -36,7 +37,7 @@ export class ResetPasswordComponent implements OnInit {
     }, { validators: passwordMatchValidator });
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.token = this.route.snapshot.queryParamMap.get('token');
     if (!this.token) {
       this.message = 'Invalid or missing password reset token.';
@@ -44,20 +45,20 @@ export class ResetPasswordComponent implements OnInit {
     }
   }
 
-  onSubmit(): void {
+  public onSubmit(): void {
     if (this.resetPasswordForm.valid && this.token) {
       const { newPassword } = this.resetPasswordForm.value;
-      this.apiService.post('/password-reset', { token: this.token, new_password: newPassword }).subscribe({
-        next: (response: any) => {
+      this.apiService.post<{ msg: string }, { token: string, new_password: string }>('/password-reset', { token: this.token, new_password: newPassword }).subscribe(
+        (response) => {
           this.message = response.msg;
           this.isError = false;
           setTimeout(() => this.router.navigate(['/login']), 3000); // Redirect to login after 3 seconds
         },
-        error: (error) => {
+        (error: HttpErrorResponse) => {
           this.message = error.error.detail || 'An unexpected error occurred. Please try again.';
           this.isError = true;
         }
-      });
+      );
     }
   }
 }
