@@ -11,27 +11,28 @@ import { GanttDiagrammeComponent } from './pages/gantt-diagramme/gantt-diagramme
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { LoginComponent } from './pages/login/login.component';
 import { authGuard } from './guards/auth.guard';
-import { setupGuard } from './guards/setup.guard';
+import { SetupGuard } from './guards/setup.guard';
 import { SetupComponent } from './pages/setup/setup.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { publicGuard } from './guards/public.guard';
+import { ROUTES } from './routes.constants';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'dashboards', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent, canActivate: [publicGuard] },
-  { path: 'forgot-password', loadComponent: () => import('./pages/forgot-password/forgot-password.component').then(m => m.ForgotPasswordComponent), canActivate: [publicGuard] },
-  { path: 'reset-password', loadComponent: () => import('./pages/reset-password/reset-password.component').then(m => m.ResetPasswordComponent) },
-  { path: 'setup', component: SetupComponent, canActivate: [setupGuard] },
-  { path: 'dashboards', component: DashboardComponent, canActivate: [authGuard] },
-  { path: 'tickets', component: TicketsComponent, canActivate: [authGuard] },
-  { path: 'agile-boards', component: AgileBoardsComponent, canActivate: [authGuard] },
-  { path: 'berichte', component: BerichteComponent, canActivate: [authGuard] },
-  { path: 'projekte', component: ProjekteComponent, canActivate: [authGuard] },
-  { path: 'projekte/neu', component: ProjectFormComponent, canActivate: [authGuard] },
-  { path: 'wissensdatenbank', component: WissensdatenbankComponent, canActivate: [authGuard] },
-  { path: 'zeittabellen', component: ZeittabellenComponent, canActivate: [authGuard] },
-  { path: 'gantt-diagramme', component: GanttDiagrammeComponent, canActivate: [authGuard] },
-  { path: 'settings', component: SettingsComponent, canActivate: [authGuard] },
-  { path: '404', component: NotFoundComponent },
-  { path: '**', redirectTo: '/404' }
+  { path: '', redirectTo: ROUTES.SETUP, pathMatch: 'full' },
+  { path: ROUTES.SETUP, component: SetupComponent, canActivate: [SetupGuard] },
+  { path: ROUTES.LOGIN, component: LoginComponent, canActivate: [publicGuard] },
+  { path: ROUTES.FORGOT_PASSWORD, loadComponent: () => import('./pages/forgot-password/forgot-password.component').then(m => m.ForgotPasswordComponent), canActivate: [publicGuard] },
+  { path: ROUTES.RESET_PASSWORD, loadComponent: () => import('./pages/reset-password/reset-password.component').then(m => m.ResetPasswordComponent), canActivate: [publicGuard] },
+  /*{ path: ROUTES.DASHBOARDS, component: DashboardComponent, canActivate: [authGuard] },
+  { path: ROUTES.TICKETS, component: TicketsComponent, canActivate: [authGuard] },
+  { path: ROUTES.AGILE_BOARDS, component: AgileBoardsComponent, canActivate: [authGuard] },
+  { path: ROUTES.BERICHTE, component: BerichteComponent, canActivate: [authGuard] },
+  { path: ROUTES.PROJEKTE, component: ProjekteComponent, canActivate: [authGuard] },
+  { path: ROUTES.PROJEKTE_NEW, component: ProjectFormComponent, canActivate: [authGuard] },
+  { path: ROUTES.WISSENSDATENBANK, component: WissensdatenbankComponent, canActivate: [authGuard] },
+  { path: ROUTES.ZEITTABELLEN, component: ZeittabellenComponent, canActivate: [authGuard] },
+  { path: ROUTES.GANTT_DIAGRAMME, component: GanttDiagrammeComponent, canActivate: [authGuard] },
+  { path: ROUTES.SETTINGS, component: SettingsComponent, canActivate: [authGuard] },
+  { path: ROUTES.NOT_FOUND, component: NotFoundComponent },
+  { path: '**', redirectTo: `/${ROUTES.NOT_FOUND}` }*/
 ];
