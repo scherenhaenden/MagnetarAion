@@ -60,3 +60,4 @@ This document outlines the coding standards, conventions, and architectural rule
 ### Version Control
 - **Gitflow**: We use Gitflow for branching. All feature development should happen in `feature/` branches.
 - **Commit Messages**: Commit messages should follow the Conventional Commits specification.
+- **Release Documentation**: On every commit, check the `releases` directory to ensure that the changes are documented in the current month's release file (`yyyyMM.md`). See `releases/rules_releases.md` for more details.
