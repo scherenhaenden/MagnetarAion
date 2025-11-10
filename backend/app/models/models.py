@@ -1,5 +1,5 @@
 import enum
-from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Text, Enum, Table
+from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Text, Enum, Table, Boolean
 from sqlalchemy.orm import relationship
 from datetime import datetime
 from ..database import Base
@@ -20,9 +20,11 @@ class User(Base):
     username = Column(String(50), unique=True, nullable=False, index=True)
     email = Column(String(100), unique=True, nullable=False, index=True)
     password = Column(String(256), nullable=False)
-    issues = relationship("Issue", back_populates="assignee")
-    roles = relationship("Role", secondary=user_roles, back_populates="users")
+    is_active = Column(Boolean, default=True)
+
     projects = relationship("Project", secondary=project_users, back_populates="users")
+    roles = relationship("Role", secondary=user_roles, back_populates="users")
+    issues = relationship("Issue", back_populates="assignee")
 
 class Role(Base):
     __tablename__ = 'roles'
@@ -63,3 +65,14 @@ class Issue(Base):
     project = relationship("Project", back_populates="issues")
     assignee_id = Column(Integer, ForeignKey('users.id'))
     assignee = relationship("User", back_populates="issues")
+
+class PasswordResetToken(Base):
+    __tablename__ = "password_reset_tokens"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    token = Column(String, unique=True, index=True, nullable=False)
+    expires_at = Column(DateTime, nullable=False)
+    used_at = Column(DateTime, nullable=True)
+
+    user = relationship("User")

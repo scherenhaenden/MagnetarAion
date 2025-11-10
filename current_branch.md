@@ -1,62 +1,65 @@
-# Bitácora de Trabajo: Implementación del MVP
+# Zusammenfassung des aktuellen Branch: Implementierung des Authentifizierungs-Workflows
 
-## Resumen
-El objetivo de esta rama es implementar las características del Producto Mínimo Viable (MVP) según se define en los documentos de requisitos y especificaciones. Se ha completado una parte significativa del backend, pero la implementación del frontend está actualmente bloqueada por problemas de compilación persistentes.
+**Datum:** 2025-11-09
 
----
-
-## Backend (Completado y Funcional) ✅
-
-### 1. Autenticación de Usuarios
-- **Registro:** Se implementó el endpoint `POST /api/users/` para registrar nuevos usuarios.
-- **Hashing de Contraseñas:** Se utiliza `passlib` con `bcrypt` para asegurar las contraseñas antes de guardarlas en la base de datos.
-- **Inicio de Sesión y JWT:** Se implementó el endpoint `POST /api/token` que autentica a los usuarios y devuelve un JSON Web Token (JWT) para la gestión de sesiones.
-- **Esquemas y Configuración:** Se añadieron los esquemas `Token` y `TokenData` en `schemas.py` y se configuraron las claves secretas y el algoritmo en `settings.py`.
-- **Pruebas:** Se escribieron y pasaron pruebas unitarias y de integración para el registro y el inicio de sesión, cubriendo tanto casos de éxito como de credenciales no válidas.
-
-### 2. Gestión de Roles
-- **Modelo de Datos:** Se añadió el modelo `Role` y una tabla de asociación `user_roles` en `models.py` para establecer una relación muchos a muchos entre usuarios y roles.
-- **Migración de Base de Datos:** Se creó una migración de Alembic para aplicar los nuevos modelos a la base de datos.
-- **API Endpoints:**
-    - `POST /api/roles/`: Para crear nuevos roles.
-    - `GET /api/roles/`: Para listar los roles existentes.
-    - `POST /api/users/{user_id}/roles/{role_id}`: Para asignar un rol a un usuario.
-- **Pruebas:** Todas las funcionalidades de la API de roles están cubiertas por pruebas que actualmente pasan.
-
-### 3. Gestión de Proyectos y Equipos
-- **Modelo de Datos:** Se añadió una tabla de asociación `project_users` para vincular usuarios a proyectos.
-- **Migración de Base de Datos:** Se generó y aplicó una migración de Alembic para actualizar el esquema de la base de datos.
-- **API Endpoints:** Se implementó el endpoint `POST /projects/{project_id}/users/{user_id}` para asignar usuarios a un equipo de proyecto.
-- **Esquemas:** Se actualizaron los esquemas Pydantic `Project` y `User` para reflejar la nueva relación, resolviendo una dependencia circular mediante el uso de `UserBase` y `ProjectBase`.
-- **Pruebas:** Se añadieron pruebas para la asignación de usuarios a proyectos, y todas pasan correctamente.
-
-### 4. Mejoras en el Entorno de Pruebas
-- **Resolución de `PendingRollbackError`:** Se refactorizaron los archivos de prueba (`test_users.py`, `test_roles.py`, `test_projects.py`) para eliminar la configuración de base de datos local y utilizar la configuración centralizada de `conftest.py`. Esto solucionó errores de transacción persistentes y aseguró el aislamiento de las pruebas.
-- **Gestión de Dependencias:** Se instalaron las dependencias que faltaban en el entorno de pruebas, como `python-jose` y `python-multipart`.
+Dieser Branch implementiert einen vollständigen und sicheren Authentifizierungs-Workflow, eine Funktion zur Passwortwiederherstellung und verbessert die allgemeine Struktur und Benutzererfahrung der Anwendung erheblich.
 
 ---
 
-## Frontend (Completado) ✅
+## ✅ Abgeschlossene Aufgaben
 
-### 1. Resolución de Bloqueo de Compilación
-- **Corrección de Nombres de Archivos:** Se renombraron los archivos de `LoginComponent` y `AuthService` para seguir las convenciones de Angular (`.component.ts`, `.service.ts`), lo que resolvió los errores de `Module not found`.
-- **Corrección de Nombres de Clases:** Se actualizaron los nombres de las clases dentro de los archivos renombrados para que coincidieran con los nombres de los archivos.
-- **Reinstalación de Dependencias:** Se eliminaron `node_modules` y `package-lock.json` y se ejecutó `npm install` para asegurar una instalación limpia y resolver problemas con el ejecutable de `ng`.
+### **Backend (Python/FastAPI)**
 
-### 2. Implementación de Funcionalidades del MVP
-- **Autenticación:**
-    - Se implementó la UI para el formulario de inicio de sesión.
-    - Se implementó la lógica para almacenar el token JWT en `localStorage` tras un inicio de sesión exitoso.
-    - Se creó un `AuthGuard` para proteger las rutas que requieren autenticación.
-    - Se redirige al usuario al dashboard después del inicio de sesión.
-- **Seguimiento de Issues:**
-    - Se implementó la funcionalidad de un modal para crear nuevos issues en `IssueListComponent`.
-    - Se implementó la lógica de filtrado en `IssueListComponent` para que los usuarios puedan buscar issues.
-    - Se añadió la capacidad de realizar transiciones básicas de flujo de trabajo (cambiar el estado de un issue).
+#### 1. **Passwortwiederherstellung & Sicherheit**
+- **API-Endpunkte:** Es wurden die Endpunkte `POST /api/password-reset-request` und `POST /api/password-reset` implementiert, um Benutzern die sichere Wiederherstellung ihrer Passwörter zu ermöglichen.
+- **Token-Management:** Ein neues Datenbankmodell `PasswordResetToken` wurde in `models.py` hinzugefügt, um die Wiederherstellungs-Token sicher zu speichern. Die zugehörigen Pydantic-Schemas (`PasswordResetRequest`, `PasswordReset`) wurden in `schemas.py` erstellt.
+- **Sicherheit & JWT:** Die Logik zur Erstellung und Verifizierung von Passwort-Reset-Token wurde in `core/security.py` implementiert.
+- **Datenbankmigration:** Eine Alembic-Migration wurde generiert, um die neue `password_reset_tokens`-Tabelle zur Datenbank hinzuzufügen.
 
-### 3. Corrección de Pruebas Unitarias
-- **`login.component.spec.ts`:** Se corrigió la importación del componente y se añadió el `HttpClientTestingModule` y `RouterTestingModule`.
-- **`api.service.ts`:** Se añadió el método `patch` que faltaba y se corrigió el número de argumentos de tipo en el método `post`.
-- **`auth.service.spec.ts`:** Se reescribió el archivo de pruebas para que se ajustara a la implementación actual del `AuthService`, utilizando un `HttpTestingController` para simular las peticiones HTTP y esperando las URLs completas.
-- **`app.spec.ts`:** Se aseguró de que el `RouterTestingModule` estuviera correctamente configurado para evitar errores con `<router-outlet>`.
-- **`app.ts`:** Se importó y añadió el `RouterModule` al componente principal de la aplicación.
+#### 2. **Authentifizierungs-Workflow**
+- **Login-Korrektur:** Der `POST /api/token`-Endpunkt wurde korrigiert, um die Authentifizierung per **E-Mail** anstelle des Benutzernamens durchzuführen, was das ursprüngliche Anmeldeproblem behebt.
+- **Benutzerstatus:** Ein `GET /api/users/me`-Endpunkt wurde hinzugefügt, der die Daten des aktuell authentifizierten Benutzers zurückgibt.
+- **Logout:** Ein `POST /api/logout`-Endpunkt wurde als Platzhalter für die clientseitige Token-Entfernung implementiert.
+- **Routenschutz:** Eine `get_current_user`-Abhängigkeit in `dependencies.py` wurde erstellt, um geschützte Routen zu sichern. Sie validiert das JWT aus dem `Authorization`-Header und gibt den entsprechenden Benutzer zurück.
+
+#### 3. **Tests**
+- **Test-Suite erstellt:** Eine neue Testdatei `tests/test_auth.py` wurde erstellt.
+- **Umfassende Abdeckung:** Es wurden Unit-Tests für alle neuen Funktionen geschrieben, einschließlich:
+    - Benutzererstellung und -anmeldung (erfolgreich und fehlerhaft).
+    - Anforderung und Durchführung der Passwortwiederherstellung (mit gültigen und ungültigen Token).
+    - Zugriff auf geschützte Routen (`/users/me`).
+    - Logout-Funktionalität.
+- **Alle Tests erfolgreich:** Die gesamte Test-Suite für das Backend wird erfolgreich ausgeführt.
+
+---
+
+### **Frontend (Angular)**
+
+#### 1. **Zentraler Authentifizierungsdienst (`AuthService`)**
+- **Reaktiver Status:** Der `AuthService` wurde komplett überarbeitet und verwendet nun `BehaviorSubject` (`isAuthenticated$`, `currentUser$`), um den Authentifizierungsstatus reaktiv in der gesamten Anwendung zu verwalten.
+- **Login-Logik:** Die `login`-Methode wurde korrigiert und sendet die Anmeldedaten nun als `FormData`, wie es vom FastAPI-Backend erwartet wird.
+- **Sitzungsprüfung:** Eine `verifyToken`-Methode wurde hinzugefügt, die beim Start der Anwendung prüft, ob ein gültiges Token vorhanden ist, und den Benutzerstatus entsprechend aktualisiert.
+- **Logout:** Die `logout`-Methode entfernt das Token aus dem `localStorage` und setzt die reaktiven Status-Subjekte zurück.
+
+#### 2. **Routing & Guards**
+- **`AuthGuard`:** Der `auth.guard.ts` wurde aktualisiert und nutzt nun das `isAuthenticated$`-Observable, um den Zugriff auf geschützte Routen dynamisch zu steuern.
+- **Routenkonfiguration:** Die `app.routes.ts` wurde angepasst, um den `AuthGuard` auf alle relevanten Routen anzuwenden und die Weiterleitungslogik zu verbessern.
+
+#### 3. **Benutzeroberfläche & Benutzererfahrung (UX)**
+- **Dynamische UI:** Die Hauptkomponente (`app.ts` und `app.html`) wurde aktualisiert, um auf den Authentifizierungsstatus zu reagieren. Die Kopfzeile wird auf den Login-/Setup-Seiten ausgeblendet, und ein Logout-Button wird nur für eingeloggte Benutzer angezeigt.
+- **Überarbeitete Formulare:** Die `Login`- und `Setup`-Komponenten wurden vollständig überarbeitet:
+    - **Modernes Design:** Die Stile (`.scss`) wurden für ein modernes, zentriertes und benutzerfreundliches Erscheinungsbild neu geschrieben.
+    - **Benutzer-Feedback:** Es wurden Ladezustände (`isSubmitting`) sowie klare Erfolgs- und Fehlermeldungen hinzugefügt.
+    - **Validierung:** Die Formulare bieten jetzt eine sofortige Inline-Validierung.
+- **Theming-Korrekturen:** Fehlende CSS-Variablen in den Theme-Dateien (`_light-theme.scss`, `_dark-theme.scss`) wurden hinzugefügt, um Darstellungsfehler zu beheben.
+
+---
+
+## ❌ Ausstehende Aufgaben
+
+- **Frontend-Tests:** Es müssen noch Unit-Tests für die neuen und geänderten Frontend-Komponenten und -Dienste geschrieben werden, insbesondere für:
+    - `AuthService`
+    - `AuthGuard`
+    - `LoginComponent`
+- **UI-Integration:** Der Logout-Button und die Anzeige des Benutzernamens sollten vom `app.html` in das `HeaderComponent` verschoben werden, um die Komponentenlogik sauber zu trennen.
+

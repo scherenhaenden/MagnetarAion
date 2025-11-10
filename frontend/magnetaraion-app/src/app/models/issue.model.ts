@@ -14,5 +14,4 @@ export interface Issue {
   created_at?: string;
   updated_at?: string;
   project_id?: number;
-  [key: string]: any; // Allow additional properties
 }

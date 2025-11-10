@@ -16,7 +16,7 @@ This table provides a high-level overview of the implementation status of Magnet
 | **Core Issue Management** | | |
 | Issue Model (Core Fields) | In Progress | Create, view, and edit issues with core fields (Title, Description, Assignee, Reporter, Priority, State, Type). |
 | Issue Model (Custom Fields) | Not Started | Basic custom fields (enum/text/date) planned for M1. |
-| Search (Basic Filters) | Not Started | Basic filtering by Project, Assignee, State, and Type. |
+| Search (Basic Filters) | In Progress | Basic filtering by Project, Assignee, State, and Type. |
 | Search (Advanced Query DSL) | Not Started | A more powerful query language is planned for M1. |
 | Collaboration (Comments) | In Progress | Users can comment on issues and view a history of changes. |
 | Collaboration (@mentions) | Not Started | @mentions and in-app notifications are planned for M1. |
@@ -40,6 +40,8 @@ This table provides a high-level overview of the implementation status of Magnet
 | REST API (CRUD) | In Progress | Basic REST API for CRUD operations on issues. |
 
 ## ⚙️ Technical Architecture and Stack
+
+For a detailed overview of the technical architecture, please see the [architecture.md](architecture.md) file.
 
 | Component  | Technology                             |
 | :--- |:--- |

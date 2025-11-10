@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, HostListener } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { Icon } from '../icon/icon';
 
 type NavIcon =
@@ -33,7 +33,7 @@ type QuickAction = {
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive, RouterOutlet, Icon],
+  imports: [CommonModule, RouterLink, RouterLinkActive, Icon],
   templateUrl: './header.html',
   styleUrls: ['./header.scss']
 })
@@ -61,7 +61,7 @@ export class HeaderComponent {
 
   public isQuickActionsOpen = false;
 
-  public constructor(
+  constructor(
     private readonly router: Router,
     private readonly hostElement: ElementRef<HTMLElement>
   ) {}

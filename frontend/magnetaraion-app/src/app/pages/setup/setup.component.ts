@@ -12,8 +12,10 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./setup.component.scss']
 })
 export class SetupComponent {
-  setupForm: FormGroup;
-  errorMessage: string | null = null;
+  public setupForm: FormGroup;
+  public errorMessage: string | null = null;
+  public successMessage: string | null = null;
+  public isSubmitting: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -21,17 +23,35 @@ export class SetupComponent {
     private router: Router
   ) {
     this.setupForm = this.fb.group({
-      username: ['', Validators.required],
+      username: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
 
-  onSubmit(): void {
-    if (this.setupForm.valid) {
+  public onSubmit(): void {
+    if (this.setupForm.valid && !this.isSubmitting) {
+      this.isSubmitting = true;
+      this.errorMessage = null;
+      this.successMessage = null;
+
       this.authService.register(this.setupForm.value).subscribe({
-        next: () => this.router.navigate(['/login']),
-        error: (err) => this.errorMessage = err.error.detail || 'An unexpected error occurred.'
+        next: () => {
+          this.successMessage = 'Administrator account created successfully! Redirecting to login...';
+          setTimeout(() => {
+            this.router.navigate(['/login']);
+          }, 2000);
+        },
+        error: (err) => {
+          this.isSubmitting = false;
+          console.error('Setup error:', err);
+          this.errorMessage = err.error?.detail || 'An unexpected error occurred. Please try again.';
+        }
+      });
+    } else {
+      // Mark all fields as touched to show validation errors
+      Object.keys(this.setupForm.controls).forEach(key => {
+        this.setupForm.get(key)?.markAsTouched();
       });
     }
   }

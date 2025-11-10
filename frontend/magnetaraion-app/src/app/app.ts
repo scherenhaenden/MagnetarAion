@@ -1,18 +1,41 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
+import { CommonModule } from '@angular/common';
+import { AuthService } from './services/auth.service';
+import { Observable } from 'rxjs';
+import { User } from './models/user.model';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [HeaderComponent, RouterModule],
+  imports: [CommonModule, HeaderComponent, RouterModule],
   templateUrl: './app.html',
   styleUrls: ['./app.scss']
 })
-export class App {
-  constructor(private router: Router) {}
+export class App implements OnInit {
+  public isAuthenticated$: Observable<boolean>;
+  public currentUser$: Observable<User | null>;
 
-  isSetupRoute(): boolean {
-    return this.router.url === '/setup';
+  constructor(private router: Router, private authService: AuthService) {
+    this.isAuthenticated$ = this.authService.isAuthenticated$;
+    this.currentUser$ = this.authService.currentUser$;
+  }
+
+  public ngOnInit(): void {
+    this.authService.checkSetupNeeded().subscribe(response => {
+      if (response.setup_needed) {
+        this.router.navigate(['/setup']);
+      }
+    });
+  }
+
+  public isLoginPage(): boolean {
+    return this.router.url === '/login' || this.router.url === '/setup';
+  }
+
+  public logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }

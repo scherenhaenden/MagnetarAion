@@ -1,24 +1,51 @@
 # MagnetarAion Project
 
+[![Backend CI](https://github.com/scherenhaenden/MagnetarAion/actions/workflows/backend.yml/badge.svg)](https://github.com/scherenhaenden/MagnetarAion/actions/workflows/backend.yml)
+[![Frontend CI](https://github.com/scherenhaenden/MagnetarAion/actions/workflows/frontend.yml/badge.svg)](https://github.com/scherenhaenden/MagnetarAion/actions/workflows/frontend.yml)
+
 ## 🎯 Project Goal
 
 To develop **MagnetarAion**, a modern, highly functional, and user-friendly issue tracking and project management system comparable to other leading systems.
 
-## 📝 Core Functional Requirements (MVP)
+## 📝 Feature Status
 
-The initial version of MagnetarAion will focus on delivering core, usable functionalities as early as possible.
+This table provides a high-level overview of the implementation status of MagnetarAion's features, based on the roadmap outlined in the project's requirements documentation.
 
-*   **User and Project Management:** User authentication, project creation, and team assignment.
-*   **Issue Tracking:** Create, view, and edit issues with core fields (Title, Description, Assignee, etc.).
-*   **Activity/Comments:** Comment on issues and view a history of changes.
-*   **Basic Filtering/Search:** Filter issues by project, assignee, state, and type.
-*   **Workflow:** Simple state transitions for issues (e.g., Open → In Progress → Resolved → Closed).
+| Feature Area | Status | Details |
+| :--- | :--- | :--- |
+| **Core Issue Management** | | |
+| Issue Model (Core Fields) | In Progress | Create, view, and edit issues with core fields (Title, Description, Assignee, Reporter, Priority, State, Type). |
+| Issue Model (Custom Fields) | Not Started | Basic custom fields (enum/text/date) planned for M1. |
+| Search (Basic Filters) | In Progress | Basic filtering by Project, Assignee, State, and Type. |
+| Search (Advanced Query DSL) | Not Started | A more powerful query language is planned for M1. |
+| Collaboration (Comments) | In Progress | Users can comment on issues and view a history of changes. |
+| Collaboration (@mentions) | Not Started | @mentions and in-app notifications are planned for M1. |
+| Time Tracking | Not Started | Basic time tracking (work items) is planned for M1. |
+| **Agile Frameworks** |
+| Agile Boards (Kanban) | Not Started | A basic Kanban board is planned for M1. |
+| Agile Boards (Scrum) | Not Started | Scrum boards with sprints and burndown charts are planned for M2. |
+| Gantt Charts | Not Started | A static Gantt chart report is planned for M1, with an interactive version in M2. |
+| **Knowledge Base** |
+| Knowledge Base | Not Started | A basic Markdown-based knowledge base is planned for M1. |
+| **Helpdesk & SLA** |
+| Helpdesk (Mail-in) | Not Started | The ability to create tickets from emails is planned for M2. |
+| SLA Management | Not Started | SLA tracking and management are planned for M3. |
+| **Integrations** |
+| GitHub Integration | Not Started | Basic repository linking is planned for the MVP. |
+| **Administration & Security** |
+| Users and Projects | In Progress | User authentication, project creation, and team assignment. |
+| Security (Basic Roles) | In Progress | Basic roles (Admin, Developer, Reporter). |
+| Security (Advanced) | Not Started | Granular permissions, SSO, and 2FA are planned for M2/M3. |
+| **API** |
+| REST API (CRUD) | In Progress | Basic REST API for CRUD operations on issues. |
 
 ## ⚙️ Technical Architecture and Stack
 
+For a detailed overview of the technical architecture, please see the [architecture.md](architecture.md) file.
+
 | Component  | Technology                             |
 | :--- |:--- |
-| **Backend**  | **Python** (FastAPI or Django REST)    |
+| **Backend**  | **Python** (FastAPI)    |
 | **Frontend** | **Angular**                            |
 | **Database** | **PostgreSQL** (recommended)           |
 
@@ -29,7 +56,3 @@ Testing is a critical, non-negotiable component of the development process. We w
 ## 🚀 Iterative Development and Early Usability
 
 The development process will prioritize the delivery of a Minimum Usable Feature Set to allow the team to use the tool to manage its own development process as early as possible.
-
-## 🔗 External Integration Requirement: GitHub
-
-MagnetarAion will be able to connect to GitHub from an early stage, with initial goals including linking projects to repositories and eventually tracking commits and branches.

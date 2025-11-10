@@ -21,15 +21,25 @@
 --color-background: #{$color-dark-bg};
 --color-card-background: #{$color-dark-card};
 --color-task-background: #{color.adjust($color-dark-card, $lightness: -3%)}; // Ligeramente más oscuro que la tarjeta
+--background-color-secondary: #{$color-dark-card};
+--background-color-tertiary: #{color.adjust($color-dark-card, $lightness: -3%)};
+--background-color-disabled: #{$color-grey-700};
 
 // Textos
 --color-text-primary: #{$color-dark-text-pri};
 --color-text-secondary: #{$color-dark-text-sec};
 --color-text-on-primary: #{$color-white};
 --color-text-link: #{$color-indigo-300}; // Más brillante para contraste
+--text-color-primary: #{$color-dark-text-pri};
+--text-color-secondary: #{$color-dark-text-sec};
 
 // Bordes
 --color-border: #{$color-dark-border};
+--border-color: #{$color-dark-border};
+
+// Estados
+--error-color: #{$color-red-500};
+--success-color: #{$color-green-500};
 
 // Sombras (las sombras en modo oscuro son más sutiles y a veces más claras o de color)
 --color-shadow-light: #{rgba($color-black, 0.1)};

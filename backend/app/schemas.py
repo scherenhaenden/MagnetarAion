@@ -56,11 +56,13 @@ class Project(ProjectBase):
 
 class User(UserBase):
     id: int
-    issues: List[Issue] = []
-    roles: List[Role] = []
-    projects: List[ProjectBase] = []
+    is_active: bool
+    projects: list[Project] = []
+    roles: list[Role] = []
+    issues: list[Issue] = []
 
-    model_config = ConfigDict(from_attributes=True)
+    class Config:
+        orm_mode = True
 
 class Token(BaseModel):
     access_token: str
@@ -71,3 +73,10 @@ class TokenData(BaseModel):
 
 class SetupCheck(BaseModel):
     setup_needed: bool
+
+class PasswordResetRequest(BaseModel):
+    email: str
+
+class PasswordReset(BaseModel):
+    token: str
+    new_password: str
