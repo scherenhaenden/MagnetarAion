@@ -1,9 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { take } from 'rxjs/operators';
 
+/**
+ * LoginComponent
+ *
+ * Responsible for rendering the login form and authenticating users.
+ * On init the component checks whether the user is already authenticated
+ * (via AuthService). If the user is already authenticated they are
+ * redirected to the dashboards page.
+ */
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -11,7 +20,7 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   public loginForm: FormGroup;
   public errorMessage: string | null = null;
   public isSubmitting: boolean = false;
@@ -24,6 +33,21 @@ export class LoginComponent {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
+    });
+  }
+
+  /**
+   * Angular lifecycle hook called after construction.
+   * Checks authentication state once; if already authenticated the user
+   * is redirected to `/dashboards`.
+   *
+   * @returns void
+   */
+  public ngOnInit(): void {
+    this.authService.isAuthenticated$.pipe(take(1)).subscribe((isAuth: boolean) => {
+      if (isAuth) {
+        this.router.navigate(['/dashboards']);
+      }
     });
   }
 

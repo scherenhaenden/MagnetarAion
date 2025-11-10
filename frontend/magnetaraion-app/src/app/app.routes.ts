@@ -19,11 +19,11 @@ import { ROUTES } from './routes.constants';
 
 export const routes: Routes = [
   { path: '', redirectTo: ROUTES.SETUP, pathMatch: 'full' },
-  { path: ROUTES.SETUP, component: SetupComponent, canActivate: [SetupGuard] },
+  { path: ROUTES.SETUP, component: SetupComponent/*, canActivate: [SetupGuard]*/ },
   { path: ROUTES.LOGIN, component: LoginComponent, canActivate: [publicGuard] },
   { path: ROUTES.FORGOT_PASSWORD, loadComponent: () => import('./pages/forgot-password/forgot-password.component').then(m => m.ForgotPasswordComponent), canActivate: [publicGuard] },
   { path: ROUTES.RESET_PASSWORD, loadComponent: () => import('./pages/reset-password/reset-password.component').then(m => m.ResetPasswordComponent), canActivate: [publicGuard] },
-  /*{ path: ROUTES.DASHBOARDS, component: DashboardComponent, canActivate: [authGuard] },
+  { path: ROUTES.DASHBOARDS, component: DashboardComponent, canActivate: [authGuard] },
   { path: ROUTES.TICKETS, component: TicketsComponent, canActivate: [authGuard] },
   { path: ROUTES.AGILE_BOARDS, component: AgileBoardsComponent, canActivate: [authGuard] },
   { path: ROUTES.BERICHTE, component: BerichteComponent, canActivate: [authGuard] },
@@ -34,5 +34,5 @@ export const routes: Routes = [
   { path: ROUTES.GANTT_DIAGRAMME, component: GanttDiagrammeComponent, canActivate: [authGuard] },
   { path: ROUTES.SETTINGS, component: SettingsComponent, canActivate: [authGuard] },
   { path: ROUTES.NOT_FOUND, component: NotFoundComponent },
-  { path: '**', redirectTo: `/${ROUTES.NOT_FOUND}` }*/
+  { path: '**', redirectTo: `/${ROUTES.NOT_FOUND}` }
 ];
