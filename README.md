@@ -56,3 +56,17 @@ Testing is a critical, non-negotiable component of the development process. We w
 ## 🚀 Iterative Development and Early Usability
 
 The development process will prioritize the delivery of a Minimum Usable Feature Set to allow the team to use the tool to manage its own development process as early as possible.
+
+## 🗄️ Database Migrations
+
+This project uses Alembic for database schema management. For detailed information on running migrations, troubleshooting, and best practices, see [MIGRATIONS.md](MIGRATIONS.md).
+
+**Quick Start:**
+```bash
+# Run all pending migrations
+bash run_migrations.sh
+
+# See migration status
+backend/.venv/bin/alembic -c alembic.ini current
+```
+
