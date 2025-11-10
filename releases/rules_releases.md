@@ -8,4 +8,4 @@ At the beginning of each month, a new Markdown file must be created in this dire
 
 ## Content
 
-Each monthly release file should contain a detailed log of all significant changes, features, and bug fixes that were released during that month. For every change, it's important to check if it has been documented in the corresponding monthly file.
+Each monthly release file should contain a detailed log of all significant changes, features, and bug fixes that were released during that month. For every merged pull request that introduces a user-facing change, it's important to check if it has been documented in the corresponding monthly file.
