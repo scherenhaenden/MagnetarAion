@@ -124,7 +124,7 @@ describe('ForgotPasswordComponent', () => {
     fixture.detectChanges();
 
     expect(component.isError).toBeTruthy();
-    expect(component.message).toContain('An unexpected error occurred');
+    expect(component.message).toContain('Server error');
 
     const compiled = fixture.nativeElement as HTMLElement;
     const messageElement = compiled.querySelector('.message-error');

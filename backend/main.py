@@ -1,6 +1,11 @@
 from fastapi import FastAPI
 
-app = FastAPI()
+__version__ = "0.1.0"
+
+app = FastAPI(
+    title="MagnetarAion",
+    version=__version__,
+)
 
 @app.get("/")
 def read_root():
