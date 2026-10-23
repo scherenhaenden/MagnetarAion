@@ -1,0 +1,58 @@
+@startuml
+' hide the spot
+hide circle
+
+' avoid problems with angled crows feet
+skinparam linetype ortho
+
+entity "User" as user {
+  *id : number <<PK>>
+  --
+  *username : string
+  *email : string
+  *password : string
+  is_active : boolean
+}
+
+entity "Role" as role {
+  *id : number <<PK>>
+  --
+  *name : string
+  description : string
+}
+
+entity "Project" as project {
+  *id : number <<PK>>
+  --
+  *name : string
+  *key : string
+  description : text
+}
+
+entity "Issue" as issue {
+  *id : number <<PK>>
+  --
+  *title : string
+  description : text
+  *status : StatusEnum
+  *priority : PriorityEnum
+  created_at : datetime
+  updated_at : datetime
+}
+
+entity "PasswordResetToken" as token {
+  *id : number <<PK>>
+  --
+  *user_id : number <<FK>>
+  *token : string
+  *expires_at : datetime
+  used_at : datetime
+}
+
+user "o-}"-o{ role
+user "o-}"-o{ project
+user "o-"-|| issue
+user "o-"-|| token
+project "o-"-|| issue
+
+@enduml

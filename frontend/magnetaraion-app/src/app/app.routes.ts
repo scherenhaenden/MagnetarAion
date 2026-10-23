@@ -14,11 +14,12 @@ import { authGuard } from './guards/auth.guard';
 import { setupGuard } from './guards/setup.guard';
 import { SetupComponent } from './pages/setup/setup.component';
 import { SettingsComponent } from './pages/settings/settings.component';
+import { publicGuard } from './guards/public.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'dashboards', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
-  { path: 'forgot-password', loadComponent: () => import('./pages/forgot-password/forgot-password.component').then(m => m.ForgotPasswordComponent) },
+  { path: 'login', component: LoginComponent, canActivate: [publicGuard] },
+  { path: 'forgot-password', loadComponent: () => import('./pages/forgot-password/forgot-password.component').then(m => m.ForgotPasswordComponent), canActivate: [publicGuard] },
   { path: 'reset-password', loadComponent: () => import('./pages/reset-password/reset-password.component').then(m => m.ResetPasswordComponent) },
   { path: 'setup', component: SetupComponent, canActivate: [setupGuard] },
   { path: 'dashboards', component: DashboardComponent, canActivate: [authGuard] },
